@@ -1,0 +1,11 @@
+.ClientFilters {
+  background-color: transparent;
+}
+.ClientFilters .btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ClientFilters .btn svg {
+  fill: var(--primary-color);
+}/*# sourceMappingURL=ClientFilters.module.css.map */

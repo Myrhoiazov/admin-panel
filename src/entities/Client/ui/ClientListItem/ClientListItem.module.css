@@ -1,0 +1,10 @@
+.ClientListItem .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SMALL {
+  width: 230px;
+  cursor: pointer;
+}/*# sourceMappingURL=ClientListItem.module.css.map */

@@ -1,0 +1,14 @@
+.ClientListItem {
+    // transition: all var(--transition-base);
+
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.SMALL {
+    width: 230px;
+    cursor: pointer;
+}

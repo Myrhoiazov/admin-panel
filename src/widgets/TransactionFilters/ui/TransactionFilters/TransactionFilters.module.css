@@ -1,0 +1,8 @@
+.TransactionFilters {
+  background-color: transparent;
+}
+.TransactionFilters .btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}/*# sourceMappingURL=TransactionFilters.module.css.map */

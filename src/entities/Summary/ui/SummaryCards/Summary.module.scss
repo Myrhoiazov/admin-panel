@@ -1,0 +1,14 @@
+.Summary {
+    width: 100%;
+    background-color: transparent;
+
+    .card {
+        min-height: 7rem;
+        background-color: var(--inverted-bg-color);
+        flex-grow: 1;
+
+        .title {
+            color: var(--inverted-primary-color);
+        }
+    }
+}

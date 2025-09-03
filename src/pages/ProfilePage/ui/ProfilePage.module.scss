@@ -1,0 +1,12 @@
+.ProfilePage {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+    background-color: #f0f0f0;
+
+    .input {
+        margin-bottom: 10px;
+    }
+}

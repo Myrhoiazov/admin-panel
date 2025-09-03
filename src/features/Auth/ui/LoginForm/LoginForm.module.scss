@@ -1,0 +1,28 @@
+.LoginForm {
+    width: 100%;
+    max-width: 500px;
+
+    .header {
+        margin-bottom: 20px;
+    }
+
+    .input {
+        margin-bottom: 20px;
+    }
+
+    .loginBtn {
+        margin-top: 25px;
+        padding-bottom: 12px;
+        padding-top: 12px;
+    }
+
+    .text {
+        font-size: 0.875rem;
+        color: var(--secondary-color) !important;
+    }
+
+    .forgot {
+        font-size: 0.875rem;
+        color: #007fa9;
+    }
+}

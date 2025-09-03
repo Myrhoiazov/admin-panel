@@ -1,0 +1,12 @@
+.Tabs {
+  display: flex;
+  cursor: pointer;
+  gap: 8px;
+}
+.Tabs .tab {
+  padding: 12px 20px;
+}
+
+.selected {
+  padding: 8px 16px;
+}/*# sourceMappingURL=Tabs.module.css.map */

@@ -1,0 +1,103 @@
+import {
+    createSlice,
+    PayloadAction,
+} from '@reduxjs/toolkit';
+
+import { CLIENT_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
+import { SortOrder } from 'shared/types/sort';
+import { fetchTransactionsList } from '../services/fetchTransactionsList/fetchTransactionsList';
+import { Transaction, TransactionSortField } from 'entities/Transaction';
+import { TransactionType } from 'entities/TransactionType';
+import { Summary } from 'entities/Summary';
+import { fetchTransactionsSummary } from '../services/fetchTransactionsSummary/fetchTransactionsSummary';
+
+interface TransactionsPageState {
+    isLoading: boolean;
+    error?: string;
+    search: string;
+    items?: Transaction[];
+    summary?: Summary,
+    page: number;
+    type: TransactionType;
+    sort: TransactionSortField,
+    limit: number;
+    order: SortOrder;
+    hasMore: boolean;
+    _inited: boolean;
+}
+
+const initialState: TransactionsPageState = {
+    isLoading: false,
+    error: undefined,
+    items: undefined,
+    summary: undefined,
+    page: 1,
+    sort: TransactionSortField.ID,
+    type: TransactionType.ALL,
+    limit: 9,
+    order: 'desc',
+    search: '',
+    hasMore: true,
+    _inited: false
+};
+
+const transactionsPageSlice = createSlice({
+    name: 'transactionsPageSlice',
+    initialState,
+    reducers: {
+        setOrder: (state, action: PayloadAction<SortOrder>) => {
+            state.order = action.payload;
+        },
+        setPage: (state, action: PayloadAction<number>) => {
+            state.page = action.payload;
+        },
+        setType: (state, action: PayloadAction<TransactionType>) => {
+            state.type = action.payload;
+        },
+        setSearch: (state, action: PayloadAction<string>) => {
+            state.search = action.payload;
+        },
+        setSort: (state, action: PayloadAction<TransactionSortField>) => {
+            state.sort = action.payload;
+        },
+        initState: (state) => {
+            state._inited = true;
+        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchTransactionsList.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(fetchTransactionsList.fulfilled, (
+                state,
+                action: PayloadAction<Transaction[]>,
+            ) => {
+                state.isLoading = false;
+                state.hasMore = action.payload.length >= state.limit;
+                state.items = action.payload
+            })
+            .addCase(fetchTransactionsList.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(fetchTransactionsSummary.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(fetchTransactionsSummary.fulfilled, (
+                state,
+                action: PayloadAction<Summary>,
+            ) => {
+                state.isLoading = false;
+                state.summary = action.payload
+            })
+            .addCase(fetchTransactionsSummary.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            });
+    },
+});
+
+export const { reducer: transactionsPageReducer, actions: transactionsPageActions } = transactionsPageSlice;

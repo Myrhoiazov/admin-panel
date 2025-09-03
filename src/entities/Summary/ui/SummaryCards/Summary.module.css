@@ -1,0 +1,12 @@
+.Summary {
+  width: 100%;
+  background-color: transparent;
+}
+.Summary .card {
+  min-height: 7rem;
+  background-color: var(--inverted-bg-color);
+  flex-grow: 1;
+}
+.Summary .card .title {
+  color: var(--inverted-primary-color);
+}/*# sourceMappingURL=Summary.module.css.map */

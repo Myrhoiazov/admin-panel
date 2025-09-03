@@ -1,0 +1,22 @@
+.app_dark_theme {
+  --bg-color: #135749;
+  --inverted-bg-color: #e8e8ea;
+  --primary-color: #049604;
+  --secondary-color: #049604;
+  --inverted-primary-color: #135749;
+  --inverted-secondary-color: #0452ff;
+  --dark-bg-redesigned: #090f11;
+  --bg-redesigned: #0c1214;
+  --light-bg-redesigned: #151c1f;
+  --text-redesigned: #dbdbdb;
+  --hint-redesigned: #555;
+  --cancel-redesigned: #d95757;
+  --save-redesigned: #6cd98b;
+  --icon-redesigned: #74a2b2;
+  --accent-redesigned: #5ed3f3;
+  --skeleton-color: #2a4365;
+  --skeleton-shadow: #2b2be8;
+  --code-bg: #2a4365;
+  --card-bg: #2a4365;
+  --listbox-bg: #0d0d6b;
+}/*# sourceMappingURL=dark.css.map */

@@ -1,0 +1,23 @@
+.Wrapper {
+    width: 100%;
+
+    .label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .select {
+        width: 100%;
+        padding: 8px 16px;
+        color: var(--primary-color);
+        background: none;
+        border: 1px solid var(--icon-redesigned);
+        border-radius: 5px;
+        outline: none;
+    }
+
+    .option {
+        color: var(--inverted-primary-color);
+        background: var(--inverted-bg-color);
+    }
+}

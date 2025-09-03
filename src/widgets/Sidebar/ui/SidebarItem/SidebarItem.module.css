@@ -1,0 +1,16 @@
+.item {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.link {
+  opacity: 1;
+  margin-left: 10px;
+}
+
+.collapsed .link {
+  width: 0;
+  opacity: 0;
+  transition: 0.2s opacity;
+}/*# sourceMappingURL=SidebarItem.module.css.map */
