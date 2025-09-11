@@ -30,14 +30,8 @@ export const ClientAppoiments = memo((props: ClientAppoimentsProps) => {
     const appointments = useSelector(getClientAppointments.selectAll);
     const appointmentsIsLoading = useSelector(getClientAppointmentsIsLoading);
 
-    if (!id) {
-        return;
-    }
-
     useInitialEffect(() => {
-        (() => {
-            dispatch(fetchAppoimentsByClientId(id));
-        })();
+        dispatch(fetchAppoimentsByClientId(id));
     });
 
     return (
