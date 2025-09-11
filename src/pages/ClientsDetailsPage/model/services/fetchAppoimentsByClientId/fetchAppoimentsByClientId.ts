@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Comment } from 'entities/Comment';
+import { Appointment } from 'entities/Appointment';
 
-export const fetchCommentsByClientId = createAsyncThunk<
-    Comment[],
-    string | undefined,
+export const fetchAppoimentsByClientId = createAsyncThunk<
+    Appointment[],
+    string,
     ThunkConfig<string>
 >(
-    'clientDetails/fetchCommentsByClientId',
+    'clientDetails/fetchAppoimentsByClientId',
     async (entityId, thunkApi) => {
         const { extra, rejectWithValue } = thunkApi;
 
@@ -15,14 +15,12 @@ export const fetchCommentsByClientId = createAsyncThunk<
             return rejectWithValue('error');
         }
 
+
+
         try {
-            const { data } = await extra.apiPrivate.get<Comment[]>('/comments', {
-                params: {
-                    entityId,
-                    entityType: 'client',
-                    _expand: 'user',
-                },
-            });
+            const { data } = await extra.apiPrivate.get<Appointment[]>(`/appointments/client/${entityId}`);
+
+            console.log("data: ", data);
 
             if (!data) {
                 throw new Error();

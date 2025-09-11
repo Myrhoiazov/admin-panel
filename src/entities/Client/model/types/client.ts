@@ -14,8 +14,6 @@ export interface Client {
     image?: File | string;
     createdAt?: string
     status?: ClientStatus
-
-    appointments?: Appointment[]
 }
 
 export enum ClientView {

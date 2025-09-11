@@ -14,7 +14,7 @@ interface ProcedureListProps {
 }
 
 const getSkeletons = () =>
-    new Array(3).fill(0).map((item, index) => <Skeleton key={index} width={300} height={300} />);
+    new Array(5).fill(0).map((item, index) => <Skeleton key={index} width={300} height={300} />);
 
 export const ProcedureList = memo((props: ProcedureListProps) => {
     const { className, procedures, isLoading } = props;

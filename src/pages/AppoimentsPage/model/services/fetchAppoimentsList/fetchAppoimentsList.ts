@@ -19,7 +19,6 @@ export const fetchAppoimentsList = createAsyncThunk<
 
         try {
             const { data } = await extra.apiPrivate.get<Appointment[]>('/appointments');
-            console.log("data: ", data);
             if (!data) {
                 throw new Error();
             }

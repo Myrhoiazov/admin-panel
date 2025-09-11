@@ -54,7 +54,7 @@ const TransactionsPage = ({ className }: TransactionsPageProps) => {
         <DynamicModuleLoader reducers={reducers}>
             <Page className={classNames(s.TransactionsPage, {}, [className])}>
                 <VStack max gap="16">
-                    <SummaryCards summary={summary} />
+                    <SummaryCards summary={summary} isLoading={isLoading} />
                     <FiltersContainer reloadPage={fetchAllTransactions} />
                     <VStack gap="16" max>
                         <Text title="Финансовый Учет" bold />

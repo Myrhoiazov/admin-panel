@@ -13,6 +13,9 @@ import {
     ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { ClientDetailsComments } from '../ClientDetailsComments/ClientDetailsComments';
+import { useTranslation } from 'react-i18next';
+import { ClientAppoiments } from '../ClientAppoiments/ClientAppoiments';
+import { clientDetailsAppointmentsReducer } from '../../model/slices/clientDetailsAppoimentsSlice';
 
 interface ClientsDetailsPageProps {
     className?: string;
@@ -20,11 +23,13 @@ interface ClientsDetailsPageProps {
 
 const reducers: ReducersList = {
     clientDetailsComments: clientDetailsCommentsReducer,
+    clientDetailsAppointments: clientDetailsAppointmentsReducer,
 };
 
 const ClientsDetailsPage = ({ className }: ClientsDetailsPageProps) => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     if (!id) {
         return null;
@@ -40,10 +45,11 @@ const ClientsDetailsPage = ({ className }: ClientsDetailsPageProps) => {
                 <VStack gap="16" max>
                     <VStack align="end">
                         <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
-                            Назад к списку
+                            {t('Назад к списку')}
                         </Button>
                     </VStack>
                     <ClientDetails id={id} />
+                    <ClientAppoiments id={id} />
                     <ClientDetailsComments id={id} />
                 </VStack>
             </Page>

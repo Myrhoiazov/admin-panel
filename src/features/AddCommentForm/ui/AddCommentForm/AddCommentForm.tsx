@@ -18,6 +18,7 @@ import {
     ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { HStack } from 'shared/ui/Stack';
+import { t } from 'i18next';
 
 interface AddCommentFormProps {
     className?: string;
@@ -56,7 +57,7 @@ const AddCommentForm = ({ className, onSendComment }: AddCommentFormProps) => {
                     onChange={onCommentTextChange}
                 />
                 <Button onClick={onSendHandler} theme={ButtonTheme.OUTLINE}>
-                    Send
+                    {t('отправить')}
                 </Button>
             </HStack>
         </DynamicModuleLoader>

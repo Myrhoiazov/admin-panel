@@ -18,7 +18,7 @@ import { ClientDetailsSchema } from 'entities/Client';
 import { AddProcedureFormSchema } from 'features/addProcedureForm';
 import { ProcedureDetailsSchema } from 'entities/Procedure';
 import { ProcedurePageSchema } from 'pages/ProceduresPage';
-import { ClientDetailsCommentsSchema } from 'pages/ClientsDetailsPage';
+import { ClientDetailsAppointmentSchema, ClientDetailsCommentsSchema } from 'pages/ClientsDetailsPage';
 import { UISchema } from 'features/UI';
 import { TransactionsPageSchema } from 'pages/TransactionsPage';
 import { AddTransactionFormSchema } from 'features/addTransactionForm';
@@ -36,6 +36,7 @@ export interface StateSchema {
     client?: ClientSchema;
     clientDetails?: ClientDetailsSchema
     clientDetailsComments?: ClientDetailsCommentsSchema;
+    clientDetailsAppointments?: ClientDetailsAppointmentSchema;
     clientsPage?: ClientPageSchema
 
     addAppoimentForm?: AppointmentSchema;
