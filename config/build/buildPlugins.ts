@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import CopyPlugin from 'copy-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -6,6 +7,9 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { IBuildOptions } from './types/config';
 
 export function buildPlugins({ paths, isDev, apiUrl, project }: IBuildOptions): webpack.WebpackPluginInstance[] {
+
+    const isProd = !isDev;
+
     const plugins = [
         new HTMLWebpackPlugin({
             template: paths.html,
@@ -32,6 +36,18 @@ export function buildPlugins({ paths, isDev, apiUrl, project }: IBuildOptions): 
                 openAnalyzer: false,
             })
         );
+    }
+
+    if (isProd) {
+        plugins.push(new MiniCssExtractPlugin({
+            filename: 'css/[name].[contenthash:8].css',
+            chunkFilename: 'css/[name].[contenthash:8].css',
+        }));
+        plugins.push(new CopyPlugin({
+            patterns: [
+                { from: paths.locales, to: paths.buildLocales },
+            ],
+        }));
     }
     return plugins;
 }

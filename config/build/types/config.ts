@@ -5,6 +5,8 @@ export interface IBuildPath {
     build: string;
     html: string;
     src: string;
+    locales: string;
+    buildLocales: string;
 }
 export interface IBuildEnv {
     mode: BuildMode;
