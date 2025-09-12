@@ -11,7 +11,7 @@ export interface AppoimentPageSchema extends EntityState<Appointment, string> {
     limit?: number;
     hasMore: boolean;
 
-    search: string;
+    search?: string;
 
     _inited: boolean
 }

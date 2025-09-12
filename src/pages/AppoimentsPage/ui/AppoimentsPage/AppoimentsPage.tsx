@@ -12,7 +12,6 @@ import {
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { Button } from 'shared/ui/Button';
 import { useTranslation } from 'react-i18next';
-import Sessions from 'shared/assets/icons/sessions.svg';
 
 import { Icon } from 'shared/ui/Icon/Icon';
 import { HStack } from 'shared/ui/Stack';
@@ -23,6 +22,8 @@ import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEf
 import { useSearchParams } from 'react-router-dom';
 import { AppoimentList } from 'entities/Appointment';
 import { useSelector } from 'react-redux';
+import { AppoimentFilters } from 'widgets/AppoimentFilters';
+import { FiltersContainer } from '../FiltersContainer/FiltersContainer';
 
 interface AppoimentsPageProps {
     className?: string;
@@ -37,8 +38,6 @@ const AppoimentsPage = ({ className }: AppoimentsPageProps) => {
     const dispatch = useAppDispatch();
     const appoiments = useSelector(getAppointments.selectAll);
     const [searchParams] = useSearchParams();
-
-    const { t } = useTranslation();
 
     const onCloseModal = useCallback(() => {
         setIsAddClientModal(false);
@@ -61,17 +60,9 @@ const AppoimentsPage = ({ className }: AppoimentsPageProps) => {
             <Page className={classNames(s.AppoimentPage, {}, [className])}>
                 <HStack gap="32" justify="between" align="center" max>
                     <Text title="Список сеансов" bold />
-                    <Button onClick={onShowModal} className={s.btn}>
-                        {t('Создать запись')}
-                        <Icon Svg={Sessions} width={24} color="fill" />
-                    </Button>
+                    <FiltersContainer reloadPage={fetchAllAppointments} />
                 </HStack>
                 <AppoimentList appoiments={appoiments} />
-                <AppoimentFormModal
-                    isOpen={isAddClientModal}
-                    onClose={onCloseModal}
-                    reloadPage={fetchAllAppointments}
-                />
             </Page>
         </DynamicModuleLoader>
     );
