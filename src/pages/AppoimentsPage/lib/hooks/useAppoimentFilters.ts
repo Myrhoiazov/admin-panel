@@ -5,13 +5,13 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { ClientSortField } from 'entities/Client';
 import { SortOrder } from 'shared/types/sort';
 import { ClientStatus } from 'entities/ClientStatus';
-import { getAppoimentPageOrder, getAppoimentPageSearch } from '../../model/slectors/appoimentsPageSelectors';
+import { getAppoimentPageOrder, getAppoimentPageSearch, getAppoimentPageSort } from '../../model/selectors/appoimentsPageSelectors';
 import { appoimentsPageActions } from '../../model/slices/appoimentsPageSlice';
 import { fetchAppoimentsList } from '../../model/services/fetchAppoimentsList/fetchAppoimentsList';
 
 export function useAppoimentFilters() {
     const search = useSelector(getAppoimentPageSearch);
-    // const sort = useSelector(getAppoimentPageSort);
+    const sort = useSelector(getAppoimentPageSort);
     const order = useSelector(getAppoimentPageOrder);
     // const type = useSelector(getAppoimentPageType);
 
@@ -34,7 +34,7 @@ export function useAppoimentFilters() {
 
     const onChangeSort = useCallback(
         (newSort: ClientSortField) => {
-            // dispatch(appoimentsPageActions.setSort(newSort));
+            dispatch(appoimentsPageActions.setSort(newSort));
             // dispatch(articlesPageActions.setPage(1));
             fetchData();
         },
@@ -62,8 +62,10 @@ export function useAppoimentFilters() {
     return {
         search,
         order,
+        sort,
         onChangeSearch,
         onChangeOrder,
-        onChangeType
+        onChangeType,
+        onChangeSort
     };
 }

@@ -10,7 +10,7 @@ export const getAppoimentPageHasMore = (state: StateSchema) => state.appoimentPa
 export const getAppoimentPageInited = (state: StateSchema) => state.appoimentPage?._inited;
 export const getAppoimentPageSearch = (state: StateSchema) =>
     state.appoimentPage?.search ?? '';
-// export const getAppoimentPageSort = (state: StateSchema) =>
-//     state.appoimentPage?.sort ?? ClientSortField.CREATED;
+export const getAppoimentPageSort = (state: StateSchema) =>
+    state.appoimentPage?.sort ?? ClientSortField.CREATED;
 export const getAppoimentPageOrder = (state: StateSchema) =>
     state.appoimentPage?.order ?? 'asc';

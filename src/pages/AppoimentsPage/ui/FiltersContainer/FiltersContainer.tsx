@@ -12,15 +12,18 @@ interface FiltersContainerProps {
 
 export const FiltersContainer = memo((props: FiltersContainerProps) => {
     const { className, reloadPage } = props;
-    const { onChangeSearch, onChangeOrder, onChangeType, search, order } = useAppoimentFilters();
+    const { onChangeSearch, onChangeOrder, onChangeSort, onChangeType, search, order, sort } =
+        useAppoimentFilters();
 
     return (
         <VStack gap="16" align="end">
             <AppoimentFilters
-                // onChangeOrder={onChangeOrder}
+                onChangeOrder={onChangeOrder}
                 onChangeSearch={onChangeSearch}
+                onChangeSort={onChangeSort}
                 search={search}
-                // order={order}
+                sort={sort}
+                order={order}
                 className={className}
                 reloadPage={reloadPage}
             />

@@ -9,6 +9,7 @@ import { fetchAppoimentsList } from '../services/fetchAppoimentsList/fetchAppoim
 import { AppoimentPageSchema } from '../types/AppoimentPageSchema';
 import { Appointment } from 'entities/Appointment';
 import { SortOrder } from 'shared/types/sort';
+import { ClientSortField } from 'entities/Client';
 
 const appoimentAdapter = createEntityAdapter<Appointment, string>({
     selectId: (appointment) => appointment.id as string,
@@ -27,6 +28,7 @@ const appoimentsPageSlice = createSlice({
         entities: {},
         page: 1,
         order: 'asc',
+        sort: ClientSortField.CREATED,
         search: '',
         hasMore: true,
         _inited: false
@@ -34,6 +36,9 @@ const appoimentsPageSlice = createSlice({
     reducers: {
         setSearch: (state, action: PayloadAction<string>) => {
             state.search = action.payload;
+        },
+        setSort: (state, action: PayloadAction<ClientSortField>) => {
+            state.sort = action.payload;
         },
         setOrder: (state, action: PayloadAction<SortOrder>) => {
             state.order = action.payload;

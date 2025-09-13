@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
 import { Appointment } from 'entities/Appointment';
-import { getAppoimentPageSearch } from '../../slectors/appoimentsPageSelectors';
+import { getAppoimentPageOrder, getAppoimentPageSearch, getAppoimentPageSort } from '../../selectors/appoimentsPageSelectors';
 import { addQueryParams } from 'shared/lib/url/addQueryParams/addQueryParams';
 
 interface FetchAppointmentsListProps {
@@ -20,19 +20,26 @@ export const fetchAppoimentsList = createAsyncThunk<
         const { extra, rejectWithValue, getState } = thunkApi;
 
         const search = getAppoimentPageSearch(getState());
+        const sort = getAppoimentPageSort(getState());
+        const order = getAppoimentPageOrder(getState());
+
 
         addQueryParams({
             search,
+            sort,
+            order,
         });
 
 
         try {
             const { data } = await extra.apiPrivate.get<Appointment[]>('/appointments', {
                 params: {
-                    _q: search
+                    _q: search,
+                    _sortBy: sort,
+                    _order: order,
                 }
             });
-            
+
             if (!data) {
                 throw new Error();
             }

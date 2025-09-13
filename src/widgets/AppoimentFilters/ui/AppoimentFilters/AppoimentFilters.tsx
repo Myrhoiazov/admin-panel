@@ -16,12 +16,12 @@ import Sessions from 'shared/assets/icons/sessions.svg';
 interface AppoimentFiltersProps {
     className?: string;
     search: string;
-    // sort: ClientSortField;
-    // order: SortOrder;
+    sort: ClientSortField;
+    order: SortOrder;
     reloadPage?: () => void;
     onChangeSearch: (value: string) => void;
-    // onChangeOrder: (newOrder: SortOrder) => void;
-    // onChangeSort: (newSort: ClientSortField) => void;
+    onChangeOrder: (newOrder: SortOrder) => void;
+    onChangeSort: (newSort: ClientSortField) => void;
 }
 
 export const AppoimentFilters = memo((props: AppoimentFiltersProps) => {
@@ -29,10 +29,10 @@ export const AppoimentFilters = memo((props: AppoimentFiltersProps) => {
         className,
         onChangeSearch,
         search,
-        // onChangeSort,
-        // sort,
-        // onChangeOrder,
-        // order,
+        onChangeSort,
+        sort,
+        onChangeOrder,
+        order,
         reloadPage,
     } = props;
     const [isAddClientModal, setIsAddClientModal] = useState(false);
@@ -57,12 +57,12 @@ export const AppoimentFilters = memo((props: AppoimentFiltersProps) => {
                     placeholder={t('Поиск')}
                     addonLeft={<Icon Svg={SearchIcon} />}
                 />
-                {/* <ClientSortSelector
+                <ClientSortSelector
                     order={order}
                     sort={sort}
                     onChangeOrder={onChangeOrder}
                     onChangeSort={onChangeSort}
-                /> */}
+                /> 
 
                 <Button onClick={onShowModal} className={s.btn}>
                     {t('Создать запись')}
