@@ -62,7 +62,7 @@ export const AppoimentFilters = memo((props: AppoimentFiltersProps) => {
                     sort={sort}
                     onChangeOrder={onChangeOrder}
                     onChangeSort={onChangeSort}
-                /> 
+                />
 
                 <Button onClick={onShowModal} className={s.btn}>
                     {t('Создать запись')}

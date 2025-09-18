@@ -22,6 +22,9 @@ import { getAddAppoimentForm } from 'features/addAppoimentForm/model/selectors/g
 import { fetchClientsList } from '../../model/services/fetchClientsList/fetchClientsList';
 import { getAddAppoimentClients } from '../../model/selectors/getAddAppoimentClients/getAddAppoimentClients';
 import { Client } from 'entities/Client/model/types/client';
+import { User } from 'entities/User';
+import { getAddAppoimentDoctors } from '../../model/selectors/getAddAppoimentDocters/getAddAppoimentDocters';
+import { fetchDoctorsList } from '../../model/services/fetchDoctorsList/fetchDoctorsList';
 
 interface AppoimentFormProps {
     className?: string;
@@ -42,10 +45,12 @@ const AppoimentForm = memo((props: AppoimentFormProps) => {
     useInitialEffect(() => {
         dispatch(fetchProceduresList());
         dispatch(fetchClientsList());
+        dispatch(fetchDoctorsList());
     });
 
     const procedures = useSelector(getAddAppoimentProcedures);
     const clients = useSelector(getAddAppoimentClients);
+    const docters = useSelector(getAddAppoimentDoctors);
     const formData = useSelector(getAddAppoimentForm);
 
     const onChangeProcedure = useCallback(
@@ -55,6 +60,12 @@ const AppoimentForm = memo((props: AppoimentFormProps) => {
         [dispatch]
     );
 
+    const onChangeDoctor = useCallback(
+        (value?: User) => {
+            dispatch(appoimentActions.updateAppoiment({ doctorId: value?.id }));
+        },
+        [dispatch]
+    );
     const onChangeClient = useCallback(
         (value?: Client) => {
             dispatch(appoimentActions.updateAppoiment({ clientId: value?.id }));
@@ -96,10 +107,12 @@ const AppoimentForm = memo((props: AppoimentFormProps) => {
                         onChangeProcedure={onChangeProcedure}
                         onChangeClient={onChangeClient}
                         onChangeNote={onChangeNote}
+                        onChangeDoctor={onChangeDoctor}
                         data={formData}
                         procedures={procedures}
                         onChangeImage={onChangeImage}
                         clients={clients}
+                        doctors={docters}
                     />
                     <Button fullWidth onClick={onSave} theme={ButtonTheme.BACKGROUND_INVERTED}>
                         {t('Добавить')}

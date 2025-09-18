@@ -39,14 +39,6 @@ const AppoimentsPage = ({ className }: AppoimentsPageProps) => {
     const appoiments = useSelector(getAppointments.selectAll);
     const [searchParams] = useSearchParams();
 
-    const onCloseModal = useCallback(() => {
-        setIsAddClientModal(false);
-    }, []);
-
-    const onShowModal = useCallback(() => {
-        setIsAddClientModal(true);
-    }, []);
-
     useInitialEffect(() => {
         dispatch(initAppoimentPage(searchParams));
     });

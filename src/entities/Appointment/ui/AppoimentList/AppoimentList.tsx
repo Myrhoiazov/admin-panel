@@ -20,7 +20,7 @@ export const AppoimentList = memo((props: AppoimentListProps) => {
     if (!isLoading && !appoiments.length) {
         return (
             <div className={classNames(s.ArticleList, {}, [])}>
-                <Text size="l" title="Клиенты не найдены" className={s.title} />
+                <Text size="m" text="Сеансы не найдены" className={s.title} />
             </div>
         );
     }

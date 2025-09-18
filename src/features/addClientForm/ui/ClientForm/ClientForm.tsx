@@ -84,9 +84,21 @@ const AddClientForm = memo((props: AddClientFormProps) => {
         },
         [dispatch]
     );
+    const onChangeSocial = useCallback(
+        (value?: string) => {
+            dispatch(clientActions.updateProfile({ social: value || '' }));
+        },
+        [dispatch]
+    );
     const onChangeImage3D = useCallback(
         (value: boolean) => {
             dispatch(clientActions.updateProfile({ image_3d: value || false }));
+        },
+        [dispatch]
+    );
+    const onChangeDocument = useCallback(
+        (value: boolean) => {
+            dispatch(clientActions.updateProfile({ document: value || false }));
         },
         [dispatch]
     );
@@ -130,6 +142,8 @@ const AddClientForm = memo((props: AddClientFormProps) => {
                         onChangeAnamnesis={onChangeAnamnesis}
                         onChangeDescription={onChangeDescription}
                         onChangeImage3D={onChangeImage3D}
+                        onChangeDocument={onChangeDocument}
+                        onChangeSocial={onChangeSocial}
                         data={formData}
                     />
                     <Button fullWidth onClick={onSave} theme={ButtonTheme.BACKGROUND_INVERTED}>

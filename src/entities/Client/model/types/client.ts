@@ -10,7 +10,9 @@ export interface Client {
     email?: string
     anamnesis?: string
     description?: string
+    social?: string
     image_3d?: boolean
+    document?: boolean
     image?: File | string;
     createdAt?: string
     status?: ClientStatus

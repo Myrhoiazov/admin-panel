@@ -34,6 +34,9 @@ const AppoimentListItem = (props: AppoimentListItemProps) => {
                     <Link to={`${RoutePath.procedures_details}${appoiment?.procedure?.id}`}>
                         {appoiment?.procedure?.name}
                     </Link>
+                    <Link to={`${RoutePath.profile}${appoiment?.doctor?.id}`}>
+                        {appoiment?.doctor?.firstName}
+                    </Link>
                 </HStack>
                 {renderAction?.(appoiment)}
             </HStack>

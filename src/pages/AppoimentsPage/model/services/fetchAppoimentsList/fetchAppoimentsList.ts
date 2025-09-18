@@ -43,7 +43,6 @@ export const fetchAppoimentsList = createAsyncThunk<
             if (!data) {
                 throw new Error();
             }
-
             return data;
         } catch (e) {
             return rejectWithValue('error');
