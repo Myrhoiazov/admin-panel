@@ -12,6 +12,15 @@ export enum AppRoutes {
     CLIENT_EDIT = 'client_edit',
     ADMIN_PANEL = 'admin_panel',
     FORBIDDEN = 'forbidden',
+    APPOINTMENTS = 'appointments',
+    PROCEDURES = 'procedures',
+    PROCEDURE_DETAILS = 'procedure_details',
+    PROCEDURE_EDIT = 'procedure_edit',
+    PROCEDURE_CREATE = 'procedure_create',
+    TRANSACTIONS = 'transactions',
+    TRANSACTION_DETAILS = 'transaction_details',
+    TRANSACTION_EDIT = 'transaction_edit',
+    TRANSACTION_CREATE = 'transaction_create',
     // last
     NOT_FOUND = 'not_found',
 }
@@ -29,6 +38,16 @@ export const getRouteClientDetails = (id: string) => `/clients/${id}`;
 export const getRouteClientEdit = (id: string) => `/clients/${id}/edit`;
 export const getRouteAdmin = () => '/admin';
 export const getRouteForbidden = () => '/forbidden';
+export const getRouteAppointments = () => '/appointments';
+export const getRouteAppointmentDetails = (id: string) => `/appointments/${id}`;
+export const getRouteProcedures = () => '/procedures';
+export const getRouteProcedureDetails = (id: string) => `/procedures/${id}`;
+export const getRouteProcedureEdit = (id: string) => `/procedures/${id}/edit`;
+export const getRouteProcedureCreate = () => '/procedures/new';
+export const getRouteTransactions = () => '/transactions';
+export const getRouteTransactionDetails = (id: string) => `/transactions/${id}`;
+export const getRouteTransactionEdit = (id: string) => `/transactions/${id}/edit`;
+export const getRouteTransactionCreate = () => '/transactions/new';
 
 export const AppRouteByPathPattern: Record<string, AppRoutes> = {
     [getRouteMain()]: AppRoutes.MAIN,

@@ -1,25 +1,25 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
-import { getRouteClientDetails, getRouteClients } from 'shared/const/router';
+import { getRouteAppointmentDetails } from 'shared/const/router';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Dropdown } from 'shared/ui/Popups';
 import { Icon } from 'shared/ui/Icon/Icon';
 import Eddit from 'shared/assets/icons/edit-icon.svg';
-import { deleteClientById } from '../../model/services/deleteClientById';
+import { deleteAppoimentById } from '../../model/services/deleteAppoimentById';
 
-interface EdditClientDropdownProps {
+interface EdditAppoimentDropdownProps {
     className?: string;
-    clientId: string;
+    appointmentId: string;
     reloadPage?: () => void;
 }
 
-export const EdditClientDropdown = memo((props: EdditClientDropdownProps) => {
-    const { className, clientId, reloadPage } = props;
+export const EdditAppoimentDropdown = memo((props: EdditAppoimentDropdownProps) => {
+    const { className, appointmentId, reloadPage } = props;
 
     const dispatch = useAppDispatch();
 
-    const deleteClientGandler = useCallback(async () => {
-        const result = await dispatch(deleteClientById(clientId));
+    const deleteAppoimentGandler = useCallback(async () => {
+        const result = await dispatch(deleteAppoimentById(appointmentId));
         if (result.meta.requestStatus === 'fulfilled') {
             reloadPage?.();
         }
@@ -27,16 +27,12 @@ export const EdditClientDropdown = memo((props: EdditClientDropdownProps) => {
 
     const items = [
         {
-            content: 'Процедуры',
-            href: getRouteClients(),
-        },
-        {
             content: 'Просмотреть',
-            href: getRouteClientDetails(String(clientId)),
+            href: getRouteAppointmentDetails(String(appointmentId)),
         },
         {
             content: 'Удалить',
-            onClick: deleteClientGandler,
+            onClick: deleteAppoimentGandler,
         },
     ];
 

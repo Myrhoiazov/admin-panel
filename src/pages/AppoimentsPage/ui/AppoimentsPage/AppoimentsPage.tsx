@@ -54,7 +54,7 @@ const AppoimentsPage = ({ className }: AppoimentsPageProps) => {
                     <Text title="Список сеансов" bold />
                     <FiltersContainer reloadPage={fetchAllAppointments} />
                 </HStack>
-                <AppoimentList appoiments={appoiments} />
+                <AppoimentList appoiments={appoiments} className={s.list}/>
             </Page>
         </DynamicModuleLoader>
     );

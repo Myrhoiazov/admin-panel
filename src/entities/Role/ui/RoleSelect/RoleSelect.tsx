@@ -15,6 +15,7 @@ const options = [
     { value: Role.ADMIN, content: Role.ADMIN },
     { value: Role.MANAGER, content: Role.MANAGER },
     { value: Role.GUEST, content: Role.GUEST },
+    { value: Role.DOCTOR, content: Role.DOCTOR },
 ];
 
 export const RoleSelect = memo(({ className, value, onChange, readonly }: RoleSelectProps) => {
