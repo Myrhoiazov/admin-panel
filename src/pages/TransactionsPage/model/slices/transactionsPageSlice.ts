@@ -10,6 +10,7 @@ import { Transaction, TransactionSortField } from 'entities/Transaction';
 import { TransactionType } from 'entities/TransactionType';
 import { Summary } from 'entities/Summary';
 import { fetchTransactionsSummary } from '../services/fetchTransactionsSummary/fetchTransactionsSummary';
+import { Month } from 'entities/Month/model/types/month';
 
 interface TransactionsPageState {
     isLoading: boolean;
@@ -18,6 +19,7 @@ interface TransactionsPageState {
     items?: Transaction[];
     summary?: Summary,
     page: number;
+    month?: Month;
     type: TransactionType;
     sort: TransactionSortField,
     limit: number;
@@ -35,6 +37,7 @@ const initialState: TransactionsPageState = {
     sort: TransactionSortField.ID,
     type: TransactionType.ALL,
     limit: 9,
+    month: Month.ALL,
     order: 'desc',
     search: '',
     hasMore: true,
@@ -57,6 +60,10 @@ const transactionsPageSlice = createSlice({
         setSearch: (state, action: PayloadAction<string>) => {
             state.search = action.payload;
         },
+        setMonth: (state, action: PayloadAction<Month>) => {
+            state.month = action.payload;
+        },
+
         setSort: (state, action: PayloadAction<TransactionSortField>) => {
             state.sort = action.payload;
         },

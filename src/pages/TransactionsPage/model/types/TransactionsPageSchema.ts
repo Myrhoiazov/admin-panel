@@ -1,4 +1,5 @@
 import { EntityState } from "@reduxjs/toolkit";
+import { Month } from "entities/Month";
 import { Summary } from "entities/Summary";
 import { Transaction, TransactionSortField } from "entities/Transaction";
 import { TransactionType } from "entities/TransactionType";
@@ -20,6 +21,7 @@ export interface TransactionsPageSchema extends EntityState<Transaction, string>
     order: SortOrder
     search: string;
     type: TransactionType;
+    month?: Month;
 
     _inited: boolean
 }

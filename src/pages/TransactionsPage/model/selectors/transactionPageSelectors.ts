@@ -1,4 +1,5 @@
 import { StateSchema } from "app/providers/StoreProvider";
+import { Month } from "entities/Month";
 import { TransactionSortField } from "entities/Transaction";
 import { TransactionType } from "entities/TransactionType";
 
@@ -13,3 +14,5 @@ export const getTransactionPageOrder = (state: StateSchema) =>
     state.transactionPage?.order ?? 'asc';
 export const getTransactionPageType = (state: StateSchema) =>
     state.transactionPage?.type || TransactionType.ALL;
+export const getTransactionPageError = (state: StateSchema) => state.transactionPage?.error;
+export const getTransactionPageMonth = (state: StateSchema) => state.transactionPage?.month || Month.ALL;
