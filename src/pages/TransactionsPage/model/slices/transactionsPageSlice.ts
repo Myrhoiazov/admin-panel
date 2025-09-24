@@ -3,7 +3,6 @@ import {
     PayloadAction,
 } from '@reduxjs/toolkit';
 
-import { CLIENT_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
 import { SortOrder } from 'shared/types/sort';
 import { fetchTransactionsList } from '../services/fetchTransactionsList/fetchTransactionsList';
 import { Transaction, TransactionSortField } from 'entities/Transaction';

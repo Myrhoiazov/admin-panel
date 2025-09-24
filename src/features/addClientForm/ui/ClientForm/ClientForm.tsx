@@ -124,7 +124,7 @@ const AddClientForm = memo((props: AddClientFormProps) => {
             reloadPage?.();
             cleanForm();
         }
-    }, [onSuccess, file]);
+    }, [onSuccess, file, cleanForm, dispatch, reloadPage]);
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>

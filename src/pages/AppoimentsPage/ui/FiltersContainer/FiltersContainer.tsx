@@ -1,7 +1,5 @@
 import { memo } from 'react';
 import { useAppoimentFilters } from '../../lib/hooks/useAppoimentFilters';
-import { ClientFilters } from 'widgets/ClientFilters';
-import { ClientTypeTabs } from 'features/ClientTypeTabs';
 import { VStack } from 'shared/ui/Stack';
 import { AppoimentFilters } from 'widgets/AppoimentFilters';
 

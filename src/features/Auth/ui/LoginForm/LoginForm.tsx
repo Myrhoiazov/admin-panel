@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useSelector } from 'react-redux';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback } from 'react';
 import { Text } from 'shared/ui/Text/Text';
 import {
     DynamicModuleLoader,

@@ -3,7 +3,6 @@ import { ThunkConfig } from 'app/providers/StoreProvider';
 import { Transaction } from 'entities/Transaction';
 import { getTransactionFormData } from '../../selectors/getTransactionFormData';
 import { mapTransactionTypeToEnum } from '../../utils/mapTransactionType';
-import { TransactionType } from 'entities/TransactionType';
 import { mapPaymentMethodToEnum } from '../../utils/mapPaymentMethodToEnum';
 import { mapExpenseCategoryToEnum } from '../../utils/mapExpenseCategoryToEnum';
 

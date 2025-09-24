@@ -12,7 +12,7 @@ import { Input } from 'shared/ui/Input/Input';
 import SearchIcon from 'shared/assets/icons/search.svg';
 import { HStack } from 'shared/ui/Stack';
 import { useTranslation } from 'react-i18next';
-import { Month, MonthSelect } from 'entities/Month';
+import { Month } from 'entities/Month';
 
 interface TransactionFiltersProps {
     className?: string;

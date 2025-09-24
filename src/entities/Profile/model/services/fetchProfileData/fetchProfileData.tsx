@@ -5,7 +5,7 @@ import { IProfile, ServerError } from '../../types/profile';
 export const fetchProfileData = createAsyncThunk<IProfile, string, ThunkConfig<ServerError>>(
     'profile/fetchProfileData',
     async (profileId, thunkAPI) => {
-        const { extra, rejectWithValue, dispatch } = thunkAPI;
+        const { extra, rejectWithValue } = thunkAPI;
         try {
             const response = await extra.apiPrivate.get<IProfile>(`/users/${profileId}`);
             return response.data;

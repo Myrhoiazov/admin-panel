@@ -14,14 +14,17 @@ const AppRouter = () => {
                 <Route
                     path={route.path}
                     key={route.path}
+                    // eslint-disable-next-line react/no-children-prop
                     element={<PrivatRoute children={element} />}
                 />
             );
         }
+
         return (
             <Route
                 key={route.path}
                 path={route.path}
+                // eslint-disable-next-line react/no-children-prop
                 element={<PublicRoute restricted children={element} />}
             />
         );

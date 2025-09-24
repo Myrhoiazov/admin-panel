@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, use, useCallback, useState } from 'react';
 import {
     ProcedureBlockInjection,
     ProcedureBlockPreparation,
@@ -29,6 +29,7 @@ import { HStack } from 'shared/ui/Stack';
 import { Button, ButtonTheme } from 'shared/ui/Button';
 import { createProcedure } from '../../model/services/createProcedure';
 import Loader from 'shared/ui/Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 interface AddProcedureFormProps {
     className?: string;
@@ -40,6 +41,7 @@ const reducers: ReducersList = {
 
 export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
     const [file, setFile] = useState<File | null>(null);
+    const { t } = useTranslation();
 
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getProcedureFormIsLoading);
@@ -195,7 +197,7 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
                     disabled={!procedure || isLoading}
                     theme={!procedure ? ButtonTheme.OUTLINE : ButtonTheme.OUTLINE_RED}
                 >
-                    Отменить
+                    {t('Отменить')}
                 </Button>
                 <Button
                     type="button"
@@ -203,7 +205,7 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
                     disabled={!procedure || isLoading}
                     theme={ButtonTheme.BACKGROUND_INVERTED}
                 >
-                    Сохранить
+                    {t('Сохранить')}
                 </Button>
             </HStack>
             <ProcedureCard

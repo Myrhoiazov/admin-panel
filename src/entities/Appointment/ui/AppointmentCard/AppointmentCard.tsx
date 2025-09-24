@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import Textarea from 'shared/ui/Textarea/Textarea';
 import { Procedure } from 'entities/Procedure';
 import { Appointment } from '../../model/types/appoiment';

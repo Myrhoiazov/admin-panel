@@ -87,16 +87,13 @@ const AppoimentForm = memo((props: AppoimentFormProps) => {
             reloadPage?.();
             // cleanForm();
         }
-    }, [onSuccess, file]);
+    }, [onSuccess, file, dispatch, reloadPage]);
 
-    const onChangeImage = useCallback(
-        (file?: File) => {
-            if (file) {
-                setFile(file);
-            }
-        },
-        [dispatch]
-    );
+    const onChangeImage = useCallback((file?: File) => {
+        if (file) {
+            setFile(file);
+        }
+    }, []);
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>

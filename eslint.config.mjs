@@ -1,11 +1,12 @@
 import { defineConfig } from 'eslint/config';
 import * as denysFixFsdPathPlugin from 'eslint-plugin-denys-fix-fsd-path-plugin';
 import js from '@eslint/js';
-// import globals from 'globals';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 import eslintPluginPrettier from 'eslint-plugin-prettier';
 import pluginReact from 'eslint-plugin-react';
 import i18next from 'eslint-plugin-i18next';
+import { IndentStyle } from 'typescript';
 
 export default defineConfig([
     js.configs.recommended,
@@ -32,13 +33,14 @@ export default defineConfig([
         plugins: {
             'denys-fix-fsd-path-plugin': denysFixFsdPathPlugin,
             react: pluginReact,
+            'react-hooks': pluginReactHooks,
             prettier: eslintPluginPrettier,
         },
 
         rules: {
             'react/jsx-indent': [2, 4],
             'react/jsx-indent-props': [2, 4],
-            indent: [2, 4, { SwitchCase: 1 }],
+            // indent: [2, 4, { SwitchCase: 1 }],
             'react/react-in-jsx-scope': 'off',
             'react/jsx-filename-extension': [2, { extensions: ['.ts', '.tsx'] }],
             'generator-star-spacing': 'off',
@@ -48,6 +50,9 @@ export default defineConfig([
             '@typescript-eslint/ban-ts-comment': 'warn',
             '@typescript-eslint/no-explicit-any': 'warn',
             'denys-fix-fsd-path-plugin/path-checker': 'error',
+            'react-hooks/rules-of-hooks': 'error',
+            'react-hooks/exhaustive-deps': 'warn',
+            indent: 'off',
         },
     },
     {

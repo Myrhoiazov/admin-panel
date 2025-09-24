@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ButtonTheme } from 'shared/ui/Button';
-import { HStack, VStack } from 'shared/ui/Stack';
+import { HStack } from 'shared/ui/Stack';
 import { Icon } from 'shared/ui/Icon/Icon';
 import Sessions from 'shared/assets/icons/sessions.svg';
 import s from './HeaderDetails.module.scss';

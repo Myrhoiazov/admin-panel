@@ -47,7 +47,7 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
             )) ?? [];
 
         return [defaultOption, ...regularOptions];
-    }, [options, defaultValue]);
+    }, [options, defaultValue, value]);
 
     const mods: Mods = {};
 

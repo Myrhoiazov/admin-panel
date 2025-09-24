@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Text } from 'shared/ui/Text/Text';
 import { Input } from 'shared/ui/Input/Input';
 import { Role, RoleSelect } from 'entities/Role';
-import { Country, CountrySelect } from 'entities/Country';
 import Loader from 'shared/ui/Loader/Loader';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
 import { IProfile, ServerError } from 'entities/Profile/model/types/profile';

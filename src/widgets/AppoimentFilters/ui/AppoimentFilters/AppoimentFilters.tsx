@@ -9,7 +9,7 @@ import SearchIcon from 'shared/assets/icons/search.svg';
 import { ClientSortSelector } from 'features/ClientSortSelector';
 import { ClientSortField } from 'entities/Client';
 import { SortOrder } from 'shared/types/sort';
-import { Button, ButtonTheme } from 'shared/ui/Button';
+import { Button } from 'shared/ui/Button';
 import { AppoimentFormModal } from 'features/addAppoimentForm';
 import Sessions from 'shared/assets/icons/sessions.svg';
 

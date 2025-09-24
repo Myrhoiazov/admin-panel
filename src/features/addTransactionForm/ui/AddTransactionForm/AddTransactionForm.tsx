@@ -87,7 +87,7 @@ const AddTransactionForm = memo((props: AddTransactionFormProps) => {
             onSuccess();
             reloadPage?.();
         }
-    }, [onSuccess]);
+    }, [onSuccess, dispatch, reloadPage]);
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>

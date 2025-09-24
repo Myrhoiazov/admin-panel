@@ -8,49 +8,28 @@ import Procedures from 'shared/assets/icons/procedures.svg'
 import Sessions from 'shared/assets/icons/sessions.svg';
 import Transactions from 'shared/assets/icons/transactions.svg';
 import { SidebarItemType } from "../types/sidebar";
-import { useSelector } from "react-redux";
 import { RoleKey } from "entities/Role";
 
 
-export const getSidebarItems = createSelector(getUserAuthData, () => {
-    const userData = useSelector(getUserAuthData);
+export const getSidebarItems = createSelector(
+    getUserAuthData,
+    (userData) => {
+        const sidebarItemsList: SidebarItemType[] = [
+            { path: RoutePath.main, Icon: MainIcon, text: 'Main' },
+            { path: RoutePath.about, Icon: AboutIcon, text: 'About' },
+            { path: RoutePath.clients, Icon: Clients, text: 'Клиенты' },
+            { path: RoutePath.procedures, Icon: Procedures, text: 'Процедуры' },
+            { path: RoutePath.appoiments, Icon: Sessions, text: 'Сеансы' },
+        ];
 
-    const sidebarItemsList: SidebarItemType[] = [
-        {
-            path: RoutePath.main,
-            Icon: MainIcon,
-            text: 'Main'
-        },
-        {
-            path: RoutePath.about,
-            Icon: AboutIcon,
-            text: 'About'
-        },
-        {
-            path: RoutePath.clients,
-            Icon: Clients,
-            text: 'Клиенты',
-        },
-        {
-            path: RoutePath.procedures,
-            Icon: Procedures,
-            text: 'Процедуры',
-        },
-        {
-            path: RoutePath.appoiments,
-            Icon: Sessions,
-            text: 'Сеансы',
-        },
-    ]
+        if (userData?.role === RoleKey.ADMIN) {
+            sidebarItemsList.push({
+                path: RoutePath.transactions,
+                Icon: Transactions,
+                text: 'Транзакции',
+            });
+        }
 
-    if (userData?.role === RoleKey.ADMIN) {
-        sidebarItemsList.push({
-            path: RoutePath.transactions,
-            Icon: Transactions,
-            text: 'Транзакции',
-        })
-
+        return sidebarItemsList;
     }
-
-    return sidebarItemsList;
-})
+);

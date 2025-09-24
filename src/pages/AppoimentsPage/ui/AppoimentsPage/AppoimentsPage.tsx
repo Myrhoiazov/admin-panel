@@ -3,17 +3,12 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import s from './AppoimentsPage.module.scss';
 import { Page } from 'widgets/Page/Page';
 import { Text } from 'shared/ui/Text/Text';
-import { AppoimentFormModal } from 'features/addAppoimentForm';
 
 import { appoimentsPageReducer, getAppointments } from '../../model/slices/appoimentsPageSlice';
 import {
     DynamicModuleLoader,
     ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { Button } from 'shared/ui/Button';
-import { useTranslation } from 'react-i18next';
-
-import { Icon } from 'shared/ui/Icon/Icon';
 import { HStack } from 'shared/ui/Stack';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAppoimentsList } from '../../model/services/fetchAppoimentsList/fetchAppoimentsList';
@@ -34,7 +29,6 @@ const reducers: ReducersList = {
 };
 
 const AppoimentsPage = ({ className }: AppoimentsPageProps) => {
-    const [isAddClientModal, setIsAddClientModal] = useState(false);
     const dispatch = useAppDispatch();
     const appoiments = useSelector(getAppointments.selectAll);
     const [searchParams] = useSearchParams();
@@ -54,7 +48,7 @@ const AppoimentsPage = ({ className }: AppoimentsPageProps) => {
                     <Text title="Список сеансов" bold />
                     <FiltersContainer reloadPage={fetchAllAppointments} />
                 </HStack>
-                <AppoimentList appoiments={appoiments} className={s.list}/>
+                <AppoimentList appoiments={appoiments} className={s.list} />
             </Page>
         </DynamicModuleLoader>
     );

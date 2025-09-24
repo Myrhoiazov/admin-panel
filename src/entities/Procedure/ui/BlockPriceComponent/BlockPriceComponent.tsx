@@ -1,4 +1,4 @@
-import React, { memo, use, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { Input } from 'shared/ui/Input/Input';
 import { ProcedurePrice } from 'entities/Procedure/model/types/procedure';
 import { HStack, VStack } from 'shared/ui/Stack';
