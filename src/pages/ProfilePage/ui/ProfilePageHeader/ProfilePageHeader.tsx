@@ -9,7 +9,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { getProfileReadonly } from 'entities/Profile/model/selectors/getProfileReadonly/getProfileReadonly';
 import { updateProfileData } from 'entities/Profile/model/services/updateProfileData/updateProfileData';
 import cls from './ProfilePageHeader.module.scss';
-import { getUserAuthData } from 'entities/User';
+import { getUserAuthData, initAuthData } from 'entities/User';
 
 interface ProfilePageHeaderProps {
     className?: string;

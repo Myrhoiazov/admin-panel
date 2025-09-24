@@ -1,8 +1,12 @@
+import { Role, RoleKey } from "entities/Role";
+
 export interface User {
     id: string;
     username: string;
     firstName?: string;
     avatar?: string;
+    email: string;
+    role: RoleKey
     token?: string;
 }
 

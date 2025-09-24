@@ -16,8 +16,11 @@ export interface IProfile {
     id?: string
     firstName?: string,
     lastName?: string,
+    age?: number,
     role?: Role,
-    email?: string,
+    country?: Country,
+    city?: string,
+    username?: string,
     avatar?: string
 }
 

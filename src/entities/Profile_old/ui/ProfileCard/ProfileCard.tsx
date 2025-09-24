@@ -16,10 +16,13 @@ interface ProfileCardProps {
     isLoading?: boolean;
     readonly?: boolean;
     onChangeLastname?: (value?: string) => void;
-    onChangeEmail?: (value?: string) => void;
     onChangeFirstname?: (value?: string) => void;
+    onChangeCity?: (value?: string) => void;
+    onChangeAge?: (value?: string) => void;
+    onChangeUsername?: (value?: string) => void;
     onChangeAvatar?: (value?: string) => void;
     onChangeRole?: (currency: Role) => void;
+    onChangeCountry?: (country: Country) => void;
 }
 
 export const ProfileCard = (props: ProfileCardProps) => {
@@ -30,9 +33,12 @@ export const ProfileCard = (props: ProfileCardProps) => {
         error,
         readonly,
         onChangeFirstname,
-        onChangeEmail,
         onChangeLastname,
+        onChangeAge,
+        onChangeCity,
         onChangeAvatar,
+        onChangeUsername,
+        onChangeCountry,
         onChangeRole,
     } = props;
     const { t } = useTranslation('profile');
@@ -85,10 +91,24 @@ export const ProfileCard = (props: ProfileCardProps) => {
                     readonly={readonly}
                 />
                 <Input
-                    value={data?.email}
-                    placeholder={t('Введите email')}
+                    value={data?.age?.toString()}
+                    placeholder={t('Ваш возраст')}
                     className={cls.input}
-                    onChange={onChangeEmail}
+                    onChange={onChangeAge}
+                    readonly={readonly}
+                />
+                <Input
+                    value={data?.city}
+                    placeholder={t('Город')}
+                    className={cls.input}
+                    onChange={onChangeCity}
+                    readonly={readonly}
+                />
+                <Input
+                    value={data?.username}
+                    placeholder={t('Введите имя пользователя')}
+                    className={cls.input}
+                    onChange={onChangeUsername}
                     readonly={readonly}
                 />
                 <Input
@@ -102,6 +122,12 @@ export const ProfileCard = (props: ProfileCardProps) => {
                     className={cls.input}
                     value={data?.role}
                     onChange={onChangeRole}
+                    readonly={readonly}
+                />
+                <CountrySelect
+                    className={cls.input}
+                    value={data?.country}
+                    onChange={onChangeCountry}
                     readonly={readonly}
                 />
             </div>

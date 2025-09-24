@@ -8,9 +8,13 @@ import Procedures from 'shared/assets/icons/procedures.svg'
 import Sessions from 'shared/assets/icons/sessions.svg';
 import Transactions from 'shared/assets/icons/transactions.svg';
 import { SidebarItemType } from "../types/sidebar";
+import { useSelector } from "react-redux";
+import { RoleKey } from "entities/Role";
 
 
 export const getSidebarItems = createSelector(getUserAuthData, () => {
+    const userData = useSelector(getUserAuthData);
+
     const sidebarItemsList: SidebarItemType[] = [
         {
             path: RoutePath.main,
@@ -37,12 +41,16 @@ export const getSidebarItems = createSelector(getUserAuthData, () => {
             Icon: Sessions,
             text: 'Сеансы',
         },
-        {
+    ]
+
+    if (userData?.role === RoleKey.ADMIN) {
+        sidebarItemsList.push({
             path: RoutePath.transactions,
             Icon: Transactions,
             text: 'Транзакции',
-        }
-    ]
+        })
+
+    }
 
     return sidebarItemsList;
 })

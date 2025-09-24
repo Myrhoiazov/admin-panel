@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Select } from 'shared/ui/Select/Select';
 import { memo, useCallback, useMemo } from 'react';
-import { Role } from '../../model/types/role';
+import { Role, RoleKey, RoleLabels } from '../../model/types/role';
 import { classNames } from 'shared/lib/classNames/classNames';
 
 interface RoleSelectProps {
@@ -12,10 +12,10 @@ interface RoleSelectProps {
 }
 
 const options = [
-    { value: Role.ADMIN, content: Role.ADMIN },
-    { value: Role.MANAGER, content: Role.MANAGER },
-    { value: Role.GUEST, content: Role.GUEST },
-    { value: Role.DOCTOR, content: Role.DOCTOR },
+    { value: RoleKey.ADMIN, content: RoleLabels.ADMIN },
+    { value: RoleKey.MANAGER, content: RoleLabels.MANAGER },
+    { value: RoleKey.GUEST, content: RoleLabels.GUEST },
+    { value: RoleKey.DOCTOR, content: RoleLabels.DOCTOR },
 ];
 
 export const RoleSelect = memo(({ className, value, onChange, readonly }: RoleSelectProps) => {
@@ -29,7 +29,7 @@ export const RoleSelect = memo(({ className, value, onChange, readonly }: RoleSe
     );
 
     const selectRole = useMemo(() => {
-        return Role[value as unknown as keyof typeof Role];
+        return RoleKey[value as unknown as keyof typeof RoleKey];
     }, [value]);
 
     return (

@@ -77,23 +77,9 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
         [dispatch]
     );
 
-    const onChangeCity = useCallback(
+    const onChangeEmail = useCallback(
         (value?: string) => {
-            dispatch(profileActions.updateProfile({ city: value || '' }));
-        },
-        [dispatch]
-    );
-
-    const onChangeAge = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ age: Number(value || 0) }));
-        },
-        [dispatch]
-    );
-
-    const onChangeUsername = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ username: value || '' }));
+            dispatch(profileActions.updateProfile({ email: value || '' }));
         },
         [dispatch]
     );
@@ -108,13 +94,6 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     const onChangeRole = useCallback(
         (role: Role) => {
             dispatch(profileActions.updateProfile({ role }));
-        },
-        [dispatch]
-    );
-
-    const onChangeCountry = useCallback(
-        (country: Country) => {
-            dispatch(profileActions.updateProfile({ country }));
         },
         [dispatch]
     );
@@ -134,12 +113,9 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
                     readonly={readonly}
                     onChangeFirstname={onChangeFirstname}
                     onChangeLastname={onChangeLastname}
-                    onChangeAge={onChangeAge}
-                    onChangeCity={onChangeCity}
-                    onChangeUsername={onChangeUsername}
                     onChangeAvatar={onChangeAvatar}
                     onChangeRole={onChangeRole}
-                    onChangeCountry={onChangeCountry}
+                    onChangeEmail={onChangeEmail}
                 />
             </Page>
         </DynamicModuleLoader>
