@@ -1,21 +1,20 @@
 import { useTranslation } from 'react-i18next';
 import { Select } from 'shared/ui/Select/Select';
 import { memo, useCallback, useMemo } from 'react';
-import { ClientStatus } from '../../model/types/status';
+import { ClientStatusKey, ClientStatusLabels } from '../../model/types/status';
 import { classNames } from 'shared/lib/classNames/classNames';
 
 interface ClientStatusSelectProps {
     className?: string;
-    value?: ClientStatus;
-    onChange?: (value: ClientStatus) => void;
+    value?: ClientStatusKey;
+    onChange?: (value: ClientStatusKey) => void;
     readonly?: boolean;
 }
 
 const options = [
-    { value: ClientStatus.BRONZE, content: ClientStatus.BRONZE },
-    { value: ClientStatus.GOLD, content: ClientStatus.GOLD },
-    { value: ClientStatus.PLATINUM, content: ClientStatus.PLATINUM },
-    { value: ClientStatus.SILVER, content: ClientStatus.SILVER },
+    { value: ClientStatusKey.bronze, content: ClientStatusLabels.bronze },
+    { value: ClientStatusKey.gold, content: ClientStatusLabels.gold },
+    { value: ClientStatusKey.silver, content: ClientStatusLabels.silver },
 ];
 
 export const ClientStatusSelect = memo(
@@ -24,13 +23,13 @@ export const ClientStatusSelect = memo(
 
         const onChangeHandler = useCallback(
             (value: string) => {
-                onChange?.(value as ClientStatus);
+                onChange?.(value as ClientStatusKey);
             },
             [onChange]
         );
 
         const selectRole = useMemo(() => {
-            return ClientStatus[value as unknown as keyof typeof ClientStatus];
+            return ClientStatusKey[value as unknown as keyof typeof ClientStatusKey];
         }, [value]);
 
         return (

@@ -1,5 +1,5 @@
 import { Appointment } from "entities/Appointment";
-import { ClientStatus } from "entities/ClientStatus";
+import { ClientStatusKey } from "entities/ClientStatus";
 
 export interface Client {
     id?: string;
@@ -15,7 +15,7 @@ export interface Client {
     document?: boolean
     image?: File | string;
     createdAt?: string
-    status?: ClientStatus
+    status?: ClientStatusKey
 }
 
 export enum ClientView {

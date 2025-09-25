@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback, useMemo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { ClientStatus } from 'entities/ClientStatus';
+import { ClientStatusKey, ClientStatusLabels } from 'entities/ClientStatus';
 import { Tabs, TabItem } from 'shared/ui/Tabs';
 
 interface ClientTypeTabsProps {
     className?: string;
-    value: ClientStatus;
-    onChangeType: (type: ClientStatus) => void;
+    value: ClientStatusKey;
+    onChangeType: (type: ClientStatusKey) => void;
 }
 
 export const ClientTypeTabs = memo((props: ClientTypeTabsProps) => {
@@ -17,24 +17,20 @@ export const ClientTypeTabs = memo((props: ClientTypeTabsProps) => {
     const typeTabs = useMemo<TabItem[]>(
         () => [
             {
-                value: ClientStatus.ALL,
-                content: t('Все клиенты'),
+                value: ClientStatusKey.all,
+                content: t(ClientStatusLabels.all),
             },
             {
-                value: ClientStatus.BRONZE,
-                content: t('BRONZE'),
+                value: ClientStatusKey.bronze,
+                content: t(ClientStatusLabels.bronze),
             },
             {
-                value: ClientStatus.GOLD,
-                content: t('GOLD'),
+                value: ClientStatusKey.gold,
+                content: t(ClientStatusLabels.gold),
             },
             {
-                value: ClientStatus.PLATINUM,
-                content: t('PLATINUM'),
-            },
-            {
-                value: ClientStatus.SILVER,
-                content: t('SILVER'),
+                value: ClientStatusKey.silver,
+                content: t(ClientStatusLabels.silver),
             },
         ],
         [t]
@@ -42,7 +38,7 @@ export const ClientTypeTabs = memo((props: ClientTypeTabsProps) => {
 
     const onTabClick = useCallback(
         (tab: TabItem) => {
-            onChangeType(tab.value as ClientStatus);
+            onChangeType(tab.value as ClientStatusKey);
         },
         [onChangeType]
     );

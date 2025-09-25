@@ -15,7 +15,7 @@ import { getAddClientForm } from '../../model/selectors/getAddClientForm/getAddC
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addClientData } from '../../model/services/addClientData/addClientData';
 import { ClientCard } from 'entities/Client';
-import { ClientStatus } from 'entities/ClientStatus';
+import { ClientStatusKey } from 'entities/ClientStatus';
 
 interface AddClientFormProps {
     className?: string;
@@ -103,7 +103,7 @@ const AddClientForm = memo((props: AddClientFormProps) => {
         [dispatch]
     );
     const onChangeClientStatus = useCallback(
-        (status: ClientStatus) => {
+        (status: ClientStatusKey) => {
             dispatch(clientActions.updateProfile({ status }));
         },
         [dispatch]

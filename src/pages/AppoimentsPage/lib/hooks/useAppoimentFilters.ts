@@ -4,10 +4,10 @@ import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { ClientSortField } from 'entities/Client';
 import { SortOrder } from 'shared/types/sort';
-import { ClientStatus } from 'entities/ClientStatus';
 import { getAppoimentPageOrder, getAppoimentPageSearch, getAppoimentPageSort } from '../../model/selectors/appoimentsPageSelectors';
 import { appoimentsPageActions } from '../../model/slices/appoimentsPageSlice';
 import { fetchAppoimentsList } from '../../model/services/fetchAppoimentsList/fetchAppoimentsList';
+import { ClientStatusKey } from 'entities/ClientStatus';
 
 export function useAppoimentFilters() {
     const search = useSelector(getAppoimentPageSearch);
@@ -51,7 +51,7 @@ export function useAppoimentFilters() {
     );
 
     const onChangeType = useCallback(
-        (value: ClientStatus) => {
+        (value: ClientStatusKey) => {
             // dispatch(appoimentsPageActions.setType(value));
             // dispatch(articlesPageActions.setPage(1));
             fetchData();

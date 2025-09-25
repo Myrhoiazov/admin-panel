@@ -15,8 +15,8 @@ export const getSidebarItems = createSelector(
     getUserAuthData,
     (userData) => {
         const sidebarItemsList: SidebarItemType[] = [
-            { path: RoutePath.main, Icon: MainIcon, text: 'Main' },
-            { path: RoutePath.about, Icon: AboutIcon, text: 'About' },
+            // { path: RoutePath.main, Icon: MainIcon, text: 'Main' },
+            // { path: RoutePath.about, Icon: AboutIcon, text: 'About' },
             { path: RoutePath.clients, Icon: Clients, text: 'Клиенты' },
             { path: RoutePath.procedures, Icon: Procedures, text: 'Процедуры' },
             { path: RoutePath.appoiments, Icon: Sessions, text: 'Сеансы' },

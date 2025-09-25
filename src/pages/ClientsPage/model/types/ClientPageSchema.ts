@@ -1,6 +1,6 @@
 import { EntityState } from '@reduxjs/toolkit';
 import { Client, ClientSortField, ClientView } from 'entities/Client';
-import { ClientStatus } from 'entities/ClientStatus';
+import { ClientStatusKey } from 'entities/ClientStatus';
 import { SortOrder } from 'shared/types/sort';
 
 export interface ClientPageSchema extends EntityState<Client, string> {
@@ -17,7 +17,7 @@ export interface ClientPageSchema extends EntityState<Client, string> {
     sort: ClientSortField
     order: SortOrder
     search: string;
-    type: ClientStatus;
+    type: ClientStatusKey;
 
     _inited: boolean
 }

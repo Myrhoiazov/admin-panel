@@ -12,7 +12,7 @@ import { ClientSortField } from 'entities/Client';
 import { SortOrder } from 'shared/types/sort';
 import { clientsPageActions } from '../../model/slices/clientsPageSlice';
 import { fetchClientsList } from '../../model/services/fetchClientsList/fetchClientsList';
-import { ClientStatus } from 'entities/ClientStatus';
+import { ClientStatusKey } from 'entities/ClientStatus';
 
 export function useClientFilters() {
     const search = useSelector(getClientsPageSearch);
@@ -56,7 +56,7 @@ export function useClientFilters() {
     );
 
     const onChangeType = useCallback(
-        (value: ClientStatus) => {
+        (value: ClientStatusKey) => {
             dispatch(clientsPageActions.setType(value));
             // dispatch(articlesPageActions.setPage(1));
             fetchData();

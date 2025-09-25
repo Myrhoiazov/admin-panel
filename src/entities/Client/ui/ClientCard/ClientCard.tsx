@@ -2,7 +2,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
 import { Input } from 'shared/ui/Input/Input';
-import { ClientStatusSelect, ClientStatus } from 'entities/ClientStatus';
+import { ClientStatusSelect, ClientStatusKey } from 'entities/ClientStatus';
 import { Client } from 'entities/Client';
 import Textarea from 'shared/ui/Textarea/Textarea';
 import CheckBox from 'shared/ui/CheckBox/CheckBox';
@@ -26,7 +26,7 @@ export interface ClientCardProps {
     onChangeImage3D?: (value: boolean) => void;
     onChangeDocument?: (value: boolean) => void;
     onChangeAvatar?: (value?: File) => void;
-    onChangeClientStatus?: (status: ClientStatus) => void;
+    onChangeClientStatus?: (status: ClientStatusKey) => void;
 }
 
 export const ClientCard = memo((props: ClientCardProps) => {

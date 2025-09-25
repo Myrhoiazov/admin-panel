@@ -10,7 +10,7 @@ import { ClientPageSchema } from '../types/ClientPageSchema';
 import { fetchClientsList } from '../services/fetchClientsList/fetchClientsList';
 import { CLIENT_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
 import { SortOrder } from 'shared/types/sort';
-import { ClientStatus } from 'entities/ClientStatus';
+import { ClientStatusKey } from 'entities/ClientStatus';
 
 const clientsAdapter = createEntityAdapter<Client, string>({
     selectId: (cliend) => cliend.id as string,
@@ -28,7 +28,7 @@ const clientsPageSlice = createSlice({
         ids: [],
         entities: {},
         page: 1,
-        type: ClientStatus.ALL,
+        type: ClientStatusKey.all,
         limit: 9,
         view: ClientView.BIG,
         sort: ClientSortField.CREATED,
@@ -54,7 +54,7 @@ const clientsPageSlice = createSlice({
         setPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
         },
-        setType: (state, action: PayloadAction<ClientStatus>) => {
+        setType: (state, action: PayloadAction<ClientStatusKey>) => {
             state.type = action.payload;
         },
         initState: (state) => {
