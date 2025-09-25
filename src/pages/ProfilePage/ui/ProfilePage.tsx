@@ -20,7 +20,7 @@ import { getProfileForm } from 'entities/Profile/model/selectors/getProfileForm/
 import { getProfileReadonly } from 'entities/Profile/model/selectors/getProfileReadonly/getProfileReadonly';
 import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
 import { Country } from 'entities/Country';
-import { Role } from 'entities/Role';
+import { Role, RoleKey } from 'entities/Role';
 import { Text } from 'shared/ui/Text/Text';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useParams } from 'react-router-dom';
@@ -92,7 +92,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     );
 
     const onChangeRole = useCallback(
-        (role: Role) => {
+        (role: RoleKey) => {
             dispatch(profileActions.updateProfile({ role }));
         },
         [dispatch]

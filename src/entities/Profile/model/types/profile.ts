@@ -1,5 +1,5 @@
 import { Country } from "entities/Country"
-import { Role } from "entities/Role";
+import { Role, RoleKey } from "entities/Role";
 
 export enum ValidateProfileError {
     INCORRECT_USER_DATA = 'INCORRECT_USER_DATA',
@@ -16,9 +16,10 @@ export interface IProfile {
     id?: string
     firstName?: string,
     lastName?: string,
-    role?: Role,
+    role?: RoleKey,
     email?: string,
     avatar?: string
+    password?: string
 }
 
 export interface ServerError {

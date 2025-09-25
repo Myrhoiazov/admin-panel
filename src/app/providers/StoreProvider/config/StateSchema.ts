@@ -24,6 +24,8 @@ import { TransactionsPageSchema } from 'pages/TransactionsPage';
 import { AddTransactionFormSchema } from 'features/addTransactionForm';
 import { AppointmentSchema } from 'features/addAppoimentForm';
 import { AppoimentPageSchema } from 'pages/AppoimentsPage';
+import { UserFormSchema } from 'features/addUserForm';
+import { SettingsPageSchema } from 'pages/SettingsPage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -38,6 +40,9 @@ export interface StateSchema {
     clientDetailsComments?: ClientDetailsCommentsSchema;
     clientDetailsAppointments?: ClientDetailsAppointmentSchema;
     clientsPage?: ClientPageSchema
+
+    newUser?: UserFormSchema;
+    settingsPage?: SettingsPageSchema;
 
     addAppoimentForm?: AppointmentSchema;
     appoimentPage?: AppoimentPageSchema;

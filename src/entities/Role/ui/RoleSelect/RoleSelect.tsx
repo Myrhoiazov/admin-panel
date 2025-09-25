@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { Select } from 'shared/ui/Select/Select';
 import { memo, useCallback, useMemo } from 'react';
-import { Role, RoleKey, RoleLabels } from '../../model/types/role';
+import { RoleKey, RoleLabels } from '../../model/types/role';
 import { classNames } from 'shared/lib/classNames/classNames';
 
 interface RoleSelectProps {
     className?: string;
-    value?: Role;
-    onChange?: (value: Role) => void;
+    value?: RoleKey;
+    onChange?: (value: RoleKey) => void;
     readonly?: boolean;
 }
 
@@ -23,7 +23,7 @@ export const RoleSelect = memo(({ className, value, onChange, readonly }: RoleSe
 
     const onChangeHandler = useCallback(
         (value: string) => {
-            onChange?.(value as Role);
+            onChange?.(value as RoleKey);
         },
         [onChange]
     );

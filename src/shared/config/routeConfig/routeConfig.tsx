@@ -14,6 +14,7 @@ import { ProcedureDetailsPage } from 'pages/ProcedureDetailsPage';
 import { ProcedureCreatePage } from 'pages/ProcedureCreatePage';
 import { AppoimentsPage } from 'pages/AppoimentsPage';
 import { TransactionsPage } from 'pages/TransactionsPage';
+import { SettingsPage } from 'pages/SettingsPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -34,6 +35,7 @@ export enum AppRoutes {
     PROCEDURES_DETAILS = 'procedures_details',
     PROCEDURES_EDIT = 'procedures_edit',
     PROCEDURES_CREATE = 'procedures_create',
+    SETTINGS = 'settings',
     // last
     NOT_FOUND = 'not_found',
 }
@@ -53,6 +55,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.PROCEDURES_CREATE]: '/procedures/create',
     [AppRoutes.PROCEDURES_DETAILS]: '/procedures/', // :id
     [AppRoutes.PROCEDURES_EDIT]: '/procedures/edit/', // :id
+    [AppRoutes.SETTINGS]: '/settings',
     // последний
     [AppRoutes.NOT_FOUND]: '*',
 };
@@ -125,6 +128,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.PROCEDURES_EDIT]: {
         path: `${RoutePath.procedures_edit}:id`,
         element: <ProcedureEditPage />,
+        authOnly: true,
+    },
+    [AppRoutes.SETTINGS]: {
+        path: RoutePath.settings,
+        element: <SettingsPage />,
         authOnly: true,
     },
     // last
