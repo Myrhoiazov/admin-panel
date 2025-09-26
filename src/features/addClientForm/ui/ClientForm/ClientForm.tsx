@@ -16,6 +16,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addClientData } from '../../model/services/addClientData/addClientData';
 import { ClientCard } from 'entities/Client';
 import { ClientStatusKey } from 'entities/ClientStatus';
+import { toast } from 'react-toastify';
 
 interface AddClientFormProps {
     className?: string;
@@ -123,6 +124,7 @@ const AddClientForm = memo((props: AddClientFormProps) => {
             onSuccess();
             reloadPage?.();
             cleanForm();
+            toast.success(t('Клиент успешно добавлен'));
         }
     }, [onSuccess, file, cleanForm, dispatch, reloadPage]);
 

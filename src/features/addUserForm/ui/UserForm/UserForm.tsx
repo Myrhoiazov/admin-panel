@@ -16,6 +16,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addNewUser } from '../../model/services/addNewUser/addNewUser';
 import { UserCard } from 'entities/User';
 import { RoleKey } from 'entities/Role';
+import { toast } from 'react-toastify';
 
 interface AddUserFormProps {
     className?: string;
@@ -79,6 +80,7 @@ const UserForm = memo((props: AddUserFormProps) => {
             onSuccess();
             reloadPage?.();
             cleanForm();
+            toast.success(t('Пользователь успешно добавлен'));
         }
     }, [onSuccess, file, cleanForm, dispatch, reloadPage]);
 

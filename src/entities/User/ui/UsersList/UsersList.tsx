@@ -31,7 +31,7 @@ export const UsersList = memo((props: UsersListProps) => {
 
     return (
         <div className={classNames(s.UsersList, {}, [className])}>
-            <VStack gap="16">
+            <VStack gap="16" max>
                 {users.length > 0 ? users.map(renderUser) : null}
                 {isLoading && <Skeleton width="100%" height={60} border="12px" />}
             </VStack>

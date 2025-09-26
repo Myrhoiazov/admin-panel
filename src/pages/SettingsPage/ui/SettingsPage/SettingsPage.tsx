@@ -15,6 +15,8 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { getSettingsPageUsers } from '../../model/selectors/clientsPageSelectors';
 import { UsersList } from 'entities/User';
+import { IProfile } from 'entities/Profile';
+import { EdditUserDropdown } from 'features/edditUserDropdown';
 
 interface SettingsPageProps {
     className?: string;
@@ -39,8 +41,16 @@ const SettingsPage = memo((props: SettingsPageProps) => {
             <Page className={className}>
                 <VStack gap="16">
                     <Text title={t('Настройки пользователя')} />
-                    <UserFilters />
-                    <UsersList users={users} />
+                    <UserFilters reloadPage={() => dispatch(fetchUsersList())} />
+                    <UsersList
+                        users={users}
+                        renderAction={(user: IProfile) => (
+                            <EdditUserDropdown
+                                userId={user.id ?? ''}
+                                reloadPage={() => dispatch(fetchUsersList())}
+                            />
+                        )}
+                    />
                 </VStack>
             </Page>
         </DynamicModuleLoader>
