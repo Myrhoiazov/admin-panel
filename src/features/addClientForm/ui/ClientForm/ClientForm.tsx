@@ -32,7 +32,7 @@ const AddClientForm = memo((props: AddClientFormProps) => {
     const { className, onSuccess, reloadPage } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const [files, setFiles] = useState<File[]>([]);
+    const [file, setFile] = useState<File | null>(null);
 
     const formData = useSelector(getAddClientForm);
 
@@ -110,23 +110,23 @@ const AddClientForm = memo((props: AddClientFormProps) => {
         [dispatch]
     );
     const onChangeImage = useCallback(
-        (files?: File[]) => {
-            if (files) {
-                setFiles(files);
+        (file?: File) => {
+            if (file) {
+                setFile(file);
             }
         },
         [dispatch]
     );
 
     const onSave = useCallback(async () => {
-        const result = await dispatch(addClientData({ files }));
+        const result = await dispatch(addClientData({ file }));
         if (result.meta.requestStatus === 'fulfilled') {
             onSuccess();
             reloadPage?.();
             cleanForm();
             toast.success(t('Клиент успешно добавлен'));
         }
-    }, [onSuccess, files, cleanForm, dispatch, reloadPage]);
+    }, [onSuccess, file, cleanForm, dispatch, reloadPage]);
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>

@@ -51,6 +51,12 @@ const ProcedureElementSkeleton = () => {
 const ProcedureElement = () => {
     const procedure = useSelector(getProcedureDetailsData);
 
+    const image = procedure?.image
+        ? Array.isArray(procedure.image)
+            ? procedure.image[0]
+            : procedure.image
+        : '';
+
     return (
         <Card className={s.card} padding="32" fullWidth>
             <HStack gap="32" max align="start">
@@ -60,7 +66,7 @@ const ProcedureElement = () => {
                     {Object.values(procedure?.blocks || {}).map(renderProcedureBlock)}
                 </VStack>
                 <span className={s.imageWrapper}>
-                    <AppImage src={procedure?.images?.[0] as string} width={400} />
+                    <AppImage src={image as string} width={400} />
                 </span>
             </HStack>
         </Card>

@@ -65,7 +65,9 @@ export const Input = memo((props: InputProps) => {
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (type === 'file') {
             const files = e.target.files;
-            if (files) {
+            if (files?.length === 1) {
+                (onChange as (value: File) => void)?.(files[0]);
+            } else if (files?.length && files.length > 1) {
                 (onChange as (value: File[]) => void)?.(Array.from(files));
             }
         } else {

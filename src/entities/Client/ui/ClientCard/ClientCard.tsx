@@ -25,7 +25,7 @@ export interface ClientCardProps {
     onChangeDescription?: (value?: string) => void;
     onChangeImage3D?: (value: boolean) => void;
     onChangeDocument?: (value: boolean) => void;
-    onChangeImage?: (value?: File[]) => void;
+    onChangeImage?: (value?: File) => void;
     onChangeClientStatus?: (status: ClientStatusKey) => void;
 }
 
@@ -134,14 +134,8 @@ export const ClientCard = memo((props: ClientCardProps) => {
                 label="Загрузить фото"
                 type="file"
                 placeholder={t('Загрузите фото')}
-                onChange={(files) => {
-                    if (Array.isArray(files)) {
-                        onChangeImage?.(files);
-                    } else if (files) {
-                        onChangeImage?.([files]);
-                    } else {
-                        onChangeImage?.([]);
-                    }
+                onChange={(file) => {
+                    onChangeImage?.(file as File);
                 }}
             />
         </>
