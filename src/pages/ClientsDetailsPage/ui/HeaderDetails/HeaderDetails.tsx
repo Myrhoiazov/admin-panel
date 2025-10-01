@@ -9,16 +9,20 @@ import { HStack } from 'shared/ui/Stack';
 import { Icon } from 'shared/ui/Icon/Icon';
 import Sessions from 'shared/assets/icons/sessions.svg';
 import s from './HeaderDetails.module.scss';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { fetchAppoimentsByClientId } from '../../model/services/fetchAppoimentsByClientId/fetchAppoimentsByClientId';
 
 interface HeaderDetailsProps {
     className?: string;
-    reloadPage?: () => void;
+    userId?: string;
 }
 
 const HeaderDetails = (props: HeaderDetailsProps) => {
-    const { className, reloadPage } = props;
+    const { className, userId } = props;
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
     const [isAddClientModal, setIsAddClientModal] = useState(false);
 
     const onBackToList = useCallback(() => {
@@ -33,6 +37,10 @@ const HeaderDetails = (props: HeaderDetailsProps) => {
         setIsAddClientModal(true);
     }, []);
 
+    const reloadPage = useCallback(() => {
+        dispatch(fetchAppoimentsByClientId(userId || ''));
+    }, [dispatch]);
+
     return (
         <div className={classNames(s.HeaderDetails, {}, [className])}>
             <HStack justify="between" gap="16" max>
@@ -45,6 +53,7 @@ const HeaderDetails = (props: HeaderDetailsProps) => {
                 </Button>
             </HStack>
             <AppoimentFormModal
+                userId={userId}
                 isOpen={isAddClientModal}
                 onClose={onCloseModal}
                 reloadPage={reloadPage}

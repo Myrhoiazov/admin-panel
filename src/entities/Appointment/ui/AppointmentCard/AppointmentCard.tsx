@@ -21,7 +21,7 @@ export interface AppointmentCardProps {
     onChangeClient?: (value?: Client) => void;
     onChangeDoctor?: (value?: User) => void;
     onChangeNote?: (value?: string) => void;
-    onChangeImage?: (value?: File) => void;
+    onChangeImage?: (value?: File[]) => void;
 }
 
 export const AppointmentCard = memo((props: AppointmentCardProps) => {
@@ -34,7 +34,7 @@ export const AppointmentCard = memo((props: AppointmentCardProps) => {
         onChangeProcedure,
         onChangeNote,
         procedures,
-        clients,
+        clients = [],
         onChangeClient,
         onChangeImage,
     } = props;
@@ -51,16 +51,23 @@ export const AppointmentCard = memo((props: AppointmentCardProps) => {
                 value={selectedProcedure}
                 options={procedures}
             />
-            <ClientSelect onChange={onChangeClient} value={selectedClient} options={clients} />
+            {clients?.length > 0 && (
+                <ClientSelect onChange={onChangeClient} value={selectedClient} options={clients} />
+            )}
             <DoctorSelect onChange={onChangeDoctor} value={selectedDoctor} options={doctors} />
             <Input
                 fullWidth
                 label="Загрузить фото"
                 type="file"
+                multiple
                 placeholder={t('Загрузите фото')}
-                onChange={(value: string | File) => {
-                    if (value instanceof File) {
-                        onChangeImage?.(value);
+                onChange={(files) => {
+                    if (Array.isArray(files)) {
+                        onChangeImage?.(files);
+                    } else if (files) {
+                        onChangeImage?.([files]);
+                    } else {
+                        onChangeImage?.([]);
                     }
                 }}
             />

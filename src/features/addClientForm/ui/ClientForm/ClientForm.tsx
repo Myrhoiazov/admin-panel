@@ -32,7 +32,7 @@ const AddClientForm = memo((props: AddClientFormProps) => {
     const { className, onSuccess, reloadPage } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const [file, setFile] = useState<File | null>(null);
+    const [files, setFiles] = useState<File[]>([]);
 
     const formData = useSelector(getAddClientForm);
 
@@ -109,24 +109,24 @@ const AddClientForm = memo((props: AddClientFormProps) => {
         },
         [dispatch]
     );
-    const onChangeAvatar = useCallback(
-        (file?: File) => {
-            if (file) {
-                setFile(file);
+    const onChangeImage = useCallback(
+        (files?: File[]) => {
+            if (files) {
+                setFiles(files);
             }
         },
         [dispatch]
     );
 
     const onSave = useCallback(async () => {
-        const result = await dispatch(addClientData({ file }));
+        const result = await dispatch(addClientData({ files }));
         if (result.meta.requestStatus === 'fulfilled') {
             onSuccess();
             reloadPage?.();
             cleanForm();
             toast.success(t('Клиент успешно добавлен'));
         }
-    }, [onSuccess, file, cleanForm, dispatch, reloadPage]);
+    }, [onSuccess, files, cleanForm, dispatch, reloadPage]);
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>
@@ -140,7 +140,7 @@ const AddClientForm = memo((props: AddClientFormProps) => {
                         onChangeBirthday={onChangeBirthday}
                         onChangePhoneNumber={onChangePhoneNumber}
                         onChangeEmail={onChangeEmail}
-                        onChangeAvatar={onChangeAvatar}
+                        onChangeImage={onChangeImage}
                         onChangeAnamnesis={onChangeAnamnesis}
                         onChangeDescription={onChangeDescription}
                         onChangeImage3D={onChangeImage3D}

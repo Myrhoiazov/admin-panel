@@ -7,7 +7,7 @@ export interface Appointment {
     clientId?: string;
     procedureId?: string;
     doctorId?: string;
-    image?: File;
+    image?: File | File[];
 
     note?: string;
     createdAt?: string;

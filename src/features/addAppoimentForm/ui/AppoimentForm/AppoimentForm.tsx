@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import cls from './AppoimentForm.module.scss';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { VStack } from 'shared/ui/Stack';
 import { Text } from 'shared/ui/Text/Text';
 import { Button, ButtonTheme } from 'shared/ui/Button';
@@ -25,11 +25,13 @@ import { Client } from 'entities/Client/model/types/client';
 import { User } from 'entities/User';
 import { getAddAppoimentDoctors } from '../../model/selectors/getAddAppoimentDocters/getAddAppoimentDocters';
 import { fetchDoctorsList } from '../../model/services/fetchDoctorsList/fetchDoctorsList';
+import { toast } from 'react-toastify';
 
 interface AppoimentFormProps {
     className?: string;
     onSuccess: () => void;
     reloadPage?: () => void;
+    userId?: string;
 }
 
 const initialReducers: ReducersList = {
@@ -37,10 +39,11 @@ const initialReducers: ReducersList = {
 };
 
 const AppoimentForm = memo((props: AppoimentFormProps) => {
-    const { className, onSuccess, reloadPage } = props;
+    const { className, onSuccess, reloadPage, userId } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const [file, setFile] = useState<File | null>(null);
+    const [files, setFiles] = useState<File[] | null>(null);
+    console.log('files: ', files);
 
     useInitialEffect(() => {
         dispatch(fetchProceduresList());
@@ -53,12 +56,25 @@ const AppoimentForm = memo((props: AppoimentFormProps) => {
     const docters = useSelector(getAddAppoimentDoctors);
     const formData = useSelector(getAddAppoimentForm);
 
+    const cleanForm = useCallback(() => {
+        onChangeDoctor(undefined);
+        onChangeNote(undefined);
+        onChangeImage(undefined);
+        onChangeProcedure(undefined);
+    }, [onSuccess]);
+
     const onChangeProcedure = useCallback(
         (value?: Procedure) => {
             dispatch(appoimentActions.updateAppoiment({ procedureId: value?.id }));
         },
         [dispatch]
     );
+
+    useEffect(() => {
+        if (userId) {
+            dispatch(appoimentActions.updateAppoiment({ clientId: userId }));
+        }
+    }, [dispatch, userId]);
 
     const onChangeDoctor = useCallback(
         (value?: User) => {
@@ -67,8 +83,8 @@ const AppoimentForm = memo((props: AppoimentFormProps) => {
         [dispatch]
     );
     const onChangeClient = useCallback(
-        (value?: Client) => {
-            dispatch(appoimentActions.updateAppoiment({ clientId: value?.id }));
+        (client?: Client) => {
+            dispatch(appoimentActions.updateAppoiment({ clientId: client?.id }));
         },
         [dispatch]
     );
@@ -81,17 +97,18 @@ const AppoimentForm = memo((props: AppoimentFormProps) => {
     );
 
     const onSave = useCallback(async () => {
-        const result = await dispatch(addAppoiment({ file }));
+        const result = await dispatch(addAppoiment({ files }));
         if (result.meta.requestStatus === 'fulfilled') {
             onSuccess();
             reloadPage?.();
-            // cleanForm();
+            cleanForm();
+            toast.success(t('Запись успешно добавлена'));
         }
-    }, [onSuccess, file, dispatch, reloadPage]);
+    }, [onSuccess, files, dispatch, reloadPage]);
 
-    const onChangeImage = useCallback((file?: File) => {
-        if (file) {
-            setFile(file);
+    const onChangeImage = useCallback((files?: File[]) => {
+        if (files) {
+            setFiles(files);
         }
     }, []);
 
@@ -108,7 +125,7 @@ const AppoimentForm = memo((props: AppoimentFormProps) => {
                         data={formData}
                         procedures={procedures}
                         onChangeImage={onChangeImage}
-                        clients={clients}
+                        clients={userId ? [] : clients}
                         doctors={docters}
                     />
                     <Button fullWidth onClick={onSave} theme={ButtonTheme.BACKGROUND_INVERTED}>

@@ -4,10 +4,10 @@ import { Procedure } from 'entities/Procedure';
 import { getProcedureFormData } from '../selectors/procedureForm';
 
 interface ThunkArg {
-    file?: File | null
+    files?: File[] | null
 }
 
-export const createProcedure = createAsyncThunk<Procedure, ThunkArg, ThunkConfig<string>>('client/addClientData', async ({ file }, thunkApi) => {
+export const createProcedure = createAsyncThunk<Procedure, ThunkArg, ThunkConfig<string>>('client/addClientData', async ({ files }, thunkApi) => {
     const { extra, rejectWithValue, getState } = thunkApi;
 
     const procedureForm = getProcedureFormData(getState());
@@ -21,8 +21,10 @@ export const createProcedure = createAsyncThunk<Procedure, ThunkArg, ThunkConfig
     formData.append('name', procedureForm.name ?? '');
     formData.append('description', procedureForm.description ?? '');
 
-    if (file) {
-        formData.append('image', file);
+    if (files) {
+        files.forEach((file) => {
+            formData.append('images', file);
+        });
     }
 
     const blocks = procedureForm.blocks;

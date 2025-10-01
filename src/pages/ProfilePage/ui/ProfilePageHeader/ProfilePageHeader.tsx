@@ -9,7 +9,8 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { getProfileReadonly } from 'entities/Profile/model/selectors/getProfileReadonly/getProfileReadonly';
 import { updateProfileData } from 'entities/Profile/model/services/updateProfileData/updateProfileData';
 import cls from './ProfilePageHeader.module.scss';
-import { getUserAuthData, initAuthData } from 'entities/User';
+import { getUserAuthData } from 'entities/User';
+import { RoleKey } from 'entities/Role/';
 
 interface ProfilePageHeaderProps {
     className?: string;
@@ -22,7 +23,7 @@ export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
     const authData = useSelector(getUserAuthData);
     const profileData = useSelector(getProfileData);
 
-    const isCanEdit = authData?.id == profileData?.id;
+    const isCanEdit = authData?.id == profileData?.id || authData?.role === RoleKey.ADMIN;
 
     const readonly = useSelector(getProfileReadonly);
     const dispatch = useAppDispatch();

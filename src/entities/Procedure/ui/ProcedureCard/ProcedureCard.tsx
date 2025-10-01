@@ -28,7 +28,7 @@ export interface ProcedureCardProps {
     isLoading?: boolean;
     onChangeTitle?: (value?: string) => void;
     onChangeDescription?: (value?: string) => void;
-    onChangeFile?: (value?: File | string) => void;
+    onChangeFile?: (value?: File[]) => void;
     onChangePriceBlocks?: (value: ProcedurePrice[]) => void;
     onChangePreparationBlocks?: (value: string[]) => void;
     onChangeInjectionBlocks?: (value: string[]) => void;
@@ -126,9 +126,14 @@ export const ProcedureCard = memo((props: ProcedureCardProps) => {
                 <Input
                     fullWidth
                     type="file"
-                    onChange={(value: string | File) => {
-                        if (value instanceof File) {
-                            onChangeFile?.(value);
+                    multiple
+                    onChange={(files) => {
+                        if (Array.isArray(files)) {
+                            onChangeFile?.(files);
+                        } else if (files) {
+                            onChangeFile?.([files]);
+                        } else {
+                            onChangeFile?.([]);
                         }
                     }}
                 />

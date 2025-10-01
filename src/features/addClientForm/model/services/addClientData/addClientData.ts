@@ -4,10 +4,10 @@ import { Client } from 'entities/Client';
 import { getAddClientForm } from '../../selectors/getAddClientForm/getAddClientForm';
 
 interface ThunkArg {
-    file?: File | null
+    files?: File[] | null
 }
 
-export const addClientData = createAsyncThunk<Client, ThunkArg, ThunkConfig<string>>('client/addClientData', async ({ file }, thunkApi) => {
+export const addClientData = createAsyncThunk<Client, ThunkArg, ThunkConfig<string>>('client/addClientData', async ({ files }, thunkApi) => {
     const { extra, rejectWithValue, getState } = thunkApi;
 
     const clientForm = getAddClientForm(getState());
@@ -24,8 +24,10 @@ export const addClientData = createAsyncThunk<Client, ThunkArg, ThunkConfig<stri
         }
     });
 
-    if (file) {
-        formData.append('image', file);
+    if (files && files.length > 0) {
+        files.forEach((file) => {
+            formData.append('images', file);
+        });
     }
 
     try {

@@ -26,7 +26,7 @@ const ProcedureItem = ({ className, procedure }: ProcedureItemProps) => {
                     <span className={s.imageWrapper}>
                         <AppImage
                             className={s.image}
-                            src={procedure.image as string}
+                            src={procedure.images?.[0] as string}
                             alt={procedure.name}
                         />
                     </span>

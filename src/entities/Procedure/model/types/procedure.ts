@@ -49,7 +49,7 @@ export interface Procedure {
     id?: string;
     name?: string;
     description?: string;
-    image?: File | string;
+    images?: File[] | string;
     createdAt?: string;
     blocks?: Record<string, ProcedureBlock>;
 }

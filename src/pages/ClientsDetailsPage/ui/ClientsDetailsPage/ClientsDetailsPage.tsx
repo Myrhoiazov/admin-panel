@@ -35,7 +35,7 @@ const ClientsDetailsPage = ({ className }: ClientsDetailsPageProps) => {
         <DynamicModuleLoader reducers={reducers}>
             <Page className={classNames(s.ClientsDetailsPage, {}, [className])}>
                 <VStack gap="16" max>
-                    <HeaderDetails />
+                    <HeaderDetails userId={id} />
                     <ClientDetails id={id} />
                     <ClientAppoiments id={id} />
                     <ClientDetailsComments id={id} />

@@ -25,7 +25,7 @@ export interface ClientCardProps {
     onChangeDescription?: (value?: string) => void;
     onChangeImage3D?: (value: boolean) => void;
     onChangeDocument?: (value: boolean) => void;
-    onChangeAvatar?: (value?: File) => void;
+    onChangeImage?: (value?: File[]) => void;
     onChangeClientStatus?: (status: ClientStatusKey) => void;
 }
 
@@ -38,7 +38,7 @@ export const ClientCard = memo((props: ClientCardProps) => {
         onChangeLastName,
         onChangeBirthday,
         onChangeEmail,
-        onChangeAvatar,
+        onChangeImage,
         onChangePhoneNumber,
         onChangeClientStatus,
         onChangeAnamnesis,
@@ -134,9 +134,13 @@ export const ClientCard = memo((props: ClientCardProps) => {
                 label="Загрузить фото"
                 type="file"
                 placeholder={t('Загрузите фото')}
-                onChange={(value: string | File) => {
-                    if (value instanceof File) {
-                        onChangeAvatar?.(value);
+                onChange={(files) => {
+                    if (Array.isArray(files)) {
+                        onChangeImage?.(files);
+                    } else if (files) {
+                        onChangeImage?.([files]);
+                    } else {
+                        onChangeImage?.([]);
                     }
                 }}
             />

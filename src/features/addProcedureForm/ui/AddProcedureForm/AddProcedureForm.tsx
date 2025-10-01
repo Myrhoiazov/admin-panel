@@ -40,7 +40,7 @@ const reducers: ReducersList = {
 };
 
 export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
-    const [file, setFile] = useState<File | null>(null);
+    const [files, setFiles] = useState<File[] | null>(null);
     const { t } = useTranslation();
 
     const dispatch = useAppDispatch();
@@ -164,25 +164,22 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
         [dispatch]
     );
 
-    const onChangeFile = useCallback(
-        (image?: File | string) => {
-            if (image instanceof File) {
-                setFile(image);
-            }
-        },
-        [dispatch]
-    );
+    const onChangeImage = useCallback((files?: File[]) => {
+        if (files) {
+            setFiles(files);
+        }
+    }, []);
 
     const onCancelEdit = useCallback(() => {
         dispatch(addProcedureFormActions.cancelEdit());
     }, [dispatch]);
 
     const onSave = useCallback(async () => {
-        const result = await dispatch(createProcedure({ file }));
+        const result = await dispatch(createProcedure({ files }));
         if (result.meta.requestStatus === 'fulfilled') {
             dispatch(addProcedureFormActions.cancelEdit());
         }
-    }, [dispatch, file]);
+    }, [dispatch, files]);
 
     if (isLoading) {
         return <Loader />;
@@ -217,7 +214,7 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
                 onChangeRehabilitationBlocks={onChangeRehabilitationBlocks}
                 onChangeContraindicationBlocks={onChangeContraindicationBlocks}
                 onChangeResultBlocks={onChangeResultBlocks}
-                onChangeFile={onChangeFile}
+                onChangeFile={onChangeImage}
                 procedure={procedure}
                 isLoading={isLoading}
                 error={error}

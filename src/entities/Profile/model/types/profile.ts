@@ -1,4 +1,3 @@
-import { Country } from "entities/Country"
 import { Role, RoleKey } from "entities/Role";
 
 export enum ValidateProfileError {

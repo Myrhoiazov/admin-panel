@@ -16,6 +16,6 @@ export enum ClientStatusKey {
 export const ClientStatusLabels: Record<ClientStatusKey, string> = {
     [ClientStatusKey.all]: "Все клиенты",
     [ClientStatusKey.bronze]: "Красный",
-    [ClientStatusKey.silver]: "Синий",
+    [ClientStatusKey.silver]: "Желтый",
     [ClientStatusKey.gold]: "Зеленый",
 };

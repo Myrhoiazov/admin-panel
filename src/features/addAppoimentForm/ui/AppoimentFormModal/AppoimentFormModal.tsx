@@ -9,17 +9,19 @@ interface AppoimentFormProps {
     isOpen: boolean;
     onClose: () => void;
     reloadPage?: () => void;
+    userId?: string;
 }
 
 export const AppoimentFormModal = ({
     className,
     isOpen,
     onClose,
+    userId,
     reloadPage,
 }: AppoimentFormProps) => (
     <Modal className={classNames('', {}, [className])} isOpen={isOpen} onClose={onClose} lazy>
         <Suspense fallback={<Loader />}>
-            <AppoimentFormAsync onSuccess={onClose} reloadPage={reloadPage} />
+            <AppoimentFormAsync onSuccess={onClose} reloadPage={reloadPage} userId={userId} />
         </Suspense>
     </Modal>
 );

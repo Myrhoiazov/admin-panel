@@ -60,7 +60,7 @@ const ProcedureElement = () => {
                     {Object.values(procedure?.blocks || {}).map(renderProcedureBlock)}
                 </VStack>
                 <span className={s.imageWrapper}>
-                    <AppImage src={procedure?.image as string} width={400} />
+                    <AppImage src={procedure?.images?.[0] as string} width={400} />
                 </span>
             </HStack>
         </Card>
