@@ -15,6 +15,7 @@ import { ProcedureCreatePage } from 'pages/ProcedureCreatePage';
 import { AppoimentsPage } from 'pages/AppoimentsPage';
 import { TransactionsPage } from 'pages/TransactionsPage';
 import { SettingsPage } from 'pages/SettingsPage';
+import { AppoimentDetailPage } from 'pages/AppoimentDetailPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -24,7 +25,8 @@ export enum AppRoutes {
     LOGIN = 'login',
     MAIN = 'main',
     ABOUT = 'about',
-    APPOIMENTS = 'appoiments',
+    APPOINTMENTS = 'appointments',
+    APPOINTMENT_DETAILS = 'appointment_details',
     PROFILE = 'profile',
     TRANSACTIONS = 'transactions',
     ARTICLES = 'articles',
@@ -44,7 +46,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
     [AppRoutes.LOGIN]: '/login',
     [AppRoutes.ABOUT]: '/about',
-    [AppRoutes.APPOIMENTS]: '/appoiments',
+    [AppRoutes.APPOINTMENTS]: '/appointments',
     [AppRoutes.PROFILE]: '/profile/',
     [AppRoutes.ARTICLES]: '/articles',
     [AppRoutes.TRANSACTIONS]: '/transactions',
@@ -55,6 +57,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.PROCEDURES_CREATE]: '/procedures/create',
     [AppRoutes.PROCEDURES_DETAILS]: '/procedures/', // :id
     [AppRoutes.PROCEDURES_EDIT]: '/procedures/edit/', // :id
+    [AppRoutes.APPOINTMENT_DETAILS]: '/appointments/', // + :id
     [AppRoutes.SETTINGS]: '/settings',
     // последний
     [AppRoutes.NOT_FOUND]: '*',
@@ -75,9 +78,14 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <AboutPage />,
         authOnly: true,
     },
-    [AppRoutes.APPOIMENTS]: {
-        path: RoutePath.appoiments,
+    [AppRoutes.APPOINTMENTS]: {
+        path: RoutePath.appointments,
         element: <AppoimentsPage />,
+        authOnly: true,
+    },
+    [AppRoutes.APPOINTMENT_DETAILS]: {
+        path: `${RoutePath.appointment_details}:id`,
+        element: <AppoimentDetailPage />,
         authOnly: true,
     },
     [AppRoutes.PROFILE]: {

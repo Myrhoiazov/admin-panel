@@ -20,6 +20,7 @@ import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
 import s from './ClientDetails.module.scss';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { ClientStatusKey, ClientStatusLabels } from 'entities/ClientStatus';
 
 interface ClientDetailsProps {
     // className?: string;
@@ -52,6 +53,10 @@ const ClientElementSkeleton = () => {
 const ClientElement = () => {
     const client = useSelector(getClientDetailsData);
     const { t } = useTranslation();
+
+    const clientStatus = client?.status
+        ? ClientStatusLabels[client?.status.toLocaleLowerCase() as ClientStatusKey]
+        : '';
 
     return (
         <Card padding="32" fullWidth>
@@ -101,8 +106,8 @@ const ClientElement = () => {
                     </HStack>
                     <HStack gap="32" align="start">
                         <Text title="Статус:" size="s" bold className={s.title} />
-                        {client?.status ? (
-                            <Text title={`${client?.status}`} size="s" />
+                        {clientStatus ? (
+                            <Text title={`${clientStatus}`} size="s" />
                         ) : (
                             <Text title="Не определен" size="s" />
                         )}

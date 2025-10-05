@@ -43,7 +43,6 @@ const AppoimentForm = memo((props: AppoimentFormProps) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const [files, setFiles] = useState<File[] | null>(null);
-    console.log('files: ', files);
 
     useInitialEffect(() => {
         dispatch(fetchProceduresList());

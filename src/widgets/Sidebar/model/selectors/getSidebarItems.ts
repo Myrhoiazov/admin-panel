@@ -19,7 +19,7 @@ export const getSidebarItems = createSelector(
             // { path: RoutePath.about, Icon: AboutIcon, text: 'About' },
             { path: RoutePath.clients, Icon: Clients, text: 'Клиенты' },
             { path: RoutePath.procedures, Icon: Procedures, text: 'Процедуры' },
-            { path: RoutePath.appoiments, Icon: Sessions, text: 'Сеансы' },
+            { path: RoutePath.appointments, Icon: Sessions, text: 'Сеансы' },
         ];
 
         if (userData?.role === RoleKey.ADMIN) {

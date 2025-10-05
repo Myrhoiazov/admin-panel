@@ -15,13 +15,11 @@ interface ProcedureItemProps {
 }
 
 const ProcedureItem = ({ className, procedure }: ProcedureItemProps) => {
-    console.log('procedure: ', procedure);
     const image = procedure?.image
         ? Array.isArray(procedure.image)
             ? procedure.image[0]
             : procedure.image
         : '';
-    console.log('image: ', image);
     return (
         <Card
             className={classNames(s.ProcedureItem, {}, [className])}

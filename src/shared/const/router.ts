@@ -13,6 +13,7 @@ export enum AppRoutes {
     ADMIN_PANEL = 'admin_panel',
     FORBIDDEN = 'forbidden',
     APPOINTMENTS = 'appointments',
+    // APPOINTMENT_DETAILS = 'appointment_details',
     PROCEDURES = 'procedures',
     PROCEDURE_DETAILS = 'procedure_details',
     PROCEDURE_EDIT = 'procedure_edit',

@@ -26,6 +26,7 @@ import { AppointmentSchema } from 'features/addAppoimentForm';
 import { AppoimentPageSchema } from 'pages/AppoimentsPage';
 import { UserFormSchema } from 'features/addUserForm';
 import { SettingsPageSchema } from 'pages/SettingsPage';
+import { AppointmentDetailSchema } from 'pages/AppoimentDetailPage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -46,6 +47,7 @@ export interface StateSchema {
 
     addAppoimentForm?: AppointmentSchema;
     appoimentPage?: AppoimentPageSchema;
+    appoimentDetails?: AppointmentDetailSchema
 
     articleDetails?: ArticleDetailsSchema;
     articleDetailsComments?: ArticleDetailsCommentsSchema;

@@ -4,6 +4,8 @@ import s from './UserListItem.module.scss';
 import { HStack } from 'shared/ui/Stack';
 import { Card } from 'shared/ui/Card/Card';
 import { IProfile } from 'entities/Profile';
+import { RoleKey } from 'entities/Role';
+import { RoleLabels } from 'entities/Role/model/types/role';
 
 interface UserListItemProps {
     className?: string;
@@ -13,6 +15,8 @@ interface UserListItemProps {
 
 const UserListItem = (props: UserListItemProps) => {
     const { className, user, renderAction } = props;
+
+    const roleLabel = RoleLabels[user.role as RoleKey];
 
     return (
         <Card
@@ -27,7 +31,7 @@ const UserListItem = (props: UserListItemProps) => {
                         {user.firstName} {user.lastName}
                     </p>
                     <p>{user.email}</p>
-                    <p>{user.role}</p>
+                    <p>{roleLabel}</p>
                 </HStack>
                 {renderAction?.(user)}
             </HStack>

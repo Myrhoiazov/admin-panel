@@ -29,7 +29,7 @@ export const EdditUserDropdown = memo((props: EdditUserDropdownProps) => {
 
     const items = [
         {
-            content: 'Просмотреть',
+            content: 'Редактировать',
             href: getRouteProfile(String(userId)),
         },
         {

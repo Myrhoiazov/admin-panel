@@ -26,9 +26,10 @@ export const addAppoiment = createAsyncThunk<Appointment, ThunkArg, ThunkConfig<
 
     if (files) {
         files.forEach((file) => {
-            formData.append('image', file);
+            formData.append('images', file);
         });
     }
+
 
     try {
         const response = await extra.apiPrivate.post<Appointment>('/appointments', formData, {

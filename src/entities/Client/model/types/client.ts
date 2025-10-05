@@ -1,4 +1,3 @@
-import { Appointment } from "entities/Appointment";
 import { ClientStatusKey } from "entities/ClientStatus";
 
 export interface Client {
