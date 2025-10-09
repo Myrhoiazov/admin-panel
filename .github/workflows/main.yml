@@ -40,6 +40,7 @@ jobs:
             #   run: npm run test:ui:ci
 
             # 7️⃣ Debug step: проверить SSH ключ
+
             - name: Debug SSH key
               env:
                     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -51,6 +52,15 @@ jobs:
                   else
                       echo "✅ SSH_PRIVATE_KEY seems to be loaded correctly."
                   fi
+            - name: Test SSH connection
+              env:
+                    SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+              run: |
+                    mkdir -p ~/.ssh
+                    echo "$SSH_PRIVATE_KEY" | sed 's/\\n/\n/g' > ~/.ssh/id_ed25519
+                    chmod 600 ~/.ssh/id_ed25519
+                    ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "echo '✅ Connected!'"
+
 
             - name: Deploy build folder to VPS
               if: github.ref == 'refs/heads/main'
