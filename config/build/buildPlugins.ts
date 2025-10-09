@@ -48,6 +48,11 @@ export function buildPlugins({ paths, isDev, apiUrl, project }: IBuildOptions): 
                 { from: paths.locales, to: paths.buildLocales },
             ],
         }));
+        plugins.push(new CopyPlugin({
+            patterns: [
+                { from: paths.favicon, to: paths.buildFavicon },
+            ],
+        }));
     }
     return plugins;
 }

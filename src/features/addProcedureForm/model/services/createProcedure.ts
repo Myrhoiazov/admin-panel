@@ -4,10 +4,10 @@ import { Procedure } from 'entities/Procedure';
 import { getProcedureFormData } from '../selectors/procedureForm';
 
 interface ThunkArg {
-    files?: File[] | null
+    file?: File | null
 }
 
-export const createProcedure = createAsyncThunk<Procedure, ThunkArg, ThunkConfig<string>>('client/addClientData', async ({ files }, thunkApi) => {
+export const createProcedure = createAsyncThunk<Procedure, ThunkArg, ThunkConfig<string>>('client/addClientData', async ({ file }, thunkApi) => {
     const { extra, rejectWithValue, getState } = thunkApi;
 
     const procedureForm = getProcedureFormData(getState());
@@ -21,10 +21,8 @@ export const createProcedure = createAsyncThunk<Procedure, ThunkArg, ThunkConfig
     formData.append('name', procedureForm.name ?? '');
     formData.append('description', procedureForm.description ?? '');
 
-    if (files) {
-        files.forEach((file) => {
-            formData.append('images', file);
-        });
+    if (file) {
+        formData.append('image', file);
     }
 
     const blocks = procedureForm.blocks;
@@ -36,8 +34,10 @@ export const createProcedure = createAsyncThunk<Procedure, ThunkArg, ThunkConfig
             switch (blockValue.type) {
                 case 'price':
                     blockValue.blocks?.forEach((price, index) => {
-                        formData.append(`${blockKey}[${index}]`, price.zone);
-                        formData.append(`${blockKey}[${index}]`, price.price?.toString() ?? '');
+                        if (price.zone && price.price) {
+                            formData.append(`${blockKey}[${index}]`, price.zone);
+                            formData.append(`${blockKey}[${index}]`, price.price?.toString() ?? '');
+                        }
                     });
                     break;
 

@@ -28,7 +28,7 @@ export interface ProcedureCardProps {
     isLoading?: boolean;
     onChangeTitle?: (value?: string) => void;
     onChangeDescription?: (value?: string) => void;
-    onChangeFile?: (value?: File[]) => void;
+    onChangeFile?: (value?: File) => void;
     onChangePriceBlocks?: (value: ProcedurePrice[]) => void;
     onChangePreparationBlocks?: (value: string[]) => void;
     onChangeInjectionBlocks?: (value: string[]) => void;
@@ -127,14 +127,8 @@ export const ProcedureCard = memo((props: ProcedureCardProps) => {
                     fullWidth
                     type="file"
                     multiple
-                    onChange={(files) => {
-                        if (Array.isArray(files)) {
-                            onChangeFile?.(files);
-                        } else if (files) {
-                            onChangeFile?.([files]);
-                        } else {
-                            onChangeFile?.([]);
-                        }
+                    onChange={(file) => {
+                        onChangeFile?.((file as File) || '');
                     }}
                 />
             </VStack>

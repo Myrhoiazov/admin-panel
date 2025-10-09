@@ -30,6 +30,7 @@ import { Button, ButtonTheme } from 'shared/ui/Button';
 import { createProcedure } from '../../model/services/createProcedure';
 import Loader from 'shared/ui/Loader/Loader';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 interface AddProcedureFormProps {
     className?: string;
@@ -40,7 +41,7 @@ const reducers: ReducersList = {
 };
 
 export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
-    const [files, setFiles] = useState<File[] | null>(null);
+    const [file, setFile] = useState<File | null>(null);
     const { t } = useTranslation();
 
     const dispatch = useAppDispatch();
@@ -164,9 +165,9 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
         [dispatch]
     );
 
-    const onChangeImage = useCallback((files?: File[]) => {
-        if (files) {
-            setFiles(files);
+    const onChangeImage = useCallback((file?: File) => {
+        if (file) {
+            setFile(file);
         }
     }, []);
 
@@ -175,11 +176,12 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
     }, [dispatch]);
 
     const onSave = useCallback(async () => {
-        const result = await dispatch(createProcedure({ files }));
+        const result = await dispatch(createProcedure({ file }));
         if (result.meta.requestStatus === 'fulfilled') {
             dispatch(addProcedureFormActions.cancelEdit());
+            toast.success(t('Процедура успешно добавленна'));
         }
-    }, [dispatch, files]);
+    }, [dispatch, file]);
 
     if (isLoading) {
         return <Loader />;

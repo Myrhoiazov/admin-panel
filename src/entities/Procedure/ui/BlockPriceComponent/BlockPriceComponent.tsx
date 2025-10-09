@@ -40,7 +40,7 @@ const BlockPriceComponent = (props: BlockPriceComponentProps) => {
 
     const priceBlock = useMemo(() => {
         return (item: ProcedurePrice, index: number) => (
-            <HStack key={item.zone} gap="24" align="end" max>
+            <HStack key={index} gap="24" align="end" max>
                 <Input
                     fullWidth
                     label="Зона услуги"

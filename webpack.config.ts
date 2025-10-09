@@ -11,6 +11,8 @@ export default (env: IBuildEnv) => {
         src: path.resolve(__dirname, 'src'),
         locales: path.resolve(__dirname, 'public', 'locales'),
         buildLocales: path.resolve(__dirname, 'build', 'locales'),
+        favicon: path.resolve(__dirname, 'public', 'favicon'),
+        buildFavicon: path.resolve(__dirname, 'build', 'favicon'),
     };
 
     const PORT = env.port || 3000;
