@@ -1,7 +1,7 @@
 /build
 node_modules
 .idea
-.github
+
 .vscode
 
 .DS_Store
