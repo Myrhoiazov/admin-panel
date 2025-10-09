@@ -18,11 +18,11 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: Install dependencies
-              run: npm ci
+            # - name: Install dependencies
+            #   run: npm ci
 
-            - name: Build production project
-              run: npm run build:prod
+            # - name: Build production project
+            #   run: npm run build:prod
 
             # - name: Lint TypeScript
             #   run: npm run lint:ts
@@ -41,6 +41,8 @@ jobs:
 
             # 7️⃣ Debug step: проверить SSH ключ
             - name: Debug SSH key
+              env:
+                    SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
               run: |
                   echo "SSH key length: $(echo "$SSH_PRIVATE_KEY" | wc -c)"
                   if [ -z "$SSH_PRIVATE_KEY" ]; then
@@ -49,8 +51,6 @@ jobs:
                   else
                       echo "✅ SSH_PRIVATE_KEY seems to be loaded correctly."
                   fi
-                  env:
-                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
             - name: Deploy build folder to VPS
               if: github.ref == 'refs/heads/main'
