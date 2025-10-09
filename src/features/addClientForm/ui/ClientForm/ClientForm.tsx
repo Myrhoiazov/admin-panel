@@ -15,7 +15,8 @@ import { getAddClientForm } from '../../model/selectors/getAddClientForm/getAddC
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addClientData } from '../../model/services/addClientData/addClientData';
 import { ClientCard } from 'entities/Client';
-import { ClientStatus } from 'entities/ClientStatus';
+import { ClientStatusKey } from 'entities/ClientStatus';
+import { toast } from 'react-toastify';
 
 interface AddClientFormProps {
     className?: string;
@@ -84,19 +85,31 @@ const AddClientForm = memo((props: AddClientFormProps) => {
         },
         [dispatch]
     );
+    const onChangeSocial = useCallback(
+        (value?: string) => {
+            dispatch(clientActions.updateProfile({ social: value || '' }));
+        },
+        [dispatch]
+    );
     const onChangeImage3D = useCallback(
         (value: boolean) => {
             dispatch(clientActions.updateProfile({ image_3d: value || false }));
         },
         [dispatch]
     );
+    const onChangeDocument = useCallback(
+        (value: boolean) => {
+            dispatch(clientActions.updateProfile({ document: value || false }));
+        },
+        [dispatch]
+    );
     const onChangeClientStatus = useCallback(
-        (status: ClientStatus) => {
+        (status: ClientStatusKey) => {
             dispatch(clientActions.updateProfile({ status }));
         },
         [dispatch]
     );
-    const onChangeAvatar = useCallback(
+    const onChangeImage = useCallback(
         (file?: File) => {
             if (file) {
                 setFile(file);
@@ -111,8 +124,9 @@ const AddClientForm = memo((props: AddClientFormProps) => {
             onSuccess();
             reloadPage?.();
             cleanForm();
+            toast.success(t('Клиент успешно добавлен'));
         }
-    }, [onSuccess, file]);
+    }, [onSuccess, file, cleanForm, dispatch, reloadPage]);
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>
@@ -126,10 +140,12 @@ const AddClientForm = memo((props: AddClientFormProps) => {
                         onChangeBirthday={onChangeBirthday}
                         onChangePhoneNumber={onChangePhoneNumber}
                         onChangeEmail={onChangeEmail}
-                        onChangeAvatar={onChangeAvatar}
+                        onChangeImage={onChangeImage}
                         onChangeAnamnesis={onChangeAnamnesis}
                         onChangeDescription={onChangeDescription}
                         onChangeImage3D={onChangeImage3D}
+                        onChangeDocument={onChangeDocument}
+                        onChangeSocial={onChangeSocial}
                         data={formData}
                     />
                     <Button fullWidth onClick={onSave} theme={ButtonTheme.BACKGROUND_INVERTED}>

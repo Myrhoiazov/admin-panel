@@ -15,6 +15,11 @@ interface ProcedureItemProps {
 }
 
 const ProcedureItem = ({ className, procedure }: ProcedureItemProps) => {
+    const image = procedure?.image
+        ? Array.isArray(procedure.image)
+            ? procedure.image[0]
+            : procedure.image
+        : '';
     return (
         <Card
             className={classNames(s.ProcedureItem, {}, [className])}
@@ -24,11 +29,7 @@ const ProcedureItem = ({ className, procedure }: ProcedureItemProps) => {
             <Link to={`${RoutePath.procedures_details}${procedure.id}`} className={s.link}>
                 <VStack gap="8" align="stretch" justify="start" className={s.content}>
                     <span className={s.imageWrapper}>
-                        <AppImage
-                            className={s.image}
-                            src={procedure.image as string}
-                            alt={procedure.name}
-                        />
+                        <AppImage className={s.image} src={image as string} alt={procedure.name} />
                     </span>
                     <Text size="l" text={procedure.name} className={s.title} bold />
                 </VStack>

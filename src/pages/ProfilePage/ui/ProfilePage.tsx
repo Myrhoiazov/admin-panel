@@ -20,7 +20,7 @@ import { getProfileForm } from 'entities/Profile/model/selectors/getProfileForm/
 import { getProfileReadonly } from 'entities/Profile/model/selectors/getProfileReadonly/getProfileReadonly';
 import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
 import { Country } from 'entities/Country';
-import { Role } from 'entities/Role';
+import { Role, RoleKey } from 'entities/Role';
 import { Text } from 'shared/ui/Text/Text';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useParams } from 'react-router-dom';
@@ -77,23 +77,9 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
         [dispatch]
     );
 
-    const onChangeCity = useCallback(
+    const onChangeEmail = useCallback(
         (value?: string) => {
-            dispatch(profileActions.updateProfile({ city: value || '' }));
-        },
-        [dispatch]
-    );
-
-    const onChangeAge = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ age: Number(value || 0) }));
-        },
-        [dispatch]
-    );
-
-    const onChangeUsername = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ username: value || '' }));
+            dispatch(profileActions.updateProfile({ email: value || '' }));
         },
         [dispatch]
     );
@@ -106,15 +92,8 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     );
 
     const onChangeRole = useCallback(
-        (role: Role) => {
+        (role: RoleKey) => {
             dispatch(profileActions.updateProfile({ role }));
-        },
-        [dispatch]
-    );
-
-    const onChangeCountry = useCallback(
-        (country: Country) => {
-            dispatch(profileActions.updateProfile({ country }));
         },
         [dispatch]
     );
@@ -134,12 +113,9 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
                     readonly={readonly}
                     onChangeFirstname={onChangeFirstname}
                     onChangeLastname={onChangeLastname}
-                    onChangeAge={onChangeAge}
-                    onChangeCity={onChangeCity}
-                    onChangeUsername={onChangeUsername}
                     onChangeAvatar={onChangeAvatar}
                     onChangeRole={onChangeRole}
-                    onChangeCountry={onChangeCountry}
+                    onChangeEmail={onChangeEmail}
                 />
             </Page>
         </DynamicModuleLoader>

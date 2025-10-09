@@ -5,6 +5,10 @@ export interface IBuildPath {
     build: string;
     html: string;
     src: string;
+    locales: string;
+    buildLocales: string;
+    favicon: string
+    buildFavicon: string
 }
 export interface IBuildEnv {
     mode: BuildMode;

@@ -6,6 +6,7 @@ import { Dropdown } from 'shared/ui/Popups';
 import { Icon } from 'shared/ui/Icon/Icon';
 import Eddit from 'shared/assets/icons/edit-icon.svg';
 import { deleteClientById } from '../../model/services/deleteClientById';
+import { toast } from 'react-toastify';
 
 interface EdditClientDropdownProps {
     className?: string;
@@ -22,6 +23,7 @@ export const EdditClientDropdown = memo((props: EdditClientDropdownProps) => {
         const result = await dispatch(deleteClientById(clientId));
         if (result.meta.requestStatus === 'fulfilled') {
             reloadPage?.();
+            toast.info('Клиент успешно удален');
         }
     }, [dispatch]);
 
@@ -31,7 +33,7 @@ export const EdditClientDropdown = memo((props: EdditClientDropdownProps) => {
             href: getRouteClients(),
         },
         {
-            content: 'Редактировать',
+            content: 'Просмотреть',
             href: getRouteClientDetails(String(clientId)),
         },
         {

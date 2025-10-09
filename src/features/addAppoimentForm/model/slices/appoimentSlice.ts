@@ -5,6 +5,8 @@ import { fetchProceduresList } from '../services/fetchProceduresList/fetchProced
 import { Procedure } from 'entities/Procedure';
 import { fetchClientsList } from '../services/fetchClientsList/fetchClientsList';
 import { Client } from 'entities/Client';
+import { fetchDoctorsList } from '../services/fetchDoctorsList/fetchDoctorsList';
+import { User } from 'entities/User';
 
 const initialState: AppointmentSchema = {
     readonly: true,
@@ -13,6 +15,7 @@ const initialState: AppointmentSchema = {
     data: undefined,
     procedures: undefined,
     clients: undefined,
+    doctors: undefined,
 };
 
 export const appoimentSlice = createSlice({
@@ -65,6 +68,21 @@ export const appoimentSlice = createSlice({
                 },
             )
             .addCase(fetchClientsList.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(fetchDoctorsList.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(
+                fetchDoctorsList.fulfilled,
+                (state, action: PayloadAction<User[]>) => {
+                    state.isLoading = false;
+                    state.doctors = action.payload;
+                },
+            )
+            .addCase(fetchDoctorsList.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })

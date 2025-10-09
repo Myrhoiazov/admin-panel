@@ -28,13 +28,6 @@ export const addClientData = createAsyncThunk<Client, ThunkArg, ThunkConfig<stri
         formData.append('image', file);
     }
 
-
-    // const errors = validateProfileData(formData);
-
-    // if (errors.length) {
-    //     return rejectWithValue(errors);
-    // }
-
     try {
         const response = await extra.apiPrivate.post<Client>('/clients', formData, {
             headers: {

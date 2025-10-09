@@ -1,20 +1,21 @@
 import { useTranslation } from 'react-i18next';
 import { Select } from 'shared/ui/Select/Select';
 import { memo, useCallback, useMemo } from 'react';
-import { Role } from '../../model/types/role';
+import { RoleKey, RoleLabels } from '../../model/types/role';
 import { classNames } from 'shared/lib/classNames/classNames';
 
 interface RoleSelectProps {
     className?: string;
-    value?: Role;
-    onChange?: (value: Role) => void;
+    value?: RoleKey;
+    onChange?: (value: RoleKey) => void;
     readonly?: boolean;
 }
 
 const options = [
-    { value: Role.ADMIN, content: Role.ADMIN },
-    { value: Role.MANAGER, content: Role.MANAGER },
-    { value: Role.GUEST, content: Role.GUEST },
+    { value: RoleKey.ADMIN, content: RoleLabels.ADMIN },
+    { value: RoleKey.MANAGER, content: RoleLabels.MANAGER },
+    { value: RoleKey.GUEST, content: RoleLabels.GUEST },
+    { value: RoleKey.DOCTOR, content: RoleLabels.DOCTOR },
 ];
 
 export const RoleSelect = memo(({ className, value, onChange, readonly }: RoleSelectProps) => {
@@ -22,13 +23,13 @@ export const RoleSelect = memo(({ className, value, onChange, readonly }: RoleSe
 
     const onChangeHandler = useCallback(
         (value: string) => {
-            onChange?.(value as Role);
+            onChange?.(value as RoleKey);
         },
         [onChange]
     );
 
     const selectRole = useMemo(() => {
-        return Role[value as unknown as keyof typeof Role];
+        return RoleKey[value as unknown as keyof typeof RoleKey];
     }, [value]);
 
     return (

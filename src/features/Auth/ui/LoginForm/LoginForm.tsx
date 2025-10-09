@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useSelector } from 'react-redux';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback } from 'react';
 import { Text } from 'shared/ui/Text/Text';
 import {
     DynamicModuleLoader,
@@ -64,19 +64,18 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>
-            <Card className={classNames(cls.LoginForm, {}, [className])} shadow='shadowAccent' padding='32'>
+            <Card
+                className={classNames(cls.LoginForm, {}, [className])}
+                shadow="shadowAccent"
+                padding="32"
+            >
                 <VStack align="center">
-                    <AppImage
-                        src={Logo}
-                        alt="Dr Rusakova clinic"
-                        width={200}
-                    />
+                    <AppImage src={Logo} alt="Dr Rusakova clinic" width={200} />
                     <VStack gap="4" align="center" className={cls.header}>
                         <Text size="m" title={t('Добро пожаловать!')} bold />
                         <Text size="s" text={t('Пожалуйста авторизируйтесь!')} />
                     </VStack>
                 </VStack>
-
 
                 <Input
                     fullWidth
@@ -100,7 +99,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                 />
                 {error && <Text text={t('Вы ввели неверный логин или пароль')} variant={'error'} />}
 
-                <VStack gap="16" align='center'>
+                <VStack gap="16" align="center">
                     <Button
                         theme={ButtonTheme.BACKGROUND_INVERTED}
                         className={cls.loginBtn}
@@ -111,7 +110,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                         {t('Войти')}
                     </Button>
                     <Button theme={ButtonTheme.CLEAR} className={cls.forgot}>
-                        Forgot your password?
+                        {t('Забыли пароль?')}
                     </Button>
                 </VStack>
             </Card>

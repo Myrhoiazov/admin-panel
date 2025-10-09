@@ -2,10 +2,11 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
 import { Input } from 'shared/ui/Input/Input';
-import { ClientStatusSelect, ClientStatus } from 'entities/ClientStatus';
+import { ClientStatusSelect, ClientStatusKey } from 'entities/ClientStatus';
 import { Client } from 'entities/Client';
 import Textarea from 'shared/ui/Textarea/Textarea';
 import CheckBox from 'shared/ui/CheckBox/CheckBox';
+import { on } from 'events';
 
 export interface ClientCardProps {
     className?: string;
@@ -20,10 +21,12 @@ export interface ClientCardProps {
     onChangeBirthday?: (value?: string) => void;
     onChangePhoneNumber?: (value?: string) => void;
     onChangeAnamnesis?: (value?: string) => void;
+    onChangeSocial?: (value?: string) => void;
     onChangeDescription?: (value?: string) => void;
     onChangeImage3D?: (value: boolean) => void;
-    onChangeAvatar?: (value?: File) => void;
-    onChangeClientStatus?: (status: ClientStatus) => void;
+    onChangeDocument?: (value: boolean) => void;
+    onChangeImage?: (value?: File) => void;
+    onChangeClientStatus?: (status: ClientStatusKey) => void;
 }
 
 export const ClientCard = memo((props: ClientCardProps) => {
@@ -35,12 +38,14 @@ export const ClientCard = memo((props: ClientCardProps) => {
         onChangeLastName,
         onChangeBirthday,
         onChangeEmail,
-        onChangeAvatar,
+        onChangeImage,
         onChangePhoneNumber,
         onChangeClientStatus,
         onChangeAnamnesis,
         onChangeDescription,
         onChangeImage3D,
+        onChangeDocument,
+        onChangeSocial,
     } = props;
     const { t } = useTranslation();
 
@@ -87,10 +92,23 @@ export const ClientCard = memo((props: ClientCardProps) => {
                 onChange={onChangeEmail}
                 value={data?.email ?? ''}
             />
+            <Input
+                fullWidth
+                label="Социальные сети"
+                type="text"
+                placeholder={t('Вставьте ссылки на социальные сети')}
+                onChange={onChangeSocial}
+                value={data?.social ?? ''}
+            />
             <CheckBox
                 value={data?.image_3d ?? false}
                 onChange={onChangeImage3D}
                 label="Наличие 3d фото :"
+            />
+            <CheckBox
+                value={data?.document ?? false}
+                onChange={onChangeDocument}
+                label="Наличие документа :"
             />
             <Textarea
                 placeholder="Анамнез пациента:"
@@ -116,10 +134,8 @@ export const ClientCard = memo((props: ClientCardProps) => {
                 label="Загрузить фото"
                 type="file"
                 placeholder={t('Загрузите фото')}
-                onChange={(value: string | File) => {
-                    if (value instanceof File) {
-                        onChangeAvatar?.(value);
-                    }
+                onChange={(file) => {
+                    onChangeImage?.(file as File);
                 }}
             />
         </>

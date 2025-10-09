@@ -27,6 +27,7 @@ import { Text } from 'shared/ui/Text/Text';
 import { HStack } from 'shared/ui/Stack';
 import { Page } from 'widgets/Page/Page';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface ClientsPageProps {
     className?: string;
@@ -42,6 +43,7 @@ const ClientsPage = (props: ClientsPageProps) => {
     const clients = useSelector(getClients.selectAll);
     const isLoading = useSelector(getClientsPageIsLoading);
     const view = useSelector(getClientsPageView);
+    const { t } = useTranslation();
     const [searchParams] = useSearchParams();
 
     const onChangeView = useCallback(
@@ -71,7 +73,7 @@ const ClientsPage = (props: ClientsPageProps) => {
             >
                 <FiltersContainer reloadPage={fetchAllClients} />
                 <HStack gap="16" align="center">
-                    <Text title="ClientList" size="l" bold />
+                    <Text title={t('ClientsList')} size="l" bold />
                     <ClientViewSelector view={view} onViewClick={onChangeView} />
                 </HStack>
                 <ClientList

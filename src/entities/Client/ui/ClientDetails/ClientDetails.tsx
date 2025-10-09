@@ -18,6 +18,9 @@ import { Text } from 'shared/ui/Text/Text';
 import { Card } from 'shared/ui/Card/Card';
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
 import s from './ClientDetails.module.scss';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { ClientStatusKey, ClientStatusLabels } from 'entities/ClientStatus';
 
 interface ClientDetailsProps {
     // className?: string;
@@ -49,28 +52,43 @@ const ClientElementSkeleton = () => {
 
 const ClientElement = () => {
     const client = useSelector(getClientDetailsData);
+    const { t } = useTranslation();
+
+    const clientStatus = client?.status
+        ? ClientStatusLabels[client?.status.toLocaleLowerCase() as ClientStatusKey]
+        : '';
 
     return (
         <Card padding="32" fullWidth>
             <HStack gap="32" max align="start" justify="between">
                 <VStack gap="16">
-                    <HStack gap="16" align="start">
+                    <HStack gap="32" align="start">
                         <Text title="Имя и Фамилия:" size="s" bold className={s.title} />
                         <Text title={`${client?.firstName} ${client?.lastName}`} size="s" />
                     </HStack>
-                    <HStack gap="16" align="start">
+                    <HStack gap="32" align="start">
                         <Text title="День Рождения:" size="s" bold className={s.title} />
                         <Text title={`${client?.birthday}`} size="s" />
                     </HStack>
-                    <HStack gap="16" align="start">
+                    <HStack gap="32" align="start">
                         <Text title="Email:" size="s" bold className={s.title} />
                         <Text title={`${client?.email}`} size="s" />
                     </HStack>
-                    <HStack gap="16" align="start">
+                    <HStack gap="32" align="start">
                         <Text title="Тел:" size="s" bold className={s.title} />
                         <Text title={`${client?.phoneNumber}`} size="s" />
                     </HStack>
-                    <HStack gap="16" align="start">
+                    <HStack gap="32" align="start">
+                        <Text title="Социальные сети:" size="s" bold className={s.title} />
+                        {client?.social ? (
+                            <Link to={client.social} target="_blank">
+                                {t('link')}
+                            </Link>
+                        ) : (
+                            <Text title="-" size="s" />
+                        )}
+                    </HStack>
+                    <HStack gap="32" align="start">
                         <Text title="Наличие 3D фото:" size="s" bold className={s.title} />
                         {client?.image_3d ? (
                             <Text title="YES" size="s" />
@@ -78,15 +96,23 @@ const ClientElement = () => {
                             <Text title="-" size="s" />
                         )}
                     </HStack>
-                    <HStack gap="16" align="start">
+                    <HStack gap="32" align="start">
+                        <Text title="Наличие документа:" size="s" bold className={s.title} />
+                        {client?.document ? (
+                            <Text title="YES" size="s" />
+                        ) : (
+                            <Text title="-" size="s" />
+                        )}
+                    </HStack>
+                    <HStack gap="32" align="start">
                         <Text title="Статус:" size="s" bold className={s.title} />
-                        {client?.status ? (
-                            <Text title={`${client?.status}`} size="s" />
+                        {clientStatus ? (
+                            <Text title={`${clientStatus}`} size="s" />
                         ) : (
                             <Text title="Не определен" size="s" />
                         )}
                     </HStack>
-                    <HStack gap="16" align="start">
+                    <HStack gap="32" align="start">
                         <Text title="Анамнез пациента:" size="s" bold className={s.title} />
                         {client?.anamnesis ? (
                             <Text title={`${client?.anamnesis}`} size="s" />
@@ -94,7 +120,7 @@ const ClientElement = () => {
                             <Text title="Не определен" size="s" />
                         )}
                     </HStack>
-                    <HStack gap="16" align="start">
+                    <HStack gap="32" align="start">
                         <Text title="Характеристики пациента:" size="s" bold className={s.title} />
                         {client?.description ? (
                             <Text title={`${client?.description}`} size="s" />

@@ -10,7 +10,7 @@ export const fetchClientsList = createAsyncThunk<
 >(
     'addAppoimentForm/fetchClientsList',
     async (_, thunkApi) => {
-        const { extra, rejectWithValue, getState } = thunkApi;
+        const { extra, rejectWithValue } = thunkApi;
 
         try {
             const { data } = await extra.apiPrivate.get<Client[]>('/clients');

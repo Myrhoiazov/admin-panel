@@ -3,16 +3,15 @@ import { HStack, VStack } from 'shared/ui/Stack';
 import { Input } from 'shared/ui/Input/Input';
 import { Button } from 'shared/ui/Button';
 import { Text } from 'shared/ui/Text/Text';
+import { useTranslation } from 'react-i18next';
 
 interface BlockResultComponentProps {
     blocks: string[];
     onChangeResultBlocks?: (value: string[]) => void;
 }
 
-const BlockResultComponent = ({
-    blocks,
-    onChangeResultBlocks,
-}: BlockResultComponentProps) => {
+const BlockResultComponent = ({ blocks, onChangeResultBlocks }: BlockResultComponentProps) => {
+    const { t } = useTranslation();
     const handleAddZone = useCallback(() => {
         onChangeResultBlocks?.([...blocks, '']);
     }, [onChangeResultBlocks, blocks]);
@@ -44,7 +43,7 @@ const BlockResultComponent = ({
                     value={item}
                     onChange={(value: string) => handleZoneChange(index, value)}
                 />
-                <Button onClick={() => handleRemoveZone(index)}>Удалить</Button>
+                <Button onClick={() => handleRemoveZone(index)}>{t('Удалить')}</Button>
             </HStack>
         );
     }, [handleZoneChange, handleRemoveZone]);
@@ -53,7 +52,7 @@ const BlockResultComponent = ({
         <VStack gap="16" max>
             <Text title="Результат" size="m" />
             {blocks.map(renderBlock)}
-            <Button onClick={handleAddZone}>Добавить зону</Button>
+            <Button onClick={handleAddZone}>{t('Добавить зону')}</Button>
         </VStack>
     );
 };

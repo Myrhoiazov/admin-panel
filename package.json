@@ -49,6 +49,7 @@
         "@types/webpack-dev-server": "^4.7.2",
         "babel-loader": "^10.0.0",
         "babel-plugin-i18next-extract": "^1.0.0",
+        "copy-webpack-plugin": "^13.0.1",
         "css-loader": "^6.6.0",
         "eslint": "^9.24.0",
         "eslint-config-prettier": "^10.1.2",
@@ -56,6 +57,7 @@
         "eslint-plugin-i18next": "^6.1.1",
         "eslint-plugin-prettier": "^5.2.6",
         "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^5.2.0",
         "eslint-plugin-storybook": "^0.12.0",
         "file-loader": "^6.2.0",
         "globals": "^16.0.0",
@@ -96,6 +98,7 @@
         "react-i18next": "^15.4.1",
         "react-redux": "^9.2.0",
         "react-router-dom": "^7.5.0",
+        "react-toastify": "^11.0.5",
         "redux": "^5.0.1"
     },
     "eslintConfig": {

@@ -3,7 +3,7 @@ import { ThunkConfig } from 'app/providers/StoreProvider';
 import { Client } from 'entities/Client';
 import { getClientsPageOrder, getClientsPageSearch, getClientsPageSort, getClientsPageType } from '../../selectors/clientsPageSelectors';
 import { addQueryParams } from 'shared/lib/url/addQueryParams/addQueryParams';
-import { ClientStatus } from 'entities/ClientStatus';
+import { ClientStatusKey } from 'entities/ClientStatus';
 
 interface FetchArticlesListProps {
     replace?: boolean;
@@ -39,7 +39,7 @@ export const fetchClientsList = createAsyncThunk<
                     _q: search,
                     _sortBy: sort,
                     _order: order,
-                    _status: type === ClientStatus.ALL ? null : type
+                    _status: type === ClientStatusKey.all ? null : type
                 }
             });
 

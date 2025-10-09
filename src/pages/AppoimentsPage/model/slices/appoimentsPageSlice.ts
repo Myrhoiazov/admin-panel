@@ -8,6 +8,8 @@ import { StateSchema } from 'app/providers/StoreProvider';
 import { fetchAppoimentsList } from '../services/fetchAppoimentsList/fetchAppoimentsList';
 import { AppoimentPageSchema } from '../types/AppoimentPageSchema';
 import { Appointment } from 'entities/Appointment';
+import { SortOrder } from 'shared/types/sort';
+import { ClientSortField } from 'entities/Client';
 
 const appoimentAdapter = createEntityAdapter<Appointment, string>({
     selectId: (appointment) => appointment.id as string,
@@ -26,11 +28,21 @@ const appoimentsPageSlice = createSlice({
         entities: {},
         page: 1,
         order: 'asc',
+        sort: ClientSortField.CREATED,
         search: '',
         hasMore: true,
         _inited: false
     }),
     reducers: {
+        setSearch: (state, action: PayloadAction<string>) => {
+            state.search = action.payload;
+        },
+        setSort: (state, action: PayloadAction<ClientSortField>) => {
+            state.sort = action.payload;
+        },
+        setOrder: (state, action: PayloadAction<SortOrder>) => {
+            state.order = action.payload;
+        },
         setPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
         },
@@ -46,12 +58,17 @@ const appoimentsPageSlice = createSlice({
             })
             .addCase(fetchAppoimentsList.fulfilled, (
                 state,
-                action: PayloadAction<Appointment[]>,
+                action,
             ) => {
                 state.isLoading = false;
-
-                appoimentAdapter.setAll(state, action.payload);
                 state.hasMore = action.payload.length > 0;
+
+                if (action.meta.arg.replace) {
+                    appoimentAdapter.setAll(state, action.payload);
+                } else {
+                    appoimentAdapter.addMany(state, action.payload);
+                }
+
             })
             .addCase(fetchAppoimentsList.rejected, (state, action) => {
                 state.isLoading = false;

@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { getSidebarItems } from '../../model/selectors/getSidebarItems';
 import { AppImage } from 'shared/ui/AppImage';
 import Logo from 'shared/assets/images/logo-gold.png';
+import MobLogo from 'shared/assets/images/mob-logo.png';
 import { VStack } from 'shared/ui/Stack';
 
 interface SidebarProps {
@@ -23,7 +24,7 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
 
     const itemList = useMemo(
         () =>
-            sidebarItemsList.map((item) => (
+            (sidebarItemsList ?? []).map((item) => (
                 <SidebarItem item={item} key={item.text} collapsed={collapsed} />
             )),
         [collapsed, sidebarItemsList]
@@ -45,7 +46,12 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
                 {collapsed ? '>' : '<'}
             </Button>
             <VStack align="center">
-                <AppImage src={Logo} alt="Dr Rusakova clinic" className={cls.logo} width={200} />
+                <AppImage
+                    src={collapsed ? MobLogo : Logo}
+                    alt="Dr Rusakova clinic"
+                    className={cls.logo}
+                    width={collapsed ? 50 : 200}
+                />
             </VStack>
             <div className={cls.items}>{itemList}</div>
         </div>

@@ -19,6 +19,12 @@ const getSkeletons = () =>
 export const ProcedureList = memo((props: ProcedureListProps) => {
     const { className, procedures, isLoading } = props;
 
+    const renderProcedure = useMemo(() => {
+        return (procedure: Procedure) => (
+            <ProcedureItem procedure={procedure} key={procedure.id} className={s.item} />
+        );
+    }, [procedures]);
+
     if (!isLoading && !procedures.length) {
         return (
             <div className={classNames(s.ProcedureList, {}, [])}>
@@ -26,12 +32,6 @@ export const ProcedureList = memo((props: ProcedureListProps) => {
             </div>
         );
     }
-
-    const renderProcedure = useMemo(() => {
-        return (procedure: Procedure) => (
-            <ProcedureItem procedure={procedure} key={procedure.id} className={s.item} />
-        );
-    }, [procedures]);
 
     return (
         <div className={classNames(s.ProcedureList, {}, [className])}>

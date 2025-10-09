@@ -31,7 +31,7 @@ type TextInputProps = BaseInputProps & {
 type FileInputProps = BaseInputProps & {
     type: 'file';
     value?: never;
-    onChange?: (value: File) => void;
+    onChange?: (value: File | File[]) => void;
 };
 
 export type InputProps = TextInputProps | FileInputProps;
@@ -64,9 +64,11 @@ export const Input = memo((props: InputProps) => {
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (type === 'file') {
-            const file = e.target.files?.[0];
-            if (file) {
-                (onChange as (value: File) => void)?.(file);
+            const files = e.target.files;
+            if (files?.length === 1) {
+                (onChange as (value: File) => void)?.(files[0]);
+            } else if (files?.length && files.length > 1) {
+                (onChange as (value: File[]) => void)?.(Array.from(files));
             }
         } else {
             (onChange as (value: string | number) => void)?.(e.target.value || '');

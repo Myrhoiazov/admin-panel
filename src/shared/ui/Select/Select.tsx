@@ -29,6 +29,7 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
     const optionsList = useMemo(() => {
         const defaultOption = defaultValue ? (
             <option
+                key="default"
                 className={cls.option}
                 value=""
                 disabled={value ? true : false}
@@ -46,7 +47,7 @@ export const Select = <T extends string>(props: SelectProps<T>) => {
             )) ?? [];
 
         return [defaultOption, ...regularOptions];
-    }, [options, defaultValue]);
+    }, [options, defaultValue, value]);
 
     const mods: Mods = {};
 

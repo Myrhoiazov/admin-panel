@@ -12,16 +12,19 @@ import { Input } from 'shared/ui/Input/Input';
 import SearchIcon from 'shared/assets/icons/search.svg';
 import { HStack } from 'shared/ui/Stack';
 import { useTranslation } from 'react-i18next';
+import { Month } from 'entities/Month';
 
 interface TransactionFiltersProps {
     className?: string;
     search: string;
+    month: Month;
     sort: TransactionSortField;
     order: SortOrder;
     reloadPage?: () => void;
     onChangeSearch: (value: string) => void;
     onChangeOrder: (newOrder: SortOrder) => void;
     onChangeSort: (newSort: TransactionSortField) => void;
+    onChangeMonth: (month: Month) => void;
 }
 
 export const TransactionFilters = memo((props: TransactionFiltersProps) => {
@@ -34,6 +37,8 @@ export const TransactionFilters = memo((props: TransactionFiltersProps) => {
         onChangeOrder,
         order,
         reloadPage,
+        onChangeMonth,
+        month,
     } = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { t } = useTranslation();
@@ -59,6 +64,8 @@ export const TransactionFilters = memo((props: TransactionFiltersProps) => {
                 <TransactionSortSelector
                     sort={sort}
                     order={order}
+                    month={month}
+                    onChangeMonth={onChangeMonth}
                     onChangeOrder={onChangeOrder}
                     onChangeSort={onChangeSort}
                 />

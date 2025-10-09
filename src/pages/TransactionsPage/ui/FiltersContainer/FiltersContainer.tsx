@@ -11,8 +11,18 @@ interface FiltersContainerProps {
 
 export const FiltersContainer = memo((props: FiltersContainerProps) => {
     const { className, reloadPage } = props;
-    const { onChangeSearch, onChangeSort, onChangeOrder, onChangeType, search, sort, order, type } =
-        useTransactionFilters();
+    const {
+        onChangeSearch,
+        onChangeSort,
+        onChangeOrder,
+        onChangeType,
+        search,
+        sort,
+        order,
+        type,
+        onChangeMonth,
+        month,
+    } = useTransactionFilters();
 
     return (
         <VStack gap="16" align="end" max>
@@ -25,6 +35,8 @@ export const FiltersContainer = memo((props: FiltersContainerProps) => {
                 order={order}
                 className={className}
                 reloadPage={reloadPage}
+                onChangeMonth={onChangeMonth}
+                month={month}
             />
             <TransactionTypeTabs value={type} onChangeType={onChangeType} />
         </VStack>

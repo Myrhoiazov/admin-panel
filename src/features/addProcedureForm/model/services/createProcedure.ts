@@ -34,8 +34,10 @@ export const createProcedure = createAsyncThunk<Procedure, ThunkArg, ThunkConfig
             switch (blockValue.type) {
                 case 'price':
                     blockValue.blocks?.forEach((price, index) => {
-                        formData.append(`${blockKey}[${index}]`, price.zone);
-                        formData.append(`${blockKey}[${index}]`, price.price?.toString() ?? '');
+                        if (price.zone && price.price) {
+                            formData.append(`${blockKey}[${index}]`, price.zone);
+                            formData.append(`${blockKey}[${index}]`, price.price?.toString() ?? '');
+                        }
                     });
                     break;
 

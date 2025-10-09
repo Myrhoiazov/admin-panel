@@ -4,7 +4,7 @@ import { Appointment } from 'entities/Appointment';
 
 export const fetchAppoimentsByClientId = createAsyncThunk<
     Appointment[],
-    string,
+    string | undefined,
     ThunkConfig<string>
 >(
     'clientDetails/fetchAppoimentsByClientId',
@@ -15,12 +15,8 @@ export const fetchAppoimentsByClientId = createAsyncThunk<
             return rejectWithValue('error');
         }
 
-
-
         try {
             const { data } = await extra.apiPrivate.get<Appointment[]>(`/appointments/client/${entityId}`);
-
-            console.log("data: ", data);
 
             if (!data) {
                 throw new Error();

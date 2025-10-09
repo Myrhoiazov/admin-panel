@@ -3,8 +3,7 @@ import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'shared/ui/Text/Text';
 import { Input } from 'shared/ui/Input/Input';
-import { Role, RoleSelect } from 'entities/Role';
-import { Country, CountrySelect } from 'entities/Country';
+import { Role, RoleKey, RoleSelect } from 'entities/Role';
 import Loader from 'shared/ui/Loader/Loader';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
 import { IProfile, ServerError } from 'entities/Profile/model/types/profile';
@@ -16,13 +15,10 @@ interface ProfileCardProps {
     isLoading?: boolean;
     readonly?: boolean;
     onChangeLastname?: (value?: string) => void;
+    onChangeEmail?: (value?: string) => void;
     onChangeFirstname?: (value?: string) => void;
-    onChangeCity?: (value?: string) => void;
-    onChangeAge?: (value?: string) => void;
-    onChangeUsername?: (value?: string) => void;
     onChangeAvatar?: (value?: string) => void;
-    onChangeRole?: (currency: Role) => void;
-    onChangeCountry?: (country: Country) => void;
+    onChangeRole?: (currency: RoleKey) => void;
 }
 
 export const ProfileCard = (props: ProfileCardProps) => {
@@ -33,12 +29,9 @@ export const ProfileCard = (props: ProfileCardProps) => {
         error,
         readonly,
         onChangeFirstname,
+        onChangeEmail,
         onChangeLastname,
-        onChangeAge,
-        onChangeCity,
         onChangeAvatar,
-        onChangeUsername,
-        onChangeCountry,
         onChangeRole,
     } = props;
     const { t } = useTranslation('profile');
@@ -91,24 +84,10 @@ export const ProfileCard = (props: ProfileCardProps) => {
                     readonly={readonly}
                 />
                 <Input
-                    value={data?.age?.toString()}
-                    placeholder={t('Ваш возраст')}
+                    value={data?.email}
+                    placeholder={t('Введите email')}
                     className={cls.input}
-                    onChange={onChangeAge}
-                    readonly={readonly}
-                />
-                <Input
-                    value={data?.city}
-                    placeholder={t('Город')}
-                    className={cls.input}
-                    onChange={onChangeCity}
-                    readonly={readonly}
-                />
-                <Input
-                    value={data?.username}
-                    placeholder={t('Введите имя пользователя')}
-                    className={cls.input}
-                    onChange={onChangeUsername}
+                    onChange={onChangeEmail}
                     readonly={readonly}
                 />
                 <Input
@@ -122,12 +101,6 @@ export const ProfileCard = (props: ProfileCardProps) => {
                     className={cls.input}
                     value={data?.role}
                     onChange={onChangeRole}
-                    readonly={readonly}
-                />
-                <CountrySelect
-                    className={cls.input}
-                    value={data?.country}
-                    onChange={onChangeCountry}
                     readonly={readonly}
                 />
             </div>

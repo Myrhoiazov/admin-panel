@@ -1,4 +1,4 @@
-import React, { memo, use, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { Input } from 'shared/ui/Input/Input';
 import { ProcedurePrice } from 'entities/Procedure/model/types/procedure';
 import { HStack, VStack } from 'shared/ui/Stack';
@@ -40,7 +40,7 @@ const BlockPriceComponent = (props: BlockPriceComponentProps) => {
 
     const priceBlock = useMemo(() => {
         return (item: ProcedurePrice, index: number) => (
-            <HStack key={item.zone} gap="24" align="end" max>
+            <HStack key={index} gap="24" align="end" max>
                 <Input
                     fullWidth
                     label="Зона услуги"

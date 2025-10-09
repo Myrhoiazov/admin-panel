@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, use, useCallback, useState } from 'react';
 import {
     ProcedureBlockInjection,
     ProcedureBlockPreparation,
@@ -29,6 +29,8 @@ import { HStack } from 'shared/ui/Stack';
 import { Button, ButtonTheme } from 'shared/ui/Button';
 import { createProcedure } from '../../model/services/createProcedure';
 import Loader from 'shared/ui/Loader/Loader';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 interface AddProcedureFormProps {
     className?: string;
@@ -40,6 +42,7 @@ const reducers: ReducersList = {
 
 export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
     const [file, setFile] = useState<File | null>(null);
+    const { t } = useTranslation();
 
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getProcedureFormIsLoading);
@@ -162,14 +165,11 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
         [dispatch]
     );
 
-    const onChangeFile = useCallback(
-        (image?: File | string) => {
-            if (image instanceof File) {
-                setFile(image);
-            }
-        },
-        [dispatch]
-    );
+    const onChangeImage = useCallback((file?: File) => {
+        if (file) {
+            setFile(file);
+        }
+    }, []);
 
     const onCancelEdit = useCallback(() => {
         dispatch(addProcedureFormActions.cancelEdit());
@@ -179,6 +179,7 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
         const result = await dispatch(createProcedure({ file }));
         if (result.meta.requestStatus === 'fulfilled') {
             dispatch(addProcedureFormActions.cancelEdit());
+            toast.success(t('Процедура успешно добавленна'));
         }
     }, [dispatch, file]);
 
@@ -195,7 +196,7 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
                     disabled={!procedure || isLoading}
                     theme={!procedure ? ButtonTheme.OUTLINE : ButtonTheme.OUTLINE_RED}
                 >
-                    Отменить
+                    {t('Отменить')}
                 </Button>
                 <Button
                     type="button"
@@ -203,7 +204,7 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
                     disabled={!procedure || isLoading}
                     theme={ButtonTheme.BACKGROUND_INVERTED}
                 >
-                    Сохранить
+                    {t('Сохранить')}
                 </Button>
             </HStack>
             <ProcedureCard
@@ -215,7 +216,7 @@ export const AddProcedureForm = memo((props: AddProcedureFormProps) => {
                 onChangeRehabilitationBlocks={onChangeRehabilitationBlocks}
                 onChangeContraindicationBlocks={onChangeContraindicationBlocks}
                 onChangeResultBlocks={onChangeResultBlocks}
-                onChangeFile={onChangeFile}
+                onChangeFile={onChangeImage}
                 procedure={procedure}
                 isLoading={isLoading}
                 error={error}
