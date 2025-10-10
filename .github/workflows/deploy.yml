@@ -50,8 +50,13 @@ jobs:
 
                       echo "✅ Pulling latest code..."
                       cd /var/www/project/frontend
-                      git clone git@github.com:Myrhoiazov/admin-panel.git admin-panel
+                      
+                      if [ ! -d "admin-panel/.git" ]; then
+                        echo "📦 Cloning repository..."
+                        git clone git@github.com:Myrhoiazov/admin-panel.git admin-panel
+                      fi
 
+                      cd admin-panel
                       git config --global --add safe.directory /var/www/project/frontend/admin-panel
                       git fetch --all
                       git pull origin main
