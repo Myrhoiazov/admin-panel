@@ -51,9 +51,8 @@ jobs:
                   SERVER_IP: ${{ secrets.SERVER_IP }}
                   APP_DIR: ${{ secrets.APP_DIR }}
               run: |
-                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_IP << 'EOF'
+                ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_IP << 'EOF'
                   set -e
-
                   mkdir -p $APP_DIR
                   cd $APP_DIR
 
@@ -85,4 +84,4 @@ jobs:
                     echo "❌ Ошибка: папка build не найдена."
                     exit 1
                   fi
-                  EOF
+                EOF
