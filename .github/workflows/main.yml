@@ -54,7 +54,12 @@ jobs:
                 ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_IP "
                 cd $APP_DIR &&
                 git remote set-url origin git@github.com:Myrhoiazov/admin-panel.git && 
-                git pull origin main &&
+                git pull origin main
+
+                export NVM_DIR=\"$HOME/.nvm\"
+                [ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\"
+                nvm use 18
+                
                 npm install &&
                 npm run build:prod
                 "
