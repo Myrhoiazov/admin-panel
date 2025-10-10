@@ -63,3 +63,8 @@ jobs:
                   git pull origin main &&
                   npm install &&
                   npm run build:prod
+
+                  echo "♻️ Restarting PM2..."
+                  pm2 restart backend
+
+                  echo "✅ Deployment complete :- ) !"
