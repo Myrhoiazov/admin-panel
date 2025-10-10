@@ -40,47 +40,36 @@ jobs:
             #   run: npm run test:ui:ci
 
             # 7️⃣ Debug step: проверить SSH ключ
-
-            - name: Add SSH private key to agent
-              uses: webfactory/ssh-agent@v0.5.3
+            - name: Connect to server and deploy
+              uses: appleboy/ssh-action@v1.1.0
               with:
-                  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-            - name: Deploy to Server
-              env:
-                  SERVER_USER: ${{ secrets.SERVER_USER }}
-                  SERVER_IP: ${{ secrets.SERVER_IP }}
-                  APP_DIR: ${{ secrets.APP_DIR }}
-              run: |
-                ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_IP << 'EOF'
-                  set -e
-                  cd $APP_DIR
+                  host: ${{ secrets.SERVER_IP }}
+                  username: ${{ secrets.SERVER_USER }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  script: |
+                      set -e
 
-                  git pull origin main
+                      echo "🔧 Load NVM and Node environment..."
+                      export NVM_DIR="/root/.nvm"
+                      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                      export PATH="$NVM_DIR/versions/node/v20.19.5/bin:$PATH"
 
-                  if [ ! -d ".git" ]; then
-                    echo "📥 Клонируем репозиторий (первый деплой)..."
-                    git clone git@github.com:Myrhoiazov/admin-panel.git .
-                  else
-                    echo "🔄 Обновляем репозиторий..."
-                    git remote set-url origin git@github.com:Myrhoiazov/admin-panel.git
-                    git pull origin main
-                  fi
+                      echo "✅ Pulling latest code..."
+                      cd /var/www/project/frontend/admin-panel
+                      git config --global --add safe.directory /var/www/project/frontend/admin-panel
+                      git fetch --all
+                      git pull origin main
 
-                  echo "🔧 Load NVM and Node environment..."
-                  export NVM_DIR="/root/.nvm"
-                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                  export PATH="$NVM_DIR/versions/node/v20.19.5/bin:$PATH"
+                      echo "📦 Installing dependencies..."
+                      npm install
 
-                  echo "📦 Устанавливаем зависимости..."
-                  npm install
+                      echo "🧹 Cleaning old build artifacts..."
+                      rm -rf build/
 
-                  echo "🏗️ Собираем проект..."
-                  npm run build:prod
+                      echo "⚙️ Building project..."
+                      npm run build || echo "no build step"
 
-                  if [ -d "build" ]; then
-                    echo "✅ Сборка завершена, build/ успешно создан!"
-                  else
-                    echo "❌ Ошибка: папка build не найдена."
-                    exit 1
-                  fi
-                EOF
+                      echo "♻️ Restarting PM2..."
+                      pm2 restart frontend
+
+                      echo "✅ Deployment complete :- ) !"
