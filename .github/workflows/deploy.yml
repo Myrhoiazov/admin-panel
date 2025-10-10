@@ -52,17 +52,37 @@ jobs:
                   APP_DIR: ${{ secrets.APP_DIR }}
               run: |
                   ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_IP << 'EOF'
-                  cd $APP_DIR &&
-                  git remote set-url origin git@github.com:Myrhoiazov/admin-panel.git && 
+                  set -e
+
+                  mkdir -p $APP_DIR
+                  cd $APP_DIR
+
+                  git pull origin main
+
+                  if [ ! -d ".git" ]; then
+                    echo "📥 Клонируем репозиторий (первый деплой)..."
+                    git clone git@github.com:Myrhoiazov/admin-panel.git .
+                  else
+                    echo "🔄 Обновляем репозиторий..."
+                    git remote set-url origin git@github.com:Myrhoiazov/admin-panel.git
+                    git pull origin main
+                  fi
 
                   echo "🔧 Load NVM and Node environment..."
                   export NVM_DIR="/root/.nvm"
                   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
                   export PATH="$NVM_DIR/versions/node/v20.19.5/bin:$PATH"
 
-                  git pull origin main &&
-                  npm install &&
+                  echo "📦 Устанавливаем зависимости..."
+                  npm install
+
+                  echo "🏗️ Собираем проект..."
                   npm run build:prod
 
-                  echo "✅ Deployment complete :- ) !"
+                  if [ -d "build" ]; then
+                    echo "✅ Сборка завершена, build/ успешно создан!"
+                  else
+                    echo "❌ Ошибка: папка build не найдена."
+                    exit 1
+                  fi
                   EOF
