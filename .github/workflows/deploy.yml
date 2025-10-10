@@ -70,6 +70,9 @@ jobs:
                       echo "⚙️ Building project..."
                       npm run build:prod || echo "no build step"
 
+                      echo "🚀 Deploying new build..."
+                      rsync -av --delete /var/www/project/frontend/admin-panel/build/ /var/www/project/frontend/
+
                       echo "♻️ Restarting PM2..."
                       pm2 restart frontend
 
