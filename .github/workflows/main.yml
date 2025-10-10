@@ -18,8 +18,8 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: Install dependencies
-              run: npm ci
+            # - name: Install dependencies
+            #   run: npm ci
 
             # - name: Build production project
             #   run: npm run build:prod
@@ -41,32 +41,20 @@ jobs:
 
             # 7️⃣ Debug step: проверить SSH ключ
 
-            # - name: Debug SSH key
-            #   env:
-            #         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            #   run: |
-            #       echo "SSH key length: $(echo "$SSH_PRIVATE_KEY" | wc -c)"
-            #       if [ -z "$SSH_PRIVATE_KEY" ]; then
-            #           echo "❌ SSH_PRIVATE_KEY is empty! Check your GitHub Secret."
-            #           exit 1
-            #       else
-            #           echo "✅ SSH_PRIVATE_KEY seems to be loaded correctly."
-            #       fi
-            # - name: Test SSH connection
-            #   env:
-            #         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            #   run: |
-            #         mkdir -p ~/.ssh
-            #         echo "$SSH_PRIVATE_KEY" | sed 's/\\n/\n/g' > ~/.ssh/id_ed25519
-            #         chmod 600 ~/.ssh/id_ed25519
-            #         ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "echo '✅ Connected!'"
-
-            # - name: Deploy build folder to VPS
-            #   if: github.ref == 'refs/heads/main'
-            #   uses: easingthemes/ssh-deploy@v4
-            #   with:
-            #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            #       REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-            #       REMOTE_USER: ${{ secrets.REMOTE_USER }}
-            #       TARGET: /var/www/project/frontend
-            #       SOURCE: build/
+            - name: Add SSH private key to agent
+              uses: webfactory/ssh-agent@v0.5.3
+              with:
+               ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+            - name: Deploy to Server
+              env:
+                 SERVER_USER: ${{ secrets.SERVER_USER }}
+                 SERVER_IP: ${{ secrets.SERVER_IP }}
+                 APP_DIR: ${{ secrets.APP_DIR }}
+              run: |
+                ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_IP "
+                cd $APP_DIR &&
+                git remote set-url origin git@github.com:yourgithubuser/yourgithubrepo.git &&  # Dont forget to change this!!!
+                git pull origin main &&
+                npm install &&
+                npm run build
+                "
