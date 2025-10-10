@@ -49,7 +49,9 @@ jobs:
                       export PATH="$NVM_DIR/versions/node/v20.19.5/bin:$PATH"
 
                       echo "✅ Pulling latest code..."
+                      mkdir -p /var/www/project/frontend/admin-panel
                       cd /var/www/project/frontend/admin-panel
+                      
                       git config --global --add safe.directory /var/www/project/frontend/admin-panel
                       git fetch --all
                       git pull origin main
