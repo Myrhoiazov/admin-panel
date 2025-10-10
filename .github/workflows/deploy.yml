@@ -68,7 +68,7 @@ jobs:
                       rm -rf build/
 
                       echo "⚙️ Building project..."
-                      npm run build || echo "no build step"
+                      npm run build:prod || echo "no build step"
 
                       echo "♻️ Restarting PM2..."
                       pm2 restart frontend
