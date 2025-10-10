@@ -51,7 +51,7 @@ jobs:
                   SERVER_IP: ${{ secrets.SERVER_IP }}
                   APP_DIR: ${{ secrets.APP_DIR }}
               run: |
-                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_IP
+                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_IP << 'EOF'
                   cd $APP_DIR &&
                   git remote set-url origin git@github.com:Myrhoiazov/admin-panel.git && 
 
@@ -65,3 +65,4 @@ jobs:
                   npm run build:prod
 
                   echo "✅ Deployment complete :- ) !"
+                  EOF
