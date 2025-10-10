@@ -49,15 +49,15 @@ jobs:
                       export PATH="$NVM_DIR/versions/node/v20.19.5/bin:$PATH"
 
                       echo "✅ Pulling latest code..."
-                      cd /var/www/project/frontend
+                      cd /var/www/project
                       
-                      if [ ! -d "admin-panel/.git" ]; then
+                      if [ ! -d "frontend/.git" ]; then
                         echo "📦 Cloning repository..."
-                        git clone git@github.com:Myrhoiazov/admin-panel.git admin-panel
+                        git clone git@github.com:Myrhoiazov/admin-panel.git frontend
                       fi
 
-                      cd admin-panel
-                      git config --global --add safe.directory /var/www/project/frontend/admin-panel
+                      cd frontend
+                      git config --global --add safe.directory /var/www/project/frontend
                       git fetch --all
                       git pull origin main
 
@@ -69,9 +69,6 @@ jobs:
 
                       echo "⚙️ Building project..."
                       npm run build:prod || echo "no build step"
-
-                      echo "🚀 Deploying new build..."
-                      rsync -av --delete /var/www/project/frontend/admin-panel/build/ /var/www/project/frontend/
 
                       echo "♻️ Restarting PM2..."
                       pm2 restart frontend
