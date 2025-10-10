@@ -51,10 +51,15 @@ jobs:
                   SERVER_IP: ${{ secrets.SERVER_IP }}
                   APP_DIR: ${{ secrets.APP_DIR }}
               run: |
-                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_IP "
+                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $SERVER_USER@$SERVER_IP
                   cd $APP_DIR &&
                   git remote set-url origin git@github.com:Myrhoiazov/admin-panel.git && 
+
+                  echo "🔧 Load NVM and Node environment..."
+                  export NVM_DIR="/root/.nvm"
+                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                  export PATH="$NVM_DIR/versions/node/v20.19.5/bin:$PATH"
+
                   git pull origin main &&
                   npm install &&
                   npm run build:prod
-                  "
