@@ -1,6 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import cls from './AddTransactionForm.module.scss';
 import { memo, useCallback } from 'react';
 import {
     addTransactionFormActions,
@@ -91,8 +90,8 @@ const AddTransactionForm = memo((props: AddTransactionFormProps) => {
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>
-            <div className={classNames(cls.AddTransactionForm, {}, [className])}>
-                <VStack gap="24" align="center" className={cls.header}>
+            <div className={classNames('', {}, [className])}>
+                <VStack gap="24" align="center">
                     <Text size="m" title={t('Добавление прихода - расхода')} bold />
                     <TransactionCard
                         data={formData}

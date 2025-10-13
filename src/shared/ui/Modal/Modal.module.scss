@@ -19,15 +19,15 @@
 .content {
     width: 100%;
     max-width: 37.5rem;
+    max-height: 80%;
     margin: 1rem;
     padding: 20px;
     background: var(--white);
     border-radius: 12px;
     transition: 0.3s transform;
-    transform: scale(0.5);
-    max-height: 80%;
     overflow: hidden;
     overflow-y: auto;
+    transform: scale(0.5);
 }
 
 .opened {
