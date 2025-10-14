@@ -1,15 +1,15 @@
 import React, { memo, useMemo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { ClientSortField } from 'entities/Client';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import { ClientSortField } from '@/entities/Client';
 import s from './TransactionSortSelector.module.scss';
-import { SortOrder } from 'shared/types/sort';
+import { SortOrder } from '@/shared/types/sort';
 import { useTranslation } from 'react-i18next';
-import { SelectOption } from 'shared/ui/Select/Select';
-import { HStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
-import { ListBox } from 'shared/ui/Popups';
-import { TransactionSortField } from 'entities/Transaction';
-import { Month } from 'entities/Month';
+import { SelectOption } from '@/shared/ui/Select/Select';
+import { HStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
+import { ListBox } from '@/shared/ui/Popups';
+import { TransactionSortField } from '@/entities/Transaction';
+import { Month } from '@/entities/Month';
 
 interface TransactionSortSelectorProps {
     className?: string;

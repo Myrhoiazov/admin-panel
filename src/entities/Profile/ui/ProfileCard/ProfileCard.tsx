@@ -1,12 +1,12 @@
 import cls from './ProfileCard.module.scss';
-import { classNames, Mods } from 'shared/lib/classNames/classNames';
+import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import { Text } from 'shared/ui/Text/Text';
-import { Input } from 'shared/ui/Input/Input';
-import { Role, RoleKey, RoleSelect } from 'entities/Role';
-import Loader from 'shared/ui/Loader/Loader';
-import { Avatar } from 'shared/ui/Avatar/Avatar';
-import { IProfile, ServerError } from 'entities/Profile/model/types/profile';
+import { Text } from '@/shared/ui/Text/Text';
+import { Input } from '@/shared/ui/Input/Input';
+import { Role, RoleKey, RoleSelect } from '@/entities/Role';
+import Loader from '@/shared/ui/Loader/Loader';
+import { Avatar } from '@/shared/ui/Avatar/Avatar';
+import { IProfile, ServerError } from '@/entities/Profile/model/types/profile';
 
 interface ProfileCardProps {
     className?: string;

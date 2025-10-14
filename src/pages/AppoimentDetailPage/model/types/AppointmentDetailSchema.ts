@@ -1,4 +1,4 @@
-import { Appointment } from 'entities/Appointment';
+import { Appointment } from '@/entities/Appointment';
 
 export interface AppointmentDetailSchema {
     isLoading?: boolean;

@@ -2,9 +2,9 @@ import React, { memo, useEffect } from 'react';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { clientDetailsReducer } from '../../model/slice/clientDetailsSlice';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchClientById } from '../../model/services/fetchClientById/fetchClientById';
 import { useSelector } from 'react-redux';
 import {
@@ -12,15 +12,15 @@ import {
     getClientDetailsError,
     getClientDetailsIsLoading,
 } from '../../model/selectors/clientDetails';
-import { AppImage } from 'shared/ui/AppImage';
-import { HStack, VStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
-import { Card } from 'shared/ui/Card/Card';
-import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
+import { AppImage } from '@/shared/ui/AppImage';
+import { HStack, VStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
+import { Card } from '@/shared/ui/Card/Card';
+import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 import s from './ClientDetails.module.scss';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ClientStatusKey, ClientStatusLabels } from 'entities/ClientStatus';
+import { ClientStatusKey, ClientStatusLabels } from '@/entities/ClientStatus';
 
 interface ClientDetailsProps {
     // className?: string;

@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
-import { Page } from 'widgets/Page/Page';
-import { VStack } from 'shared/ui/Stack';
-import { AddProcedureForm } from 'features/addProcedureForm';
-import { Card } from 'shared/ui/Card/Card';
+import { Page } from '@/widgets/Page/Page';
+import { VStack } from '@/shared/ui/Stack';
+import { AddProcedureForm } from '@/features/addProcedureForm';
+import { Card } from '@/shared/ui/Card/Card';
 import ProcedureCreatePageHeader from '../ProcedureCreatePageHeader/ProcedureCreatePageHeader';
 
 const ProcedureCreatePage = () => {

@@ -1,5 +1,5 @@
-import { StateSchema } from 'app/providers/StoreProvider';
-import { ClientSortField } from 'entities/Client';
+import { StateSchema } from '@/app/providers/StoreProvider';
+import { ClientSortField } from '@/entities/Client';
 // import { ClientView } from 'entities/Client';
 
 export const getProceduresPageIsLoading = (state: StateSchema) => state.proceduresPage?.isLoading || false;

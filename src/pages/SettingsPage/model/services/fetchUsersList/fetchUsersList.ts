@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Client } from 'entities/Client';
-import { ClientStatusKey } from 'entities/ClientStatus';
-import { IProfile } from 'entities/Profile';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { Client } from '@/entities/Client';
+import { ClientStatusKey } from '@/entities/ClientStatus';
+import { IProfile } from '@/entities/Profile';
 
 interface FetchArticlesListProps {
     replace?: boolean;

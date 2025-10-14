@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import { HStack, VStack } from 'shared/ui/Stack';
-import { Input } from 'shared/ui/Input/Input';
-import { Button } from 'shared/ui/Button';
-import { Text } from 'shared/ui/Text/Text';
+import { HStack, VStack } from '@/shared/ui/Stack';
+import { Input } from '@/shared/ui/Input/Input';
+import { Button } from '@/shared/ui/Button';
+import { Text } from '@/shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
 
 interface BlockResultComponentProps {

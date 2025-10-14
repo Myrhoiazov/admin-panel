@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
-import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { ClientSortField } from 'entities/Client';
-import { SortOrder } from 'shared/types/sort';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { ClientSortField } from '@/entities/Client';
+import { SortOrder } from '@/shared/types/sort';
 import { getAppoimentPageOrder, getAppoimentPageSearch, getAppoimentPageSort } from '../../model/selectors/appoimentsPageSelectors';
 import { appoimentsPageActions } from '../../model/slices/appoimentsPageSlice';
 import { fetchAppoimentsList } from '../../model/services/fetchAppoimentsList/fetchAppoimentsList';
-import { ClientStatusKey } from 'entities/ClientStatus';
+import { ClientStatusKey } from '@/entities/ClientStatus';
 
 export function useAppoimentFilters() {
     const search = useSelector(getAppoimentPageSearch);

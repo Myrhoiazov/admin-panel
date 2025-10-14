@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './ClientListHeader.module.scss';
-import { Card } from 'shared/ui/Card/Card';
-import { HStack } from 'shared/ui/Stack';
+import { Card } from '@/shared/ui/Card/Card';
+import { HStack } from '@/shared/ui/Stack';
 import { useTranslation } from 'react-i18next';
 
 interface ClientListHeaderProps {

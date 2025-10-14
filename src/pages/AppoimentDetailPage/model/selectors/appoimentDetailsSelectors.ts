@@ -1,5 +1,5 @@
-import { StateSchema } from 'app/providers/StoreProvider';
-import { ClientSortField } from 'entities/Client';
+import { StateSchema } from '@/app/providers/StoreProvider';
+import { ClientSortField } from '@/entities/Client';
 
 export const getAppoimetDetailsIsLoading = (state: StateSchema) => state.appoimentDetails?.isLoading || false;
 export const getAppoimetDetailsError = (state: StateSchema) => state.appoimentDetails?.error;

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Client } from 'entities/Client';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { Client } from '@/entities/Client';
 
 
 export const fetchClientsList = createAsyncThunk<

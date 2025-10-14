@@ -1,6 +1,6 @@
-import { StoreType } from "app/providers/StoreProvider";
+import { StoreType } from "@/app/providers/StoreProvider";
 import axios from "axios";
-import { userActions } from "entities/User";
+import { userActions } from "@/entities/User";
 
 let store: StoreType
 

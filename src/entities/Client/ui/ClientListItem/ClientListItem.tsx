@@ -1,10 +1,10 @@
 import React, { memo, ReactNode } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './ClientListItem.module.scss';
 import { Client, ClientView } from '../../model/types/client';
-import { HStack, VStack } from 'shared/ui/Stack';
-import { Card } from 'shared/ui/Card/Card';
-import { Text } from 'shared/ui/Text/Text';
+import { HStack, VStack } from '@/shared/ui/Stack';
+import { Card } from '@/shared/ui/Card/Card';
+import { Text } from '@/shared/ui/Text/Text';
 
 interface ClientListItemProps {
     className?: string;

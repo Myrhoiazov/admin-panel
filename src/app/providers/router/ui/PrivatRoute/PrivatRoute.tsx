@@ -1,7 +1,7 @@
-import { getUserAuthData, getUserInited } from 'entities/User';
+import { getUserAuthData, getUserInited } from '@/entities/User';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import Loader from 'shared/ui/Loader/Loader';
+import Loader from '@/shared/ui/Loader/Loader';
 
 const PrivatRoute = ({ children }: { children: React.ReactNode }) => {
     const authData = useSelector(getUserAuthData);

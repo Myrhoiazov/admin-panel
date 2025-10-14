@@ -1,10 +1,10 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from 'shared/ui/Button';
-import { Input } from 'shared/ui/Input/Input';
-import { HStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
-import Textarea from 'shared/ui/Textarea/Textarea';
+import { Button } from '@/shared/ui/Button';
+import { Input } from '@/shared/ui/Input/Input';
+import { HStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
+import Textarea from '@/shared/ui/Textarea/Textarea';
 
 interface BlockPreparationComponentProps {
     blocks: string[];

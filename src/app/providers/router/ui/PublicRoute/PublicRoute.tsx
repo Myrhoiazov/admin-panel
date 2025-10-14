@@ -1,7 +1,7 @@
-import { getUserToken } from 'entities/User';
+import { getUserToken } from '@/entities/User';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { RoutePath } from '@/shared/config/routeConfig/routeConfig';
 
 interface PublicRouteProps {
     restricted?: boolean;

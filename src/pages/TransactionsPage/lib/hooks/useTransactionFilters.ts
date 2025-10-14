@@ -7,14 +7,14 @@ import {
     getTransactionPageSort,
     getTransactionPageType,
 } from '../../model/selectors/transactionPageSelectors';
-import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { SortOrder } from 'shared/types/sort';
-import { TransactionType } from 'entities/TransactionType';
-import { TransactionSortField } from 'entities/Transaction';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { SortOrder } from '@/shared/types/sort';
+import { TransactionType } from '@/entities/TransactionType';
+import { TransactionSortField } from '@/entities/Transaction';
 import { fetchTransactionsList } from '../../model/services/fetchTransactionsList/fetchTransactionsList';
 import { transactionsPageActions } from '../../model/slices/transactionsPageSlice';
-import { Month } from 'entities/Month';
+import { Month } from '@/entities/Month';
 
 export function useTransactionFilters() {
     const search = useSelector(getTransactionPageSearch);

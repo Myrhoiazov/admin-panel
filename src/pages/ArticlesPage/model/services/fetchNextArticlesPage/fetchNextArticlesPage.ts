@@ -5,7 +5,7 @@ import {
     getArticlesPageNum,
 } from '../../selectors/articlesPageSelectors';
 import { fetchArticlesList } from '../fetchArticlesList/fetchArticlesList';
-import { ThunkConfig } from 'app/providers/StoreProvider';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { articlesPageActions } from '../../slices/ArticlesPageSlice';
 
 export const fetchNextArticlesPage = createAsyncThunk<

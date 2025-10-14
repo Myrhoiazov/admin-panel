@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback, useMemo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { ClientStatusKey, ClientStatusLabels } from 'entities/ClientStatus';
-import { Tabs, TabItem } from 'shared/ui/Tabs';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import { ClientStatusKey, ClientStatusLabels } from '@/entities/ClientStatus';
+import { Tabs, TabItem } from '@/shared/ui/Tabs';
 
 interface ClientTypeTabsProps {
     className?: string;

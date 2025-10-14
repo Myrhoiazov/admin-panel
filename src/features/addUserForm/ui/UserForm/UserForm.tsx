@@ -1,21 +1,21 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import cls from './UserForm.module.scss';
 import { memo, useCallback, useState } from 'react';
-import { VStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
-import { Button, ButtonTheme } from 'shared/ui/Button';
+import { VStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { newUserActions, newUserReducer } from '../../model/slices/newUserSlice';
 import { useSelector } from 'react-redux';
 import { getAddUserForm } from '../../model/selectors/getAddUserForm/getAddUserForm';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addNewUser } from '../../model/services/addNewUser/addNewUser';
-import { UserCard } from 'entities/User';
-import { RoleKey } from 'entities/Role';
+import { UserCard } from '@/entities/User';
+import { RoleKey } from '@/entities/Role';
 import { toast } from 'react-toastify';
 
 interface AddUserFormProps {

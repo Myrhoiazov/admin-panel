@@ -1,30 +1,30 @@
 import React, { memo, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './TransactionsPage.module.scss';
-import { Page } from 'widgets/Page/Page';
-import { Text } from 'shared/ui/Text/Text';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { Page } from '@/widgets/Page/Page';
+import { Text } from '@/shared/ui/Text/Text';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { fetchTransactionsList } from '../../model/services/fetchTransactionsList/fetchTransactionsList';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { transactionsPageReducer } from '../../model/slices/transactionsPageSlice';
-import { VStack } from 'shared/ui/Stack';
+import { VStack } from '@/shared/ui/Stack';
 
 import { useSelector } from 'react-redux';
 import {
     getTransactionPageData,
     getTransactionPageIsLoading,
 } from '../../model/selectors/transactionPageSelectors';
-import { TransactionList } from 'entities/Transaction';
+import { TransactionList } from '@/entities/Transaction';
 import { FiltersContainer } from '../FiltersContainer/FiltersContainer';
 import { initTransactionsPage } from '../../model/services/initTransactionsPage/initTransactionsPage';
 import { getTransactionPageSummaryData } from '../../model/selectors/getTransactionPageSummary';
-import { SummaryCards } from 'entities/Summary';
-import { fetchTransactionsSummary } from 'pages/TransactionsPage/model/services/fetchTransactionsSummary/fetchTransactionsSummary';
+import { SummaryCards } from '@/entities/Summary';
+import { fetchTransactionsSummary } from '@/pages/TransactionsPage/model/services/fetchTransactionsSummary/fetchTransactionsSummary';
 
 interface TransactionsPageProps {
     className?: string;

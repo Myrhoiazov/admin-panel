@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useAppoimentFilters } from '../../lib/hooks/useAppoimentFilters';
-import { VStack } from 'shared/ui/Stack';
-import { AppoimentFilters } from 'widgets/AppoimentFilters';
+import { VStack } from '@/shared/ui/Stack';
+import { AppoimentFilters } from '@/widgets/AppoimentFilters';
 
 interface FiltersContainerProps {
     className?: string;

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Procedure } from 'entities/Procedure';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { Procedure } from '@/entities/Procedure';
 import { getProcedureFormData } from '../selectors/procedureForm';
 
 interface ThunkArg {

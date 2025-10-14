@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserSchema, User } from '../types/user';
-import { serviceToken } from 'shared/api/api';
+import { serviceToken } from '@/shared/api/api';
 import { initAuthData } from '../services/initAuthData';
 
 const initialState: UserSchema = {

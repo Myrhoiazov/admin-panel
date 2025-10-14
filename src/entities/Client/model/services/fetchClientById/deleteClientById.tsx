@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { Client, ServerError } from '../../types/client';
 
 export const deleteClientById = createAsyncThunk<Client, void, ThunkConfig<ServerError>>(

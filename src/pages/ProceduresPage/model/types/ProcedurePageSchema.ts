@@ -1,6 +1,6 @@
 import { EntityState } from '@reduxjs/toolkit';
-import { Procedure } from 'entities/Procedure';
-import { SortOrder } from 'shared/types/sort';
+import { Procedure } from '@/entities/Procedure';
+import { SortOrder } from '@/shared/types/sort';
 
 export interface ProcedurePageSchema extends EntityState<Procedure, string> {
     isLoading?: boolean;

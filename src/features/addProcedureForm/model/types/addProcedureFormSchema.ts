@@ -1,4 +1,4 @@
-import { Procedure } from "entities/Procedure/model/types/procedure";
+import { Procedure } from "@/entities/Procedure/model/types/procedure";
 
 export interface AddProcedureFormSchema {
     isLoading: boolean;

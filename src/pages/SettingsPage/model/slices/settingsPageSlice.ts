@@ -5,7 +5,7 @@ import {
 
 import { SettingsPageSchema } from '../types/settingsPageSchema';
 import { fetchUsersList } from '../services/fetchUsersList/fetchUsersList';
-import { IProfile } from 'entities/Profile';
+import { IProfile } from '@/entities/Profile';
 
 
 const initialState: SettingsPageSchema = {

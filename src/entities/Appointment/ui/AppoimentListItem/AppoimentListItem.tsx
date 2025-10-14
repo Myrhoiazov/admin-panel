@@ -1,11 +1,11 @@
 import React, { memo, ReactNode } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './AppoimentListItem.module.scss';
-import { HStack } from 'shared/ui/Stack';
-import { Card } from 'shared/ui/Card/Card';
+import { HStack } from '@/shared/ui/Stack';
+import { Card } from '@/shared/ui/Card/Card';
 import { Appointment } from '../../model/types/appoiment';
 import { Link } from 'react-router-dom';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { RoutePath } from '@/shared/config/routeConfig/routeConfig';
 
 interface AppoimentListItemProps {
     className?: string;

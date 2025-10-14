@@ -1,4 +1,4 @@
-import { Summary } from "entities/Summary";
+import { Summary } from "@/entities/Summary";
 import { Transaction } from "./transaction";
 
 export interface TransactionSchema {

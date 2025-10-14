@@ -1,13 +1,13 @@
 import React, { memo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './ProcedureItem.module.scss';
 import { Procedure } from '../../model/types/procedure';
-import { Card } from 'shared/ui/Card/Card';
-import { AppImage } from 'shared/ui/AppImage';
+import { Card } from '@/shared/ui/Card/Card';
+import { AppImage } from '@/shared/ui/AppImage';
 import { Link } from 'react-router-dom';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
-import { VStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
+import { RoutePath } from '@/shared/config/routeConfig/routeConfig';
+import { VStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
 
 interface ProcedureItemProps {
     className?: string;

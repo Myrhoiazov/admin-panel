@@ -1,4 +1,4 @@
-import { TransactionType } from "entities/TransactionType";
+import { TransactionType } from "@/entities/TransactionType";
 
 export const mapTransactionTypeToEnum = (type?: TransactionType): 'INCOME' | 'EXPENSE' => {
 

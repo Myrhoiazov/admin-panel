@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/providers/StoreProvider';
+import { StateSchema } from '@/app/providers/StoreProvider';
 
 export const getProcedureFormData = (state: StateSchema) => state.addProcedureForm?.data;
 export const getProcedureFormIsLoading = (state: StateSchema) => state.addProcedureForm?.isLoading || false;

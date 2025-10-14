@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { SortOrder } from 'shared/types/sort';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { SortOrder } from '@/shared/types/sort';
 import { fetchTransactionsList } from '../fetchTransactionsList/fetchTransactionsList';
 import { transactionsPageActions } from '../../slices/transactionsPageSlice';
 import { getTransactionPageInited } from '../../selectors/transactionPageSelectors';
-import { TransactionSortField } from 'entities/Transaction';
+import { TransactionSortField } from '@/entities/Transaction';
 import { fetchTransactionsSummary } from '../fetchTransactionsSummary/fetchTransactionsSummary';
 
 

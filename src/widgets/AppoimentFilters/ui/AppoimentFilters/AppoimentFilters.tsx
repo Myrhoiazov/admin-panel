@@ -1,17 +1,17 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './AppoimentFilters.module.scss';
-import { HStack } from 'shared/ui/Stack';
-import { Input } from 'shared/ui/Input/Input';
-import { Icon } from 'shared/ui/Icon/Icon';
-import SearchIcon from 'shared/assets/icons/search.svg';
-import { ClientSortSelector } from 'features/ClientSortSelector';
-import { ClientSortField } from 'entities/Client';
-import { SortOrder } from 'shared/types/sort';
-import { Button } from 'shared/ui/Button';
-import { AppoimentFormModal } from 'features/addAppoimentForm';
-import Sessions from 'shared/assets/icons/sessions.svg';
+import { HStack } from '@/shared/ui/Stack';
+import { Input } from '@/shared/ui/Input/Input';
+import { Icon } from '@/shared/ui/Icon/Icon';
+import SearchIcon from '@/shared/assets/icons/search.svg';
+import { ClientSortSelector } from '@/features/ClientSortSelector';
+import { ClientSortField } from '@/entities/Client';
+import { SortOrder } from '@/shared/types/sort';
+import { Button } from '@/shared/ui/Button';
+import { AppoimentFormModal } from '@/features/addAppoimentForm';
+import Sessions from '@/shared/assets/icons/sessions.svg';
 
 interface AppoimentFiltersProps {
     className?: string;

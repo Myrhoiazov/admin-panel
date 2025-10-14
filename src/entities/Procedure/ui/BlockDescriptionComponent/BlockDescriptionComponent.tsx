@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { Input } from 'shared/ui/Input/Input';
-import Textarea from 'shared/ui/Textarea/Textarea';
+import { Input } from '@/shared/ui/Input/Input';
+import Textarea from '@/shared/ui/Textarea/Textarea';
 
 interface BlockDescriptionComponentProps {
     title?: string;

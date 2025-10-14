@@ -9,13 +9,13 @@ import {
     ProcedureBlockType,
     ProcedureCard,
     ProcedurePrice,
-} from 'entities/Procedure';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+} from '@/entities/Procedure';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
     addProcedureFormActions,
     addProcedureFormReducer,
@@ -25,10 +25,10 @@ import {
     getProcedureFormError,
     getProcedureFormIsLoading,
 } from '../../model/selectors/procedureForm';
-import { HStack } from 'shared/ui/Stack';
-import { Button, ButtonTheme } from 'shared/ui/Button';
+import { HStack } from '@/shared/ui/Stack';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { createProcedure } from '../../model/services/createProcedure';
-import Loader from 'shared/ui/Loader/Loader';
+import Loader from '@/shared/ui/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 

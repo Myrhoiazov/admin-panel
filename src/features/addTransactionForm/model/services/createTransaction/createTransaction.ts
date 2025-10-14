@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Transaction } from 'entities/Transaction';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { Transaction } from '@/entities/Transaction';
 import { getTransactionFormData } from '../../selectors/getTransactionFormData';
 import { mapTransactionTypeToEnum } from '../../utils/mapTransactionType';
 import { mapPaymentMethodToEnum } from '../../utils/mapPaymentMethodToEnum';

@@ -1,7 +1,7 @@
 import { ProcedureBlock, ProcedureBlockPrice } from '../../model/types/procedure';
 import { ProcedureBlockType } from '../../model/consts/procedureConsts';
-import { HStack, VStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
+import { HStack, VStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
 import { useMemo } from 'react';
 
 export const renderProcedureBlock = (block: ProcedureBlock) => {

@@ -1,11 +1,11 @@
 import cls from './UserCard.module.scss';
-import { classNames, Mods } from 'shared/lib/classNames/classNames';
+import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import { Input } from 'shared/ui/Input/Input';
-import { RoleKey, RoleSelect } from 'entities/Role';
-import Loader from 'shared/ui/Loader/Loader';
-import { IProfile, ServerError } from 'entities/Profile/model/types/profile';
-import { VStack } from 'shared/ui/Stack';
+import { Input } from '@/shared/ui/Input/Input';
+import { RoleKey, RoleSelect } from '@/entities/Role';
+import Loader from '@/shared/ui/Loader/Loader';
+import { IProfile, ServerError } from '@/entities/Profile/model/types/profile';
+import { VStack } from '@/shared/ui/Stack';
 
 interface UserCardProps {
     className?: string;

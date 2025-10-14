@@ -1,9 +1,9 @@
 import { configureStore, Reducer, ReducersMapObject } from '@reduxjs/toolkit';
-import { userReducer } from 'entities/User';
+import { userReducer } from '@/entities/User';
 import { StateSchema } from './StateSchema';
 import { createReducerManager } from './reducerManager';
-import { $api, $apiPrivate, injectStore } from 'shared/api/api';
-import { uiReducer } from 'features/UI';
+import { $api, $apiPrivate, injectStore } from '@/shared/api/api';
+import { uiReducer } from '@/features/UI';
 
 export function createReduxStore(
     initialState?: StateSchema,

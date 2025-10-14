@@ -1,10 +1,10 @@
 import { Checkbox } from '@headlessui/react';
 import React, { memo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './CheckBox.module.scss';
 import { HStack } from '../Stack';
 import { Text } from '../Text/Text';
-import CheckIcon from 'shared/assets/icons/check.svg';
+import CheckIcon from '@/shared/assets/icons/check.svg';
 import { Icon } from '../Icon/Icon';
 
 interface CheckBoxProps {

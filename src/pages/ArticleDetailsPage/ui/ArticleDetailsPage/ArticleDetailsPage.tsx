@@ -1,28 +1,28 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
-import { ArticleDetails } from 'entities/Article';
+import { ArticleDetails } from '@/entities/Article';
 import { useNavigate, useParams } from 'react-router-dom';
 import cls from './ArticleDetailsPage.module.scss';
-import { Text } from 'shared/ui/Text/Text';
-import { CommentList } from 'entities/Comment';
+import { Text } from '@/shared/ui/Text/Text';
+import { CommentList } from '@/entities/Comment';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
     articleDetailsCommentsReducer,
     getArticleComments,
-} from 'pages/ArticleDetailsPage/model/slices/articleDetailsCommentsSlice';
+} from '@/pages/ArticleDetailsPage/model/slices/articleDetailsCommentsSlice';
 import { useSelector } from 'react-redux';
-import { getArticleCommentsIsLoading } from 'pages/ArticleDetailsPage/model/selectors/comments';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
-import { fetchCommentsByArticleId } from 'pages/ArticleDetailsPage/model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
-import { addCommentForArticle, AddCommentForm } from 'features/AddCommentForm';
-import { Button, ButtonTheme } from 'shared/ui/Button';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
-import { Page } from 'widgets/Page/Page';
+import { getArticleCommentsIsLoading } from '@/pages/ArticleDetailsPage/model/selectors/comments';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { fetchCommentsByArticleId } from '@/pages/ArticleDetailsPage/model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
+import { addCommentForArticle, AddCommentForm } from '@/features/AddCommentForm';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
+import { RoutePath } from '@/shared/config/routeConfig/routeConfig';
+import { Page } from '@/widgets/Page/Page';
 
 interface ArticleDetailsPageProps {
     className?: string;

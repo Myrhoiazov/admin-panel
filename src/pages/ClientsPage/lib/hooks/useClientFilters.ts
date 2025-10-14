@@ -6,13 +6,13 @@ import {
     getClientsPageSort,
     getClientsPageType,
 } from '../../model/selectors/clientsPageSelectors';
-import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { ClientSortField } from 'entities/Client';
-import { SortOrder } from 'shared/types/sort';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { ClientSortField } from '@/entities/Client';
+import { SortOrder } from '@/shared/types/sort';
 import { clientsPageActions } from '../../model/slices/clientsPageSlice';
 import { fetchClientsList } from '../../model/services/fetchClientsList/fetchClientsList';
-import { ClientStatusKey } from 'entities/ClientStatus';
+import { ClientStatusKey } from '@/entities/ClientStatus';
 
 export function useClientFilters() {
     const search = useSelector(getClientsPageSearch);

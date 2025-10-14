@@ -1,5 +1,5 @@
 
-import { IProfile } from 'entities/Profile';
+import { IProfile } from '@/entities/Profile';
 
 export interface SettingsPageSchema {
     isLoading?: boolean;

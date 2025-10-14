@@ -4,8 +4,8 @@ import {
     PayloadAction,
 } from '@reduxjs/toolkit';
 
-import { StateSchema } from 'app/providers/StoreProvider';
-import { Procedure } from 'entities/Procedure';
+import { StateSchema } from '@/app/providers/StoreProvider';
+import { Procedure } from '@/entities/Procedure';
 import { fetchProceduresList } from '../services/fetchProceduresList/fetchProceduresList';
 import { ProcedurePageSchema } from '../types/ProcedurePageSchema';
 

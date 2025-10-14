@@ -1,6 +1,6 @@
-import { StateSchema } from 'app/providers/StoreProvider';
-import { ClientSortField, ClientView } from 'entities/Client';
-import { ClientStatusKey } from 'entities/ClientStatus';
+import { StateSchema } from '@/app/providers/StoreProvider';
+import { ClientSortField, ClientView } from '@/entities/Client';
+import { ClientStatusKey } from '@/entities/ClientStatus';
 
 export const getClientsPageIsLoading = (state: StateSchema) => state.clientsPage?.isLoading || false;
 export const getClientsPageError = (state: StateSchema) => state.clientsPage?.error;

@@ -1,12 +1,12 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
-import { Input } from 'shared/ui/Input/Input';
-import Textarea from 'shared/ui/Textarea/Textarea';
-import { TransactionSelect, TransactionType } from 'entities/TransactionType';
-import { Transaction } from 'entities/Transaction';
-import { PaymentMethod, PaymentMethodSelect } from 'entities/PaymentMethod';
-import { TransactionCategory, TransactionCategorySelect } from 'entities/TransactionCategory';
+import { Input } from '@/shared/ui/Input/Input';
+import Textarea from '@/shared/ui/Textarea/Textarea';
+import { TransactionSelect, TransactionType } from '@/entities/TransactionType';
+import { Transaction } from '@/entities/Transaction';
+import { PaymentMethod, PaymentMethodSelect } from '@/entities/PaymentMethod';
+import { TransactionCategory, TransactionCategorySelect } from '@/entities/TransactionCategory';
 
 export interface TransactionCardProps {
     className?: string;

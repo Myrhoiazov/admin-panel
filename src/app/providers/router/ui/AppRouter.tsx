@@ -1,7 +1,7 @@
 import { Suspense, useCallback } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AppRoutesProps, routeConfig } from 'shared/config/routeConfig/routeConfig';
-import Loader from 'shared/ui/Loader/Loader';
+import { AppRoutesProps, routeConfig } from '@/shared/config/routeConfig/routeConfig';
+import Loader from '@/shared/ui/Loader/Loader';
 import PublicRoute from './PublicRoute/PublicRoute';
 import PrivatRoute from './PrivatRoute/PrivatRoute';
 

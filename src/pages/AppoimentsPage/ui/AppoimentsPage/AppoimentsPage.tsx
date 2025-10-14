@@ -1,23 +1,23 @@
 import React, { memo, useCallback, useState } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './AppoimentsPage.module.scss';
-import { Page } from 'widgets/Page/Page';
-import { Text } from 'shared/ui/Text/Text';
+import { Page } from '@/widgets/Page/Page';
+import { Text } from '@/shared/ui/Text/Text';
 
 import { appoimentsPageReducer, getAppointments } from '../../model/slices/appoimentsPageSlice';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { HStack } from 'shared/ui/Stack';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { HStack } from '@/shared/ui/Stack';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAppoimentsList } from '../../model/services/fetchAppoimentsList/fetchAppoimentsList';
 import { initAppoimentPage } from '../../model/services/initAppoimentPage/initAppoimentPage';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useSearchParams } from 'react-router-dom';
-import { AppoimentList } from 'entities/Appointment';
+import { AppoimentList } from '@/entities/Appointment';
 import { useSelector } from 'react-redux';
-import { AppoimentFilters } from 'widgets/AppoimentFilters';
+import { AppoimentFilters } from '@/widgets/AppoimentFilters';
 import { FiltersContainer } from '../FiltersContainer/FiltersContainer';
 
 interface AppoimentsPageProps {

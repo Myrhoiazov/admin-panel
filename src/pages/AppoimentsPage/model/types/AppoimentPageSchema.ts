@@ -1,7 +1,7 @@
 import { EntityState } from '@reduxjs/toolkit';
-import { Appointment } from 'entities/Appointment';
-import { ClientSortField } from 'entities/Client';
-import { SortOrder } from 'shared/types/sort';
+import { Appointment } from '@/entities/Appointment';
+import { ClientSortField } from '@/entities/Client';
+import { SortOrder } from '@/shared/types/sort';
 
 export interface AppoimentPageSchema extends EntityState<Appointment, string> {
     isLoading?: boolean;

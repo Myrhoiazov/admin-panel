@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { Select } from 'shared/ui/Select/Select';
+import { Select } from '@/shared/ui/Select/Select';
 import { memo, useCallback, useMemo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { User } from 'entities/User';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import { User } from '@/entities/User';
 
 interface DoctorSelectProps {
     className?: string;

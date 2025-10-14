@@ -3,13 +3,13 @@ import {
     PayloadAction,
 } from '@reduxjs/toolkit';
 
-import { SortOrder } from 'shared/types/sort';
+import { SortOrder } from '@/shared/types/sort';
 import { fetchTransactionsList } from '../services/fetchTransactionsList/fetchTransactionsList';
-import { Transaction, TransactionSortField } from 'entities/Transaction';
-import { TransactionType } from 'entities/TransactionType';
-import { Summary } from 'entities/Summary';
+import { Transaction, TransactionSortField } from '@/entities/Transaction';
+import { TransactionType } from '@/entities/TransactionType';
+import { Summary } from '@/entities/Summary';
 import { fetchTransactionsSummary } from '../services/fetchTransactionsSummary/fetchTransactionsSummary';
-import { Month } from 'entities/Month/model/types/month';
+import { Month } from '@/entities/Month/model/types/month';
 
 interface TransactionsPageState {
     isLoading: boolean;

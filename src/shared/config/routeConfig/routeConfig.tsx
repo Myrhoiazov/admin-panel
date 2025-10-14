@@ -1,21 +1,21 @@
 import { RouteProps } from 'react-router-dom';
-import { HomePage } from 'pages/HomePage';
-import { AboutPage } from 'pages/AboutPage';
-import NotFoundPage from 'pages/NotFoundPage';
-import { ProfilePage } from 'pages/ProfilePage';
-import { ArticlesPage } from 'pages/ArticlesPage';
-import { ArticleDetailsPage } from 'pages/ArticleDetailsPage';
-import { ClientsPage } from 'pages/ClientsPage';
-import { LoginPage } from 'pages/AuthPage';
-import { ClientsDetailsPage } from 'pages/ClientsDetailsPage';
-import { ProceduresPage } from 'pages/ProceduresPage';
-import { ProcedureEditPage } from 'pages/ProcedureEditPage';
-import { ProcedureDetailsPage } from 'pages/ProcedureDetailsPage';
-import { ProcedureCreatePage } from 'pages/ProcedureCreatePage';
-import { AppoimentsPage } from 'pages/AppoimentsPage';
-import { TransactionsPage } from 'pages/TransactionsPage';
-import { SettingsPage } from 'pages/SettingsPage';
-import { AppoimentDetailPage } from 'pages/AppoimentDetailPage';
+import { HomePage } from '@/pages/HomePage';
+import { AboutPage } from '@/pages/AboutPage';
+import NotFoundPage from '@/pages/NotFoundPage';
+import { ProfilePage } from '@/pages/ProfilePage';
+import { ArticlesPage } from '@/pages/ArticlesPage';
+import { ArticleDetailsPage } from '@/pages/ArticleDetailsPage';
+import { ClientsPage } from '@/pages/ClientsPage';
+import { LoginPage } from '@/pages/AuthPage';
+import { ClientsDetailsPage } from '@/pages/ClientsDetailsPage';
+import { ProceduresPage } from '@/pages/ProceduresPage';
+import { ProcedureEditPage } from '@/pages/ProcedureEditPage';
+import { ProcedureDetailsPage } from '@/pages/ProcedureDetailsPage';
+import { ProcedureCreatePage } from '@/pages/ProcedureCreatePage';
+import { AppoimentsPage } from '@/pages/AppoimentsPage';
+import { TransactionsPage } from '@/pages/TransactionsPage';
+import { SettingsPage } from '@/pages/SettingsPage';
+import { AppoimentDetailPage } from '@/pages/AppoimentDetailPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;

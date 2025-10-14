@@ -1,13 +1,13 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import Textarea from 'shared/ui/Textarea/Textarea';
-import { Procedure } from 'entities/Procedure';
+import Textarea from '@/shared/ui/Textarea/Textarea';
+import { Procedure } from '@/entities/Procedure';
 import { Appointment } from '../../model/types/appoiment';
 import { ProcedureSelect } from '../ProcedureSelect/ProcedureSelect';
-import { Client } from 'entities/Client';
+import { Client } from '@/entities/Client';
 import { ClientSelect } from '../ClientSelect/ClientSelect';
-import { Input } from 'shared/ui/Input/Input';
-import { User } from 'entities/User';
+import { Input } from '@/shared/ui/Input/Input';
+import { User } from '@/entities/User';
 import { DoctorSelect } from '../DoctorSelect/DoctorSelect';
 
 export interface AppointmentCardProps {

@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Summary } from 'entities/Summary';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { Summary } from '@/entities/Summary';
 import { getTransactionPageMonth, getTransactionPageType } from '../../selectors/transactionPageSelectors';
-import { TransactionType } from 'entities/TransactionType';
+import { TransactionType } from '@/entities/TransactionType';
 
 export const fetchTransactionsSummary = createAsyncThunk<
     Summary,

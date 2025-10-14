@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserFormSchema } from '../types/addUserFormSchema';
-import { IProfile } from 'entities/Profile';
+import { IProfile } from '@/entities/Profile';
 
 const initialState: UserFormSchema = {
     readonly: true,

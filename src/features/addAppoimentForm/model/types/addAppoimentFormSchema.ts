@@ -1,8 +1,8 @@
-import { Appointment } from "entities/Appointment";
+import { Appointment } from "@/entities/Appointment";
 import { ServerError } from "../consts/consts";
-import { Procedure } from "entities/Procedure";
-import { Client } from "entities/Client";
-import { User } from "entities/User";
+import { Procedure } from "@/entities/Procedure";
+import { Client } from "@/entities/Client";
+import { User } from "@/entities/User";
 
 export interface AppointmentSchema {
     data?: Appointment,

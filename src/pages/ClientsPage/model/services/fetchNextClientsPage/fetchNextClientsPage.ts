@@ -5,7 +5,7 @@ import {
     getClientsPageNum,
 } from '../../selectors/clientsPageSelectors';
 import { fetchClientsList } from '../fetchClientsList/fetchClientsList';
-import { ThunkConfig } from 'app/providers/StoreProvider';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { clientsPageActions } from '../../slices/clientsPageSlice';
 
 export const fetchNextClientsPage = createAsyncThunk<

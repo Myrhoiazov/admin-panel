@@ -1,12 +1,12 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './UserFilters.module.scss';
-import { HStack } from 'shared/ui/Stack';
-import { Icon } from 'shared/ui/Icon/Icon';
-import { Button } from 'shared/ui/Button';
-import AddClientIcon from 'shared/assets/icons/add_user_icon.svg';
-import { UserFormModal } from 'features/addUserForm';
+import { HStack } from '@/shared/ui/Stack';
+import { Icon } from '@/shared/ui/Icon/Icon';
+import { Button } from '@/shared/ui/Button';
+import AddClientIcon from '@/shared/assets/icons/add_user_icon.svg';
+import { UserFormModal } from '@/features/addUserForm';
 
 interface UserFiltersProps {
     className?: string;

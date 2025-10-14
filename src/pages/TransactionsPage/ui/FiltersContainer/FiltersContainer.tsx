@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import { HStack, VStack } from 'shared/ui/Stack';
-import { TransactionTypeTabs } from 'features/TransactionTypeTabs';
+import { HStack, VStack } from '@/shared/ui/Stack';
+import { TransactionTypeTabs } from '@/features/TransactionTypeTabs';
 import { useTransactionFilters } from '../../lib/hooks/useTransactionFilters';
-import { TransactionFilters } from 'widgets/TransactionFilters';
+import { TransactionFilters } from '@/widgets/TransactionFilters';
 
 interface FiltersContainerProps {
     className?: string;

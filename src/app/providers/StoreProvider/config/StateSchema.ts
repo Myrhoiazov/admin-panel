@@ -1,32 +1,32 @@
-import { UserSchema } from 'entities/User';
+import { UserSchema } from '@/entities/User';
 import {
     EnhancedStore,
     Reducer,
     ReducersMapObject,
     Action,
 } from '@reduxjs/toolkit';
-import { ProfileSchema } from 'entities/Profile';
+import { ProfileSchema } from '@/entities/Profile';
 import { AxiosInstance } from 'axios';
-import { ArticleDetailsSchema } from 'entities/Article';
-import { ArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage';
-import { AddCommentFormSchema } from 'features/AddCommentForm';
-import { ArticlePageSchema } from 'pages/ArticlesPage';
-import { LoginSchema } from 'features/Auth/model/types/loginSchema';
-import { ClientPageSchema } from 'pages/ClientsPage/model/types/ClientPageSchema';
-import { ClientSchema } from 'features/addClientForm';
-import { ClientDetailsSchema } from 'entities/Client';
-import { AddProcedureFormSchema } from 'features/addProcedureForm';
-import { ProcedureDetailsSchema } from 'entities/Procedure';
-import { ProcedurePageSchema } from 'pages/ProceduresPage';
-import { ClientDetailsAppointmentSchema, ClientDetailsCommentsSchema } from 'pages/ClientsDetailsPage';
-import { UISchema } from 'features/UI';
-import { TransactionsPageSchema } from 'pages/TransactionsPage';
-import { AddTransactionFormSchema } from 'features/addTransactionForm';
-import { AppointmentSchema } from 'features/addAppoimentForm';
-import { AppoimentPageSchema } from 'pages/AppoimentsPage';
-import { UserFormSchema } from 'features/addUserForm';
-import { SettingsPageSchema } from 'pages/SettingsPage';
-import { AppointmentDetailSchema } from 'pages/AppoimentDetailPage';
+import { ArticleDetailsSchema } from '@/entities/Article';
+import { ArticleDetailsCommentsSchema } from '@/pages/ArticleDetailsPage';
+import { AddCommentFormSchema } from '@/features/AddCommentForm';
+import { ArticlePageSchema } from '@/pages/ArticlesPage';
+import { LoginSchema } from '@/features/Auth/model/types/loginSchema';
+import { ClientPageSchema } from '@/pages/ClientsPage/model/types/ClientPageSchema';
+import { ClientSchema } from '@/features/addClientForm';
+import { ClientDetailsSchema } from '@/entities/Client';
+import { AddProcedureFormSchema } from '@/features/addProcedureForm';
+import { ProcedureDetailsSchema } from '@/entities/Procedure';
+import { ProcedurePageSchema } from '@/pages/ProceduresPage';
+import { ClientDetailsAppointmentSchema, ClientDetailsCommentsSchema } from '@/pages/ClientsDetailsPage';
+import { UISchema } from '@/features/UI';
+import { TransactionsPageSchema } from '@/pages/TransactionsPage';
+import { AddTransactionFormSchema } from '@/features/addTransactionForm';
+import { AppointmentSchema } from '@/features/addAppoimentForm';
+import { AppoimentPageSchema } from '@/pages/AppoimentsPage';
+import { UserFormSchema } from '@/features/addUserForm';
+import { SettingsPageSchema } from '@/pages/SettingsPage';
+import { AppointmentDetailSchema } from '@/pages/AppoimentDetailPage';
 
 export interface StateSchema {
     user: UserSchema;

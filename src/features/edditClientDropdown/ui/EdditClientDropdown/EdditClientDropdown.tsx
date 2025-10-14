@@ -1,10 +1,10 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
-import { getRouteClientDetails, getRouteClients } from 'shared/const/router';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { Dropdown } from 'shared/ui/Popups';
-import { Icon } from 'shared/ui/Icon/Icon';
-import Eddit from 'shared/assets/icons/edit-icon.svg';
+import { getRouteClientDetails, getRouteClients } from '@/shared/const/router';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { Dropdown } from '@/shared/ui/Popups';
+import { Icon } from '@/shared/ui/Icon/Icon';
+import Eddit from '@/shared/assets/icons/edit-icon.svg';
 import { deleteClientById } from '../../model/services/deleteClientById';
 import { toast } from 'react-toastify';
 

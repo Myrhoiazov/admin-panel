@@ -1,10 +1,10 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
-import { getRouteAppointmentDetails } from 'shared/const/router';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { Dropdown } from 'shared/ui/Popups';
-import { Icon } from 'shared/ui/Icon/Icon';
-import Eddit from 'shared/assets/icons/edit-icon.svg';
+import { getRouteAppointmentDetails } from '@/shared/const/router';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { Dropdown } from '@/shared/ui/Popups';
+import { Icon } from '@/shared/ui/Icon/Icon';
+import Eddit from '@/shared/assets/icons/edit-icon.svg';
 import { deleteAppoimentById } from '../../model/services/deleteAppoimentById';
 
 interface EdditAppoimentDropdownProps {

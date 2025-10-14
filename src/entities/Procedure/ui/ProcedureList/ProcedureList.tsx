@@ -1,11 +1,11 @@
 import React, { memo, useMemo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './ProcedureList.module.scss';
 import { Procedure } from '../../model/types/procedure';
-import { Text } from 'shared/ui/Text/Text';
+import { Text } from '@/shared/ui/Text/Text';
 import ProcedureItem from '../ProcedureItem/ProcedureItem';
-import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
-import { HStack } from 'shared/ui/Stack';
+import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
+import { HStack } from '@/shared/ui/Stack';
 
 interface ProcedureListProps {
     className?: string;

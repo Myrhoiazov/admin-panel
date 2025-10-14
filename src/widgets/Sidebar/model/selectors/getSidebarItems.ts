@@ -1,12 +1,12 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { getUserAuthData } from "entities/User";
-import { RoutePath } from "shared/config/routeConfig/routeConfig";
-import Clients from 'shared/assets/icons/clients.svg'
-import Procedures from 'shared/assets/icons/procedures.svg'
-import Sessions from 'shared/assets/icons/sessions.svg';
-import Transactions from 'shared/assets/icons/transactions.svg';
+import { getUserAuthData } from "@/entities/User";
+import { RoutePath } from "@/shared/config/routeConfig/routeConfig";
+import Clients from '@/shared/assets/icons/clients.svg'
+import Procedures from '@/shared/assets/icons/procedures.svg'
+import Sessions from '@/shared/assets/icons/sessions.svg';
+import Transactions from '@/shared/assets/icons/transactions.svg';
 import { SidebarItemType } from "../types/sidebar";
-import { RoleKey } from "entities/Role";
+import { RoleKey } from "@/entities/Role";
 
 
 export const getSidebarItems = createSelector(

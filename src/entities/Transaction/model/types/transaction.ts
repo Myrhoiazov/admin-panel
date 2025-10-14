@@ -1,6 +1,6 @@
-import { PaymentMethod } from "entities/PaymentMethod"
-import { TransactionCategory } from "entities/TransactionCategory"
-import { TransactionType } from "entities/TransactionType"
+import { PaymentMethod } from "@/entities/PaymentMethod"
+import { TransactionCategory } from "@/entities/TransactionCategory"
+import { TransactionType } from "@/entities/TransactionType"
 
 
 export interface Transaction {

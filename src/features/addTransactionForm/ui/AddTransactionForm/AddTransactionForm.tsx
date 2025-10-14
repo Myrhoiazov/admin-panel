@@ -1,4 +1,4 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
 import {
@@ -8,18 +8,18 @@ import {
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { VStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
-import { TransactionCard } from 'entities/Transaction';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { VStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
+import { TransactionCard } from '@/entities/Transaction';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { getTransactionFormData } from '../../model/selectors/getTransactionFormData';
-import { TransactionType } from 'entities/TransactionType';
-import { Button, ButtonTheme } from 'shared/ui/Button';
+import { TransactionType } from '@/entities/TransactionType';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { createTransaction } from '../../model/services/createTransaction/createTransaction';
-import { PaymentMethod } from 'entities/PaymentMethod';
-import { TransactionCategory } from 'entities/TransactionCategory';
+import { PaymentMethod } from '@/entities/PaymentMethod';
+import { TransactionCategory } from '@/entities/TransactionCategory';
 
 interface AddTransactionFormProps {
     className?: string;

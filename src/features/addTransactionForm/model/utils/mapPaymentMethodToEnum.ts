@@ -1,4 +1,4 @@
-import { PaymentMethod } from "entities/PaymentMethod";
+import { PaymentMethod } from "@/entities/PaymentMethod";
 
 export const mapPaymentMethodToEnum = (
     method?: PaymentMethod

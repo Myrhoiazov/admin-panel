@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Client } from 'entities/Client';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { Client } from '@/entities/Client';
 import { getAddUserForm } from '../../selectors/getAddUserForm/getAddUserForm';
-import { IProfile } from 'entities/Profile';
+import { IProfile } from '@/entities/Profile';
 
 
 export const addNewUser = createAsyncThunk<Client, void, ThunkConfig<string>>('user/addNewUser', async (_, thunkApi) => {

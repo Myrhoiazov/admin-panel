@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
 // import { getClientsPageOrder, getClientsPageSearch, getClientsPageSort, getClientsPageType } from '../../selectors/clientsPageSelectors';
-import { addQueryParams } from 'shared/lib/url/addQueryParams/addQueryParams';
-import { Transaction } from 'entities/Transaction';
+import { addQueryParams } from '@/shared/lib/url/addQueryParams/addQueryParams';
+import { Transaction } from '@/entities/Transaction';
 import { getTransactionPageMonth, getTransactionPageOrder, getTransactionPageSearch, getTransactionPageSort, getTransactionPageType } from '../../selectors/transactionPageSelectors';
-import { TransactionType } from 'entities/TransactionType';
+import { TransactionType } from '@/entities/TransactionType';
 import { fetchTransactionsSummary } from '../fetchTransactionsSummary/fetchTransactionsSummary';
 
 interface FetchTransactionsListProps {

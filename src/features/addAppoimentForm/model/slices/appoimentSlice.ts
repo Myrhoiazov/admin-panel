@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppointmentSchema } from '../types/addAppoimentFormSchema';
-import { Appointment } from 'entities/Appointment';
+import { Appointment } from '@/entities/Appointment';
 import { fetchProceduresList } from '../services/fetchProceduresList/fetchProceduresList';
-import { Procedure } from 'entities/Procedure';
+import { Procedure } from '@/entities/Procedure';
 import { fetchClientsList } from '../services/fetchClientsList/fetchClientsList';
-import { Client } from 'entities/Client';
+import { Client } from '@/entities/Client';
 import { fetchDoctorsList } from '../services/fetchDoctorsList/fetchDoctorsList';
-import { User } from 'entities/User';
+import { User } from '@/entities/User';
 
 const initialState: AppointmentSchema = {
     readonly: true,

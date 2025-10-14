@@ -1,16 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { Text } from 'shared/ui/Text/Text';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
-import { VStack } from 'shared/ui/Stack';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import { Text } from '@/shared/ui/Text/Text';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { VStack } from '@/shared/ui/Stack';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getClientAppointments } from '../../model/slices/clientDetailsAppoimentsSlice';
-import { getClientAppointmentsIsLoading } from 'pages/ClientsDetailsPage/model/selectors/appoiments';
-import { AppoimentList, Appointment } from 'entities/Appointment';
+import { getClientAppointmentsIsLoading } from '@/pages/ClientsDetailsPage/model/selectors/appoiments';
+import { AppoimentList, Appointment } from '@/entities/Appointment';
 import { fetchAppoimentsByClientId } from '../../model/services/fetchAppoimentsByClientId/fetchAppoimentsByClientId';
-import { EdditAppoimentDropdown } from 'features/edditAppoimentDropdown';
+import { EdditAppoimentDropdown } from '@/features/edditAppoimentDropdown';
 
 interface ClientAppoimentsProps {
     className?: string;

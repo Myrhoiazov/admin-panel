@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { IProfile } from 'entities/Profile';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { IProfile } from '@/entities/Profile';
 
 export const deleteUserById = createAsyncThunk<IProfile, string, ThunkConfig<string>>(
     'user/deleteUserById',

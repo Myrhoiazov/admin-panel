@@ -1,4 +1,4 @@
-import { TransactionCategory } from "entities/TransactionCategory";
+import { TransactionCategory } from "@/entities/TransactionCategory";
 
 
 export const mapExpenseCategoryToEnum = (

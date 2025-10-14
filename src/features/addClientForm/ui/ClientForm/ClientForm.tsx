@@ -1,21 +1,21 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import cls from './ClientForm.module.scss';
 import { memo, useCallback, useState } from 'react';
-import { VStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
-import { Button, ButtonTheme } from 'shared/ui/Button';
+import { VStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { clientActions, clientReducer } from '../../model/slices/clientSlice';
 import { useSelector } from 'react-redux';
 import { getAddClientForm } from '../../model/selectors/getAddClientForm/getAddClientForm';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addClientData } from '../../model/services/addClientData/addClientData';
-import { ClientCard } from 'entities/Client';
-import { ClientStatusKey } from 'entities/ClientStatus';
+import { ClientCard } from '@/entities/Client';
+import { ClientStatusKey } from '@/entities/ClientStatus';
 import { toast } from 'react-toastify';
 
 interface AddClientFormProps {

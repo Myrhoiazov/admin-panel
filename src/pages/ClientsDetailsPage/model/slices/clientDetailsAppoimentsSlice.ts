@@ -3,8 +3,8 @@ import {
     createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 
-import { StateSchema } from 'app/providers/StoreProvider';
-import { Appointment } from 'entities/Appointment';
+import { StateSchema } from '@/app/providers/StoreProvider';
+import { Appointment } from '@/entities/Appointment';
 import { fetchAppoimentsByClientId } from '../services/fetchAppoimentsByClientId/fetchAppoimentsByClientId';
 import { ClientDetailsAppointmentSchema } from '../types/ClientDetailsAppoimentSchema';
 

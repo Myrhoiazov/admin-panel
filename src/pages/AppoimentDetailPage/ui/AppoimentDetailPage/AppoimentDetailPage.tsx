@@ -1,17 +1,17 @@
 import React, { memo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './AppoimentDetailPage.module.scss';
 import { useTranslation } from 'react-i18next';
-import { Page } from 'widgets/Page/Page';
-import { Text } from 'shared/ui/Text/Text';
+import { Page } from '@/widgets/Page/Page';
+import { Text } from '@/shared/ui/Text/Text';
 import { useParams } from 'react-router-dom';
 import { appointmentDetailReducer } from '../../model/slices/appoimentDetailSlice';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAppoimentsByClientId } from '../../model/services/fetchAppoimentsByClientId/fetchAppoimentsByClientId';
 import { useSelector } from 'react-redux';
 import {
@@ -19,8 +19,8 @@ import {
     getAppoimetDetailsIsLoading,
     getAppoimetDetailsPageData,
 } from '../../model/selectors/appoimentDetailsSelectors';
-import { AppoimentDetails } from 'entities/Appointment';
-import { VStack } from 'shared/ui/Stack';
+import { AppoimentDetails } from '@/entities/Appointment';
+import { VStack } from '@/shared/ui/Stack';
 
 interface AppoimentDetailPageProps {
     className?: string;

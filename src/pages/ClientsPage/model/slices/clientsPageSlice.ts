@@ -4,13 +4,13 @@ import {
     PayloadAction,
 } from '@reduxjs/toolkit';
 
-import { StateSchema } from 'app/providers/StoreProvider';
-import { Client, ClientSortField, ClientView } from 'entities/Client';
+import { StateSchema } from '@/app/providers/StoreProvider';
+import { Client, ClientSortField, ClientView } from '@/entities/Client';
 import { ClientPageSchema } from '../types/ClientPageSchema';
 import { fetchClientsList } from '../services/fetchClientsList/fetchClientsList';
-import { CLIENT_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
-import { SortOrder } from 'shared/types/sort';
-import { ClientStatusKey } from 'entities/ClientStatus';
+import { CLIENT_VIEW_LOCALSTORAGE_KEY } from '@/shared/const/localstorage';
+import { SortOrder } from '@/shared/types/sort';
+import { ClientStatusKey } from '@/entities/ClientStatus';
 
 const clientsAdapter = createEntityAdapter<Client, string>({
     selectId: (cliend) => cliend.id as string,

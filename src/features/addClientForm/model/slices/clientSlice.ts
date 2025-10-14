@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ClientSchema } from '../types/addClientFormSchema';
-import { Client } from 'entities/Client';
+import { Client } from '@/entities/Client';
 
 const initialState: ClientSchema = {
     readonly: true,

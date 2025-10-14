@@ -1,4 +1,4 @@
-import { ClientStatusKey } from "entities/ClientStatus";
+import { ClientStatusKey } from "@/entities/ClientStatus";
 
 export interface Client {
     id?: string;

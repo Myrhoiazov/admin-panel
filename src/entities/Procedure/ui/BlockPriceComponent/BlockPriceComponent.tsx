@@ -1,9 +1,9 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import { Input } from 'shared/ui/Input/Input';
-import { ProcedurePrice } from 'entities/Procedure/model/types/procedure';
-import { HStack, VStack } from 'shared/ui/Stack';
-import { Button } from 'shared/ui/Button';
-import { Text } from 'shared/ui/Text/Text';
+import { Input } from '@/shared/ui/Input/Input';
+import { ProcedurePrice } from '@/entities/Procedure/model/types/procedure';
+import { HStack, VStack } from '@/shared/ui/Stack';
+import { Button } from '@/shared/ui/Button';
+import { Text } from '@/shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
 
 interface BlockPriceComponentProps {

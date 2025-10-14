@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
-import { HStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
+import { HStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
 
 interface ProcedureCreatePageHeaderProps {
     file?: File | null;

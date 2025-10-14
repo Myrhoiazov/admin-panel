@@ -2,7 +2,7 @@ import {
     createEntityAdapter,
     createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
-import { Appointment } from 'entities/Appointment';
+import { Appointment } from '@/entities/Appointment';
 import { fetchAppoimentsByClientId } from '../services/fetchAppoimentsByClientId/fetchAppoimentsByClientId';
 
 interface InitialState {

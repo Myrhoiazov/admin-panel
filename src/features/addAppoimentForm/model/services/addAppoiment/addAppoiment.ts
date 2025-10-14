@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { getAddAppoimentForm } from '../../selectors/getAddAppoimentForm/getAddClientForm';
-import { Appointment } from 'entities/Appointment';
+import { Appointment } from '@/entities/Appointment';
 
 interface ThunkArg {
     files?: File[] | null

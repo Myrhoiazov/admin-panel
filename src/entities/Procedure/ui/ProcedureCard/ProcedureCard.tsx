@@ -12,15 +12,15 @@ import {
 } from '../../model/types/procedure';
 import BlockPriceComponent from '../BlockPriceComponent/BlockPriceComponent';
 import { ProcedureBlockType } from '../../model/consts/procedureConsts';
-import { VStack } from 'shared/ui/Stack';
+import { VStack } from '@/shared/ui/Stack';
 import BlockPreparationComponent from '../BlockPreparationComponent/BlockPreparationComponent';
 import BlockDescriptionComponent from '../BlockDescriptionComponent/BlockDescriptionComponent';
 import BlockInjectionComponent from '../BlockInjectionComponent/BlockInjectionComponent';
 import BlockRehabilitationComponent from '../BlockRehabilitationComponent/BlockRehabilitationComponent';
 import BlockContraindicationComponent from '../BlockContraindicationComponent/BlockContraindicationComponent';
 import BlockResultComponent from '../BlockResultComponent/BlockResultComponent';
-import { Input } from 'shared/ui/Input/Input';
-import { Text } from 'shared/ui/Text/Text';
+import { Input } from '@/shared/ui/Input/Input';
+import { Text } from '@/shared/ui/Text/Text';
 
 export interface ProcedureCardProps {
     procedure?: Procedure;

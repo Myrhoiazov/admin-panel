@@ -1,4 +1,4 @@
-import { $api } from "shared/api/api";
+import { $api } from "@/shared/api/api";
 
 const useRefreshToken = () => {
     // const { setAuth } = useAuth();

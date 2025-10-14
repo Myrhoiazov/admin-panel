@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Appointment } from 'entities/Appointment';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { Appointment } from '@/entities/Appointment';
 import { getAppoimentPageOrder, getAppoimentPageSearch, getAppoimentPageSort } from '../../selectors/appoimentsPageSelectors';
-import { addQueryParams } from 'shared/lib/url/addQueryParams/addQueryParams';
+import { addQueryParams } from '@/shared/lib/url/addQueryParams/addQueryParams';
 
 interface FetchAppointmentsListProps {
     replace?: boolean;

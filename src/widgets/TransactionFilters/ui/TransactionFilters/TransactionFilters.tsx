@@ -1,18 +1,18 @@
 import React, { memo, useCallback, useState } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './TransactionFilters.module.scss';
-import { Button } from 'shared/ui/Button';
-import { AddTransactionFormModal } from 'features/addTransactionForm';
-import Plus from 'shared/assets/icons/plus.svg';
-import { Icon } from 'shared/ui/Icon/Icon';
-import { TransactionSortSelector } from 'features/TransactionSortSelector';
-import { TransactionSortField } from 'entities/Transaction';
-import { SortOrder } from 'shared/types/sort';
-import { Input } from 'shared/ui/Input/Input';
-import SearchIcon from 'shared/assets/icons/search.svg';
-import { HStack } from 'shared/ui/Stack';
+import { Button } from '@/shared/ui/Button';
+import { AddTransactionFormModal } from '@/features/addTransactionForm';
+import Plus from '@/shared/assets/icons/plus.svg';
+import { Icon } from '@/shared/ui/Icon/Icon';
+import { TransactionSortSelector } from '@/features/TransactionSortSelector';
+import { TransactionSortField } from '@/entities/Transaction';
+import { SortOrder } from '@/shared/types/sort';
+import { Input } from '@/shared/ui/Input/Input';
+import SearchIcon from '@/shared/assets/icons/search.svg';
+import { HStack } from '@/shared/ui/Stack';
 import { useTranslation } from 'react-i18next';
-import { Month } from 'entities/Month';
+import { Month } from '@/entities/Month';
 
 interface TransactionFiltersProps {
     className?: string;

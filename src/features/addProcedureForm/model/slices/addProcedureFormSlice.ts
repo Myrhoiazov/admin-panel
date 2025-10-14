@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AddProcedureFormSchema } from '../types/addProcedureFormSchema';
-import { Procedure } from 'entities/Procedure/model/types/procedure';
+import { Procedure } from '@/entities/Procedure/model/types/procedure';
 import { createProcedure } from '../services/createProcedure';
 
 const initialState: AddProcedureFormSchema = {

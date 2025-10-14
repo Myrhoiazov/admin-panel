@@ -1,8 +1,8 @@
-import { Modal } from 'shared/ui/Modal/Modal';
+import { Modal } from '@/shared/ui/Modal/Modal';
 import { Suspense } from 'react';
 import { ClientFormAsync } from '../ClientForm/ClientForm.async';
-import Loader from 'shared/ui/Loader/Loader';
-import { classNames } from 'shared/lib/classNames/classNames';
+import Loader from '@/shared/ui/Loader/Loader';
+import { classNames } from '@/shared/lib/classNames/classNames';
 
 interface ClientFormProps {
     className?: string;

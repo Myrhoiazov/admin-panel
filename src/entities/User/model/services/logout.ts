@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { userActions } from '../slice/userSlice';
 
 export const logout = createAsyncThunk<void, void, ThunkConfig<string>>(

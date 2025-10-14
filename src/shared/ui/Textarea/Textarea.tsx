@@ -1,4 +1,4 @@
-import { classNames, Mods } from 'shared/lib/classNames/classNames';
+import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import React, { memo, TextareaHTMLAttributes, useEffect, useRef, useState } from 'react';
 import cls from './Textarea.module.scss';
 

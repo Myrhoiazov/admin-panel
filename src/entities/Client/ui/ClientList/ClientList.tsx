@@ -1,12 +1,12 @@
 import React, { memo, ReactNode } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './ClientList.module.scss';
 import { Client, ClientView } from '../../model/types/client';
-import { Text } from 'shared/ui/Text/Text';
-import { HStack, VStack } from 'shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
+import { HStack, VStack } from '@/shared/ui/Stack';
 import ClientListItem from '../ClientListItem/ClientListItem';
 import ClientListHeader from '../ClientListHeader/ClientListHeader';
-import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
+import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 
 interface ClientListProps {
     className?: string;

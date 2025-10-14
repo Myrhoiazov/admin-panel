@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { Select } from 'shared/ui/Select/Select';
+import { Select } from '@/shared/ui/Select/Select';
 import { memo, useCallback, useMemo } from 'react';
 import { PaymentMethod } from '../../model/types/paymentMethod';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { ListBox } from 'shared/ui/Popups';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import { ListBox } from '@/shared/ui/Popups';
 
 interface PaymentMethodSelectProps {
     className?: string;

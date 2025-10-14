@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { Select } from 'shared/ui/Select/Select';
+import { Select } from '@/shared/ui/Select/Select';
 import { memo, useCallback, useMemo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { Procedure } from 'entities/Procedure';
-import { Client } from 'entities/Client';
+import { classNames } from '@/shared/lib/classNames/classNames';
+import { Procedure } from '@/entities/Procedure';
+import { Client } from '@/entities/Client';
 
 interface ClientSelectProps {
     className?: string;

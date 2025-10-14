@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Appointment } from 'entities/Appointment';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { Appointment } from '@/entities/Appointment';
 
 export const deleteAppoimentById = createAsyncThunk<Appointment, string, ThunkConfig<string>>(
     'appointments/fetchAppointmentById',

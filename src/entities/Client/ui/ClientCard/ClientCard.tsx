@@ -1,11 +1,11 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
-import { Input } from 'shared/ui/Input/Input';
-import { ClientStatusSelect, ClientStatusKey } from 'entities/ClientStatus';
-import { Client } from 'entities/Client';
-import Textarea from 'shared/ui/Textarea/Textarea';
-import CheckBox from 'shared/ui/CheckBox/CheckBox';
+import { Input } from '@/shared/ui/Input/Input';
+import { ClientStatusSelect, ClientStatusKey } from '@/entities/ClientStatus';
+import { Client } from '@/entities/Client';
+import Textarea from '@/shared/ui/Textarea/Textarea';
+import CheckBox from '@/shared/ui/CheckBox/CheckBox';
 import { on } from 'events';
 
 export interface ClientCardProps {

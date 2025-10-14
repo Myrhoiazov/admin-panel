@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
+import { ThemeDecorator } from '@/shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Modal } from './Modal';
-import { Theme } from 'shared/const/theme';
+import { Theme } from '@/shared/const/theme';
 
 export default {
     title: 'shared/Modal',

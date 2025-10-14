@@ -1,10 +1,10 @@
 import React, { memo, ReactNode } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './UsersList.module.scss';
-import { Text } from 'shared/ui/Text/Text';
-import { VStack } from 'shared/ui/Stack';
-import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
-import { IProfile } from 'entities/Profile';
+import { Text } from '@/shared/ui/Text/Text';
+import { VStack } from '@/shared/ui/Stack';
+import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
+import { IProfile } from '@/entities/Profile';
 import UserListItem from '../UserListItem/UserListItem';
 
 interface UsersListProps {

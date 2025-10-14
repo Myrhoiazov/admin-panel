@@ -1,13 +1,13 @@
 import { memo, useCallback } from 'react';
 import s from './AddCommentForm.module.scss';
-import { Input } from 'shared/ui/Input/Input';
-import { Button, ButtonTheme } from 'shared/ui/Button';
+import { Input } from '@/shared/ui/Input/Input';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { useSelector } from 'react-redux';
 import {
     getAddCommentFormError,
     getAddCommentFormText,
 } from '../../model/selectors/getAddCommentFormSelectors';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import {
     addCommentFormActions,
     addCommentFormReducer,
@@ -15,8 +15,8 @@ import {
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { HStack } from 'shared/ui/Stack';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { HStack } from '@/shared/ui/Stack';
 import { t } from 'i18next';
 
 interface AddCommentFormProps {

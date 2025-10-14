@@ -1,7 +1,7 @@
-import { StateSchema } from "app/providers/StoreProvider";
-import { Month } from "entities/Month";
-import { TransactionSortField } from "entities/Transaction";
-import { TransactionType } from "entities/TransactionType";
+import { StateSchema } from "@/app/providers/StoreProvider";
+import { Month } from "@/entities/Month";
+import { TransactionSortField } from "@/entities/Transaction";
+import { TransactionType } from "@/entities/TransactionType";
 
 export const getTransactionPageIsLoading = (state: StateSchema) => state.transactionPage?.isLoading || false;
 export const getTransactionPageData = (state: StateSchema) => state.transactionPage?.items || [];

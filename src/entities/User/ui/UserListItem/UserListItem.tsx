@@ -1,11 +1,11 @@
 import React, { memo, ReactNode } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './UserListItem.module.scss';
-import { HStack } from 'shared/ui/Stack';
-import { Card } from 'shared/ui/Card/Card';
-import { IProfile } from 'entities/Profile';
-import { RoleKey } from 'entities/Role';
-import { RoleLabels } from 'entities/Role/model/types/role';
+import { HStack } from '@/shared/ui/Stack';
+import { Card } from '@/shared/ui/Card/Card';
+import { IProfile } from '@/entities/Profile';
+import { RoleKey } from '@/entities/Role';
+import { RoleLabels } from '@/entities/Role/model/types/role';
 
 interface UserListItemProps {
     className?: string;

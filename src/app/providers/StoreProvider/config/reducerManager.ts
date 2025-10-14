@@ -9,7 +9,7 @@ import {
     StateSchema,
     StateSchemaKey,
 } from './StateSchema';
-import { UserSchema } from 'entities/User';
+import { UserSchema } from '@/entities/User';
 
 
 type ExpectedStateType = {

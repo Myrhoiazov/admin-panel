@@ -1,22 +1,22 @@
 import { useTranslation } from 'react-i18next';
 import { memo, use } from 'react';
-import { Page } from 'widgets/Page/Page';
-import { VStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
-import { UserFilters } from 'widgets/UserFilters';
+import { Page } from '@/widgets/Page/Page';
+import { VStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
+import { UserFilters } from '@/widgets/UserFilters';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { settingsPageReducer } from '../../model/slices/settingsPageSlice';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { fetchUsersList } from '../../model/services/fetchUsersList/fetchUsersList';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { getSettingsPageUsers } from '../../model/selectors/clientsPageSelectors';
-import { UsersList } from 'entities/User';
-import { IProfile } from 'entities/Profile';
-import { EdditUserDropdown } from 'features/edditUserDropdown';
+import { UsersList } from '@/entities/User';
+import { IProfile } from '@/entities/Profile';
+import { EdditUserDropdown } from '@/features/edditUserDropdown';
 
 interface SettingsPageProps {
     className?: string;

@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './TransactionListItem.module.scss';
 import { Transaction } from '../../model/types/transaction';
-import { Card } from 'shared/ui/Card/Card';
-import { HStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
-import { TransactionType } from 'entities/TransactionType';
-import { PaymentMethod } from 'entities/PaymentMethod';
+import { Card } from '@/shared/ui/Card/Card';
+import { HStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
+import { TransactionType } from '@/entities/TransactionType';
+import { PaymentMethod } from '@/entities/PaymentMethod';
 
 interface TransactionListItemProps {
     className?: string;

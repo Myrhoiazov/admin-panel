@@ -2,10 +2,10 @@ import { memo } from 'react';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
-import { HStack, VStack } from 'shared/ui/Stack';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { HStack, VStack } from '@/shared/ui/Stack';
 import { fetchProcedureById } from '../../model/services/fetchProcedureById/fetchProcedureById';
 import {
     getProcedureDetailsData,
@@ -14,10 +14,10 @@ import {
 } from '../../model/selectors/ProcedureDetails';
 import { useSelector } from 'react-redux';
 import { procedureDetailsReducer } from '../../model/slices/procedureDetailsSlice';
-import { Text } from 'shared/ui/Text/Text';
-import { AppImage } from 'shared/ui/AppImage';
-import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
-import { Card } from 'shared/ui/Card/Card';
+import { Text } from '@/shared/ui/Text/Text';
+import { AppImage } from '@/shared/ui/AppImage';
+import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
+import { Card } from '@/shared/ui/Card/Card';
 import s from './ProcedureDetails.module.scss';
 import { renderProcedureBlock } from './renderBlock';
 

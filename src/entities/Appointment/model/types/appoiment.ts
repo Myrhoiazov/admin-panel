@@ -1,6 +1,6 @@
-import { Client } from "entities/Client";
-import { Procedure } from "entities/Procedure";
-import { User } from "entities/User";
+import { Client } from "@/entities/Client";
+import { Procedure } from "@/entities/Procedure";
+import { User } from "@/entities/User";
 
 export interface AppointmentImageDto {
     id: number;

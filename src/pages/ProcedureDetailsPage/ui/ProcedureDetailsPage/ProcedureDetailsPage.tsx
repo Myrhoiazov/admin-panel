@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './ProcedureDetailsPage.module.scss';
 import { useParams } from 'react-router-dom';
-import { Page } from 'widgets/Page/Page';
-import { Text } from 'shared/ui/Text/Text';
-import { ProcedureDetails } from 'entities/Procedure';
-import { VStack } from 'shared/ui/Stack';
+import { Page } from '@/widgets/Page/Page';
+import { Text } from '@/shared/ui/Text/Text';
+import { ProcedureDetails } from '@/entities/Procedure';
+import { VStack } from '@/shared/ui/Stack';
 
 interface ProcedureDetailsPageProps {
     className?: string;

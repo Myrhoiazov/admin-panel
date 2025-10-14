@@ -1,7 +1,7 @@
 import { EntityState } from '@reduxjs/toolkit';
-import { Client, ClientSortField, ClientView } from 'entities/Client';
-import { ClientStatusKey } from 'entities/ClientStatus';
-import { SortOrder } from 'shared/types/sort';
+import { Client, ClientSortField, ClientView } from '@/entities/Client';
+import { ClientStatusKey } from '@/entities/ClientStatus';
+import { SortOrder } from '@/shared/types/sort';
 
 export interface ClientPageSchema extends EntityState<Client, string> {
     isLoading?: boolean;

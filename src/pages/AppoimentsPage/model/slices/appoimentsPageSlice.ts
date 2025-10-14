@@ -4,12 +4,12 @@ import {
     PayloadAction,
 } from '@reduxjs/toolkit';
 
-import { StateSchema } from 'app/providers/StoreProvider';
+import { StateSchema } from '@/app/providers/StoreProvider';
 import { fetchAppoimentsList } from '../services/fetchAppoimentsList/fetchAppoimentsList';
 import { AppoimentPageSchema } from '../types/AppoimentPageSchema';
-import { Appointment } from 'entities/Appointment';
-import { SortOrder } from 'shared/types/sort';
-import { ClientSortField } from 'entities/Client';
+import { Appointment } from '@/entities/Appointment';
+import { SortOrder } from '@/shared/types/sort';
+import { ClientSortField } from '@/entities/Client';
 
 const appoimentAdapter = createEntityAdapter<Appointment, string>({
     selectId: (appointment) => appointment.id as string,

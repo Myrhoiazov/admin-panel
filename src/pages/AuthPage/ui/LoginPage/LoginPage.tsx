@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './LoginPage.module.scss';
-import { LoginForm } from 'features/Auth';
-import { Page } from 'widgets/Page/Page';
+import { LoginForm } from '@/features/Auth';
+import { Page } from '@/widgets/Page/Page';
 
 interface LoginPageProps {
     className?: string;

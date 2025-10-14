@@ -1,28 +1,28 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import cls from './AppoimentForm.module.scss';
 import { memo, useCallback, useEffect, useState } from 'react';
-import { VStack } from 'shared/ui/Stack';
-import { Text } from 'shared/ui/Text/Text';
-import { Button, ButtonTheme } from 'shared/ui/Button';
+import { VStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { appoimentActions, appoimentReducer } from '../../model/slices/appoimentSlice';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { AppointmentCard } from 'entities/Appointment';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { AppointmentCard } from '@/entities/Appointment';
 import { getAddAppoimentProcedures } from '../../model/selectors/getAddAppoimentProcedures/getAddAppoimentProcedures';
-import { Procedure } from 'entities/Procedure';
+import { Procedure } from '@/entities/Procedure';
 import { addAppoiment } from '../../model/services/addAppoiment/addAppoiment';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { fetchProceduresList } from '../../model/services/fetchProceduresList/fetchProceduresList';
-import { getAddAppoimentForm } from 'features/addAppoimentForm/model/selectors/getAddAppoimentForm/getAddClientForm';
+import { getAddAppoimentForm } from '@/features/addAppoimentForm/model/selectors/getAddAppoimentForm/getAddClientForm';
 import { fetchClientsList } from '../../model/services/fetchClientsList/fetchClientsList';
 import { getAddAppoimentClients } from '../../model/selectors/getAddAppoimentClients/getAddAppoimentClients';
-import { Client } from 'entities/Client/model/types/client';
-import { User } from 'entities/User';
+import { Client } from '@/entities/Client/model/types/client';
+import { User } from '@/entities/User';
 import { getAddAppoimentDoctors } from '../../model/selectors/getAddAppoimentDocters/getAddAppoimentDocters';
 import { fetchDoctorsList } from '../../model/services/fetchDoctorsList/fetchDoctorsList';
 import { toast } from 'react-toastify';

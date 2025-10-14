@@ -1,19 +1,19 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
 import cls from './ClientsPage.module.scss';
-import { Client, ClientList, ClientView, ClientViewSelector } from 'entities/Client';
+import { Client, ClientList, ClientView, ClientViewSelector } from '@/entities/Client';
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+} from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
     clientsPageActions,
     clientsPageReducer,
     getClients,
 } from '../../model/slices/clientsPageSlice';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
 import {
     getClientsPageIsLoading,
     getClientsPageView,
@@ -22,10 +22,10 @@ import { fetchNextClientsPage } from '../../model/services/fetchNextClientsPage/
 import { initClientsPage } from '../../model/services/initClientsPage/initClientsPage';
 import { FiltersContainer } from '../FiltersContainer/FiltersContainer';
 import { fetchClientsList } from '../../model/services/fetchClientsList/fetchClientsList';
-import { EdditClientDropdown } from 'features/edditClientDropdown';
-import { Text } from 'shared/ui/Text/Text';
-import { HStack } from 'shared/ui/Stack';
-import { Page } from 'widgets/Page/Page';
+import { EdditClientDropdown } from '@/features/edditClientDropdown';
+import { Text } from '@/shared/ui/Text/Text';
+import { HStack } from '@/shared/ui/Stack';
+import { Page } from '@/widgets/Page/Page';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 

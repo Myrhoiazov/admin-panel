@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
+import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { Client, ServerError } from '../../types/client';
 
 export const fetchClientById = createAsyncThunk<Client, string, ThunkConfig<ServerError>>(

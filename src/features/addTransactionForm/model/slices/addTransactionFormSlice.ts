@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AddTransactionFormSchema } from '../types/addTransactionFormSchema';
-import { Transaction } from 'entities/Transaction';
+import { Transaction } from '@/entities/Transaction';
 
 const initialState: AddTransactionFormSchema = {
     readonly: true,

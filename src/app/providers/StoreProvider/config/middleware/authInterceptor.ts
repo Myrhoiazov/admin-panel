@@ -1,7 +1,7 @@
 import { Middleware, isRejectedWithValue } from '@reduxjs/toolkit';
 import { AxiosError, AxiosRequestConfig } from 'axios';
-import { User, userActions } from 'entities/User';
-import { $apiPrivate, serviceToken } from 'shared/api/api';
+import { User, userActions } from '@/entities/User';
+import { $apiPrivate, serviceToken } from '@/shared/api/api';
 
 // export const authInterceptor: Middleware = ({ dispatch }) => next => action => {
 

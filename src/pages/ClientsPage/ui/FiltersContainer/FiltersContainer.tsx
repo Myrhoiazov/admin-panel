@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { useClientFilters } from '../../lib/hooks/useClientFilters';
-import { ClientFilters } from 'widgets/ClientFilters';
-import { ClientTypeTabs } from 'features/ClientTypeTabs';
-import { VStack } from 'shared/ui/Stack';
+import { ClientFilters } from '@/widgets/ClientFilters';
+import { ClientTypeTabs } from '@/features/ClientTypeTabs';
+import { VStack } from '@/shared/ui/Stack';
 
 interface FiltersContainerProps {
     className?: string;
