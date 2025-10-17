@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, ReactNode } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './TransactionListItem.module.scss';
 import { Transaction } from '../../model/types/transaction';
@@ -11,9 +11,14 @@ import { PaymentMethod } from '@/entities/PaymentMethod';
 interface TransactionListItemProps {
     className?: string;
     transaction: Transaction;
+    renderAction?: (appoiment: Transaction) => ReactNode;
 }
 
-const TransactionListItem = ({ className, transaction }: TransactionListItemProps) => {
+const TransactionListItem = ({
+    className,
+    transaction,
+    renderAction,
+}: TransactionListItemProps) => {
     const onlyDate = new Date(transaction?.date as string).toISOString().slice(0, 10);
 
     const paymentKey = transaction?.paymentMethod as unknown as keyof typeof PaymentMethod;
@@ -37,6 +42,7 @@ const TransactionListItem = ({ className, transaction }: TransactionListItemProp
                     />
                 </HStack>
                 <Text text={`${transaction.amount}uah`} />
+                {renderAction?.(transaction)}
             </HStack>
         </Card>
     );

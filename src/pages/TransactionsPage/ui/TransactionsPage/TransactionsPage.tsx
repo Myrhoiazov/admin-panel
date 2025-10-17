@@ -19,12 +19,13 @@ import {
     getTransactionPageData,
     getTransactionPageIsLoading,
 } from '../../model/selectors/transactionPageSelectors';
-import { TransactionList } from '@/entities/Transaction';
+import { Transaction, TransactionList } from '@/entities/Transaction';
 import { FiltersContainer } from '../FiltersContainer/FiltersContainer';
 import { initTransactionsPage } from '../../model/services/initTransactionsPage/initTransactionsPage';
 import { getTransactionPageSummaryData } from '../../model/selectors/getTransactionPageSummary';
 import { SummaryCards } from '@/entities/Summary';
 import { fetchTransactionsSummary } from '@/pages/TransactionsPage/model/services/fetchTransactionsSummary/fetchTransactionsSummary';
+import { EdditTransactionDropdown } from '@/features/edditTransactionDropdown';
 
 interface TransactionsPageProps {
     className?: string;
@@ -58,7 +59,16 @@ const TransactionsPage = ({ className }: TransactionsPageProps) => {
                     <FiltersContainer reloadPage={fetchAllTransactions} />
                     <VStack gap="16" max>
                         <Text title="Финансовый Учет" bold />
-                        <TransactionList isLoading={isLoading} transactions={transactions} />
+                        <TransactionList
+                            isLoading={isLoading}
+                            transactions={transactions}
+                            renderAction={(transaction: Transaction) => (
+                                <EdditTransactionDropdown
+                                    transactionId={transaction.id ?? ''}
+                                    reloadPage={fetchAllTransactions}
+                                />
+                            )}
+                        />
                     </VStack>
                 </VStack>
             </Page>

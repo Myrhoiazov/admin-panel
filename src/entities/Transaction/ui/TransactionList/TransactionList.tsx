@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, ReactNode } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './TransactionList.module.scss';
 import { Transaction } from '../../model/types/transaction';
@@ -11,11 +11,12 @@ interface TransactionListProps {
     className?: string;
     transactions: Transaction[];
     isLoading?: boolean;
+    renderAction?: (transaction: Transaction) => ReactNode;
 }
 
 export const TransactionList = memo((props: TransactionListProps) => {
-    const { className, transactions, isLoading } = props;
-    
+    const { className, transactions, isLoading, renderAction } = props;
+
     if (!isLoading && !transactions.length) {
         return (
             <div className={classNames(s.TransactionList, {}, [])}>
@@ -25,7 +26,12 @@ export const TransactionList = memo((props: TransactionListProps) => {
     }
 
     const renderTransactions = (trans: Transaction) => (
-        <TransactionListItem className={s.card} transaction={trans} key={trans.id} />
+        <TransactionListItem
+            className={s.card}
+            transaction={trans}
+            key={trans.id}
+            renderAction={renderAction}
+        />
     );
 
     return (

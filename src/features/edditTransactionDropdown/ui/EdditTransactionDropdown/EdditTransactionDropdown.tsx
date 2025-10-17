@@ -5,36 +5,32 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { Dropdown } from '@/shared/ui/Popups';
 import { Icon } from '@/shared/ui/Icon/Icon';
 import Eddit from '@/shared/assets/icons/edit-icon.svg';
-import { deleteAppoimentById } from '../../model/services/deleteAppoimentById';
+import { deleteTransactionById } from '../../model/services/deleteTransactionById';
 import { toast } from 'react-toastify';
 
-interface EdditAppoimentDropdownProps {
+interface EdditTransactionDropdownProps {
     className?: string;
-    appointmentId: string;
+    transactionId: string;
     reloadPage?: () => void;
 }
 
-export const EdditAppoimentDropdown = memo((props: EdditAppoimentDropdownProps) => {
-    const { className, appointmentId, reloadPage } = props;
+export const EdditTransactionDropdown = memo((props: EdditTransactionDropdownProps) => {
+    const { className, transactionId, reloadPage } = props;
 
     const dispatch = useAppDispatch();
 
-    const deleteAppoimentGandler = useCallback(async () => {
-        const result = await dispatch(deleteAppoimentById(appointmentId));
+    const deleteTransactionHandler = useCallback(async () => {
+        const result = await dispatch(deleteTransactionById(transactionId));
         if (result.meta.requestStatus === 'fulfilled') {
             reloadPage?.();
-            toast.info('Сеанс успешно удален');
+            toast.info('Транзакция успешно удалена');
         }
     }, [dispatch]);
 
     const items = [
         {
-            content: 'Просмотреть',
-            href: getRouteAppointmentDetails(String(appointmentId)),
-        },
-        {
             content: 'Удалить',
-            onClick: deleteAppoimentGandler,
+            onClick: deleteTransactionHandler,
         },
     ];
 
