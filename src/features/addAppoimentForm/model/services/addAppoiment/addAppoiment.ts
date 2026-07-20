@@ -4,13 +4,16 @@ import { getAddAppoimentForm } from '../../selectors/getAddAppoimentForm/getAddC
 import { Appointment } from '@/entities/Appointment';
 
 interface ThunkArg {
-    files?: File[] | null
+    data?: Partial<Appointment> & { serviceItemIds?: number[] }
 }
 
-export const addAppoiment = createAsyncThunk<Appointment, ThunkArg, ThunkConfig<string>>('appoiment/addAppoiment', async ({ files }, thunkApi) => {
+export const addAppoiment = createAsyncThunk<Appointment, ThunkArg, ThunkConfig<string>>('appoiment/addAppoiment', async ({ data }, thunkApi) => {
     const { extra, rejectWithValue, getState } = thunkApi;
 
-    const appoimentForm = getAddAppoimentForm(getState());
+    const { serviceItemIds, ...appoimentForm } = {
+        ...getAddAppoimentForm(getState()),
+        ...data,
+    };
 
     if (!appoimentForm) {
         return rejectWithValue('Форма записи не заполнена');
@@ -24,12 +27,11 @@ export const addAppoiment = createAsyncThunk<Appointment, ThunkArg, ThunkConfig<
         }
     });
 
-    if (files) {
-        files.forEach((file) => {
-            formData.append('images', file);
-        });
+    // FormData can't carry a real array — the generic loop above would stringify it as "1,2,3".
+    // Send it as a JSON string instead; the server does JSON.parse on this specific field.
+    if (serviceItemIds !== undefined) {
+        formData.append('serviceItemIds', JSON.stringify(serviceItemIds));
     }
-
 
     try {
         const response = await extra.apiPrivate.post<Appointment>('/appointments', formData, {
