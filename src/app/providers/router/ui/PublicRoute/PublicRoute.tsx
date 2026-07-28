@@ -1,4 +1,4 @@
-import { getUserToken } from '@/entities/User';
+import { getUserAuthData } from '@/entities/User';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 import { RoutePath } from '@/shared/config/routeConfig/routeConfig';
@@ -10,8 +10,8 @@ interface PublicRouteProps {
 }
 
 const PublicRoute = ({ restricted = false, to, children }: PublicRouteProps) => {
-    const token = useSelector(getUserToken);
-    const shouldRedirect = token && restricted;
+    const authData = useSelector(getUserAuthData);
+    const shouldRedirect = Boolean(authData) && restricted;
 
     return shouldRedirect ? <Navigate to={RoutePath.main} /> : <>{children}</>;
 };

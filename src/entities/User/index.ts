@@ -12,8 +12,6 @@ export {
     getUserInited,
 } from './model/selectors/getUserInited/getUserInited';
 
-export { getUserToken } from './model/selectors/getUserToken/getUserToken';
-
 export {
     userReducer,
     userActions,
