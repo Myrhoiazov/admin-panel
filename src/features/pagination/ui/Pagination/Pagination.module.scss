@@ -1,0 +1,43 @@
+.Pagination {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pageBtn,
+.navBtn {
+    min-width: 30px;
+    height: 30px;
+    padding: 0 8px;
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    background: var(--surface-secondary);
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.pageBtn:hover,
+.navBtn:hover {
+    background: var(--surface-primary);
+    border-color: var(--border-strong);
+}
+
+.active {
+    border-color: var(--accent-gold);
+    background: var(--accent-gold);
+    color: var(--inverted-primary-color);
+}
+
+.navBtn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.dots {
+    color: var(--text-muted);
+    font-size: 12px;
+    padding: 0 3px;
+}

@@ -1,14 +1,90 @@
 .UserListItem {
-    // transition: all var(--transition-base);
+    border: none;
+    border-top: 0;
+    border-bottom: 1px solid var(--border-soft);
+    border-radius: 0;
+    background: var(--surface-primary);
+    box-shadow: none;
 
-    .icon {
-        display: flex;
-        justify-content: center;
+    .grid {
+        display: grid;
+        grid-template-columns: minmax(180px, 1.2fr) minmax(200px, 1.4fr) 130px 80px;
+        gap: 10px;
         align-items: center;
+    }
+
+    .cell {
+        margin: 0;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 15px;
+        color: var(--text-primary);
+    }
+
+    .nameCell {
+        font-weight: 700;
+        color: var(--accent-gold);
+    }
+
+    .roleCell {
+        color: var(--text-secondary);
+        font-size: 14px;
+    }
+
+    .actions {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .actionBtn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--border-soft);
+        border-radius: 8px;
+        color: var(--text-muted);
+        background: transparent;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.15s, background 0.15s, border-color 0.15s;
+
+        &:hover {
+            color: #2563eb;
+            background: rgb(37 99 235 / 8%);
+            border-color: rgb(37 99 235 / 30%);
+        }
+    }
+
+    .deleteBtn {
+        &:hover {
+            color: #dc2626;
+            background: rgb(220 38 38 / 8%);
+            border-color: rgb(220 38 38 / 30%);
+        }
     }
 }
 
-.SMALL {
-    width: 230px;
-    cursor: pointer;
+@media (max-width: 900px) {
+    .UserListItem {
+        .grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 12px;
+        }
+
+        .cell {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: initial;
+        }
+
+        .actions {
+            justify-content: flex-start;
+        }
+    }
 }

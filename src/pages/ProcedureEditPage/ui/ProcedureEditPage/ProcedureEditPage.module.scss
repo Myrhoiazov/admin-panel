@@ -1,3 +1,17 @@
-.ProceduresEditPage{
-    background-color: transparent;
+.ProceduresEditPage {
+    background: transparent;
+}
+
+.formCard {
+    border-radius: var(--border-radius-l);
+    border: 1px solid var(--border-soft);
+    background:
+        radial-gradient(circle at 100% 0%, rgb(255 255 255 / 26%) 0%, transparent 36%),
+        var(--surface-primary);
+}
+
+@media (max-width: 900px) {
+    .formCard {
+        padding: 18px;
+    }
 }

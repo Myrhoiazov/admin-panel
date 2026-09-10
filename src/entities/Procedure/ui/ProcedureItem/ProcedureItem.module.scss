@@ -1,21 +1,40 @@
 .ProcedureItem {
     width: 100%;
-    max-width: 350px;
-    height: 100%;
-    max-height: 350px;
-    background-color: transparent;
+    max-width: 360px;
+    background: var(--surface-primary);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
     overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base),
+        border-color var(--transition-base);
+
+    &:hover {
+        transform: translateY(-2px);
+        border-color: rgb(199 164 95 / 35%);
+        box-shadow: 0 10px 20px rgb(9 21 18 / 12%);
+
+        .content .deleteBtn {
+            opacity: 1;
+        }
+    }
+
+    .link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
 
     .content {
         position: relative;
         overflow: hidden;
+        min-height: 300px;
 
         .imageWrapper {
             position: relative;
             display: block;
             width: 100%;
             overflow: hidden;
-            padding-bottom: 100%;
+            padding-bottom: 88%;
 
             img {
                 position: absolute;
@@ -27,21 +46,82 @@
             }
         }
 
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, transparent 54%, rgb(6 20 16 / 56%) 92%);
+            pointer-events: none;
+        }
+
+        .deleteBtn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            z-index: 4;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: rgb(180 30 30 / 85%);
+            color: #fff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.18s ease, background 0.18s ease;
+            backdrop-filter: blur(2px);
+
+            &:hover {
+                background: rgb(210 20 20 / 100%);
+            }
+        }
+
         .title {
             position: absolute;
-            z-index: 1;
+            z-index: 3;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--white) !important;
+            color: #f6eddc;
             text-transform: uppercase;
-            background: rgb(0 0 0 / 90%);
-            transition: all var(--transition-base);
-            inset: 0;
+            text-align: center;
+            font: 700 16px / 1.2 var(--font-family-main);
+            letter-spacing: 0.02em;
+            padding: 9px 12px;
+            margin: 0 8px 8px;
+            border-radius: 10px;
+            border: 1px solid rgb(199 164 95 / 24%);
+            background: rgb(10 48 40 / 86%);
+            inset: auto 0 0;
+            box-shadow: 0 6px 14px rgb(0 0 0 / 20%);
+            backdrop-filter: blur(1px);
+            transition: transform var(--transition-base), filter var(--transition-base),
+                background var(--transition-base);
+            min-height: 44px;
 
-            &:hover {
-                background: rgb(0 0 0 / 70%);
+            .ProcedureItem:hover & {
+                transform: translateY(-1px);
+                background: rgb(13 62 52 / 88%);
             }
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .ProcedureItem {
+        max-width: 100%;
+
+        .content {
+            min-height: 260px;
+        }
+
+        .title {
+            font-size: 14px;
+            margin: 0 8px 8px;
         }
     }
 }

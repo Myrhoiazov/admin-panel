@@ -12,6 +12,7 @@ export interface Client {
     social?: string
     image_3d?: boolean
     document?: boolean
+    questionnaire?: string
     image?: File | string;
     createdAt?: string
     status?: ClientStatusKey

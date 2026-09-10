@@ -1,3 +1,49 @@
-.ProceduresPage{
-    background-color: transparent;
+.ProceduresPage {
+    background: transparent;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--border-radius-l);
+    padding: 12px;
+    background: rgb(255 255 255 / 10%);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.title {
+    letter-spacing: 0.01em;
+    font: 700 30px / 1.15 var(--font-family-main);
+}
+
+.addButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 7px 14px;
+    border: 1px solid rgb(199 164 95 / 42%);
+    border-radius: var(--border-radius-pill);
+    background: rgb(13 68 56 / 92%);
+    color: rgb(241 228 195 / 96%);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 6px 14px rgb(9 21 18 / 12%);
+    transition: all var(--transition-base);
+
+    &:hover {
+        border-color: rgb(223 199 147 / 62%);
+        filter: brightness(1.03);
+    }
+}
+
+@media (max-width: 640px) {
+    .addButton {
+        width: 100%;
+    }
 }

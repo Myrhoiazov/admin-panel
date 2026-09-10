@@ -1,0 +1,20 @@
+.PatientDetailsPage {
+    width: 100%;
+}
+
+.contentCard {
+    min-height: 300px;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.itemActions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}

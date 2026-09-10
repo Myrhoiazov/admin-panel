@@ -3,10 +3,8 @@ import { HomePage } from '@/pages/HomePage';
 import { AboutPage } from '@/pages/AboutPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import { ProfilePage } from '@/pages/ProfilePage';
-import { ArticlesPage } from '@/pages/ArticlesPage';
-import { ArticleDetailsPage } from '@/pages/ArticleDetailsPage';
 import { ClientsPage } from '@/pages/ClientsPage';
-import { LoginPage } from '@/pages/AuthPage';
+import { LoginPage, ForgotPasswordPage, ResetPasswordPage } from '@/pages/AuthPage';
 import { ClientsDetailsPage } from '@/pages/ClientsDetailsPage';
 import { ProceduresPage } from '@/pages/ProceduresPage';
 import { ProcedureEditPage } from '@/pages/ProcedureEditPage';
@@ -15,7 +13,10 @@ import { ProcedureCreatePage } from '@/pages/ProcedureCreatePage';
 import { AppoimentsPage } from '@/pages/AppoimentsPage';
 import { TransactionsPage } from '@/pages/TransactionsPage';
 import { SettingsPage } from '@/pages/SettingsPage';
+import { IntegrationsPage } from '@/pages/IntegrationsPage';
 import { AppoimentDetailPage } from '@/pages/AppoimentDetailPage';
+import { PatientDetailsPage } from '@/pages/PatientDetailsPage';
+import { CalendarPage } from '@/pages/CalendarPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -23,21 +24,24 @@ export type AppRoutesProps = RouteProps & {
 
 export enum AppRoutes {
     LOGIN = 'login',
+    FORGOT_PASSWORD = 'forgot_password',
+    RESET_PASSWORD = 'reset_password',
     MAIN = 'main',
     ABOUT = 'about',
     APPOINTMENTS = 'appointments',
     APPOINTMENT_DETAILS = 'appointment_details',
     PROFILE = 'profile',
     TRANSACTIONS = 'transactions',
-    ARTICLES = 'articles',
-    ARTICLE_DETAILS = 'article_details',
     CLIENTS = 'clients',
     CLIENTS_DETAILS = 'client_details',
+    PATIENT_DETAILS = 'patient_details',
     PROCEDURES = 'procedures',
     PROCEDURES_DETAILS = 'procedures_details',
     PROCEDURES_EDIT = 'procedures_edit',
     PROCEDURES_CREATE = 'procedures_create',
     SETTINGS = 'settings',
+    INTEGRATIONS = 'integrations',
+    CALENDAR = 'calendar',
     // last
     NOT_FOUND = 'not_found',
 }
@@ -45,20 +49,23 @@ export enum AppRoutes {
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
     [AppRoutes.LOGIN]: '/login',
+    [AppRoutes.FORGOT_PASSWORD]: '/forgot-password',
+    [AppRoutes.RESET_PASSWORD]: '/reset-password',
     [AppRoutes.ABOUT]: '/about',
     [AppRoutes.APPOINTMENTS]: '/appointments',
     [AppRoutes.PROFILE]: '/profile/',
-    [AppRoutes.ARTICLES]: '/articles',
     [AppRoutes.TRANSACTIONS]: '/transactions',
     [AppRoutes.CLIENTS]: '/clients',
     [AppRoutes.CLIENTS_DETAILS]: '/clients/',
-    [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + :id
+    [AppRoutes.PATIENT_DETAILS]: '/patients/',
     [AppRoutes.PROCEDURES]: '/procedures',
     [AppRoutes.PROCEDURES_CREATE]: '/procedures/create',
     [AppRoutes.PROCEDURES_DETAILS]: '/procedures/', // :id
     [AppRoutes.PROCEDURES_EDIT]: '/procedures/edit/', // :id
     [AppRoutes.APPOINTMENT_DETAILS]: '/appointments/', // + :id
     [AppRoutes.SETTINGS]: '/settings',
+    [AppRoutes.INTEGRATIONS]: '/settings/integrations',
+    [AppRoutes.CALENDAR]: '/calendar',
     // последний
     [AppRoutes.NOT_FOUND]: '*',
 };
@@ -67,6 +74,14 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.LOGIN]: {
         path: RoutePath.login,
         element: <LoginPage />,
+    },
+    [AppRoutes.FORGOT_PASSWORD]: {
+        path: RoutePath.forgot_password,
+        element: <ForgotPasswordPage />,
+    },
+    [AppRoutes.RESET_PASSWORD]: {
+        path: RoutePath.reset_password,
+        element: <ResetPasswordPage />,
     },
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
@@ -93,19 +108,9 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <ProfilePage />,
         authOnly: true,
     },
-    [AppRoutes.ARTICLES]: {
-        path: RoutePath.articles,
-        element: <ArticlesPage />,
-        authOnly: true,
-    },
     [AppRoutes.TRANSACTIONS]: {
         path: RoutePath.transactions,
         element: <TransactionsPage />,
-        authOnly: true,
-    },
-    [AppRoutes.ARTICLE_DETAILS]: {
-        path: `${RoutePath.article_details}:id`,
-        element: <ArticleDetailsPage />,
         authOnly: true,
     },
     [AppRoutes.CLIENTS]: {
@@ -116,6 +121,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.CLIENTS_DETAILS]: {
         path: `${RoutePath.client_details}:id`,
         element: <ClientsDetailsPage />,
+        authOnly: true,
+    },
+    [AppRoutes.PATIENT_DETAILS]: {
+        path: `${RoutePath.patient_details}:id`,
+        element: <PatientDetailsPage />,
         authOnly: true,
     },
     [AppRoutes.PROCEDURES]: {
@@ -141,6 +151,16 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.SETTINGS]: {
         path: RoutePath.settings,
         element: <SettingsPage />,
+        authOnly: true,
+    },
+    [AppRoutes.INTEGRATIONS]: {
+        path: RoutePath.integrations,
+        element: <IntegrationsPage />,
+        authOnly: true,
+    },
+    [AppRoutes.CALENDAR]: {
+        path: RoutePath.calendar,
+        element: <CalendarPage />,
         authOnly: true,
     },
     // last

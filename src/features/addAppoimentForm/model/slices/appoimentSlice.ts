@@ -3,8 +3,6 @@ import { AppointmentSchema } from '../types/addAppoimentFormSchema';
 import { Appointment } from '@/entities/Appointment';
 import { fetchProceduresList } from '../services/fetchProceduresList/fetchProceduresList';
 import { Procedure } from '@/entities/Procedure';
-import { fetchClientsList } from '../services/fetchClientsList/fetchClientsList';
-import { Client } from '@/entities/Client';
 import { fetchDoctorsList } from '../services/fetchDoctorsList/fetchDoctorsList';
 import { User } from '@/entities/User';
 
@@ -14,7 +12,6 @@ const initialState: AppointmentSchema = {
     error: undefined,
     data: undefined,
     procedures: undefined,
-    clients: undefined,
     doctors: undefined,
 };
 
@@ -53,21 +50,6 @@ export const appoimentSlice = createSlice({
                 },
             )
             .addCase(fetchProceduresList.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-            })
-            .addCase(fetchClientsList.pending, (state) => {
-                state.error = undefined;
-                state.isLoading = true;
-            })
-            .addCase(
-                fetchClientsList.fulfilled,
-                (state, action: PayloadAction<Client[]>) => {
-                    state.isLoading = false;
-                    state.clients = action.payload;
-                },
-            )
-            .addCase(fetchClientsList.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })

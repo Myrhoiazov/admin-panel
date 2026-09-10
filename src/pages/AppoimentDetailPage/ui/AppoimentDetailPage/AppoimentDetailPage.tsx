@@ -51,7 +51,7 @@ const AppoimentDetailPage = ({ className }: AppoimentDetailPageProps) => {
         <DynamicModuleLoader reducers={reducers}>
             <Page className={classNames(s.AppoimentDetailPage, {}, [className])}>
                 <VStack gap="24" max>
-                    <Text title={t('Appoiment Detail Page')} bold />
+                    <Text title={t('Детали сеанса')} bold />
                     <AppoimentDetails appoiment={appoiment} isLoading={isLoading} error={error} />
                 </VStack>
             </Page>

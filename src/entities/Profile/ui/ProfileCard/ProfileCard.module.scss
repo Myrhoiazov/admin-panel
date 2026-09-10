@@ -1,10 +1,155 @@
 .ProfileCard {
-    padding: 20px;
-    border: 2px solid var(--inverted-bg-color);
+    width: 100%;
+    padding: 16px;
+    background: var(--surface-secondary);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--border-radius-l);
+    box-shadow: none;
+}
+
+.data {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+}
+
+.topCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 0 8px;
+}
+
+.avatarWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 72px;
+    min-width: 72px;
+}
+
+.personInfo {
+    min-width: 0;
+}
+
+.personName {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.personMeta {
+    margin: 2px 0 0;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.avatarEditRow {
+    display: grid;
+    gap: 8px;
+}
+
+.uploadNote {
+    margin-top: -6px;
+}
+
+.section {
+    display: grid;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--surface-primary);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--border-radius-m);
+}
+
+.sectionTitle {
+    margin: 0 0 2px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+}
+
+.readonlyField {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 10px;
+    background: var(--surface-secondary);
+    border-radius: 8px;
+}
+
+.readonlyLabel {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.readonlyValue {
+    font-size: 14px;
+    line-height: 1.35;
+    font-weight: 500;
+    color: var(--text-primary);
+    word-break: break-word;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.roleRow {
+    max-width: 320px;
+}
+
+.bio {
+    margin-top: 2px;
 }
 
 .input {
-    margin-top: 10px;
+    margin-top: 0;
+    border: none !important;
+    box-shadow: none !important;
+    background: var(--surface-secondary) !important;
+    border-radius: 10px !important;
+}
+
+.input:hover,
+.input:focus-within {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.roleRow :global(.label),
+.section :global(.placeholder) {
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.roleRow :global(.select) {
+    border: none;
+    box-shadow: none;
+    background: var(--surface-secondary);
+    border-radius: 10px;
+}
+
+.roleRow :global(.select:hover),
+.roleRow :global(.select:focus-visible) {
+    border: none;
+    box-shadow: none;
+}
+
+.bio :global(.input) {
+    border: none;
+    box-shadow: none;
+    background: var(--surface-secondary);
+    border-radius: 10px;
 }
 
 .loading,
@@ -12,15 +157,33 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
-}
-
-.avatarWrapper {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+    height: 200px;
 }
 
 .editing {
-    border: 2px solid var(--inverted-primary-color);
+    background: var(--surface-primary);
+
+    .section {
+        background: var(--surface-secondary);
+    }
+}
+
+@media (width <= 900px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .topCard {
+        align-items: flex-start;
+    }
+
+    .roleRow {
+        max-width: 100%;
+    }
+}
+
+@media (width <= 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }

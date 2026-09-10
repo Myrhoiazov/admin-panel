@@ -1,0 +1,93 @@
+.configCard {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: var(--surface-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cardHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cardHint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.eventBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 4px;
+    border-top: 1px solid var(--border-soft);
+}
+
+.eventTop {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.eventName {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.toggleCell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.reservedHint {
+    font-size: 11px;
+    color: var(--text-muted);
+    opacity: 0.8;
+}
+
+.templateRow {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.templateInput {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-soft);
+    background: var(--surface-primary);
+    color: var(--text-primary);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s;
+
+    &:focus {
+        border-color: rgb(108 71 255 / 60%);
+    }
+
+    &::placeholder {
+        color: var(--text-muted);
+        opacity: 0.6;
+    }
+}
+
+.templateHint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.85;
+}

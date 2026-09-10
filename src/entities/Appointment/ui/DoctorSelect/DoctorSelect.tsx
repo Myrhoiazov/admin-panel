@@ -16,7 +16,7 @@ export const DoctorSelect = memo((props: DoctorSelectProps) => {
     const { t } = useTranslation();
 
     const selectOptions = options?.map((doctor) => {
-        const fullName = `${doctor.firstName}`;
+        const fullName = `${doctor.firstName || ''} ${doctor.lastName || ''}`.trim();
         return {
             value: String(doctor.id),
             content: fullName ?? '',
@@ -41,7 +41,7 @@ export const DoctorSelect = memo((props: DoctorSelectProps) => {
             className={classNames('', {}, [className])}
             label={t('Выберите доктора')}
             options={selectOptions || []}
-            value={selectDoctor?.id}
+            value={selectDoctor?.id || ''}
             onChange={onChangeHandler}
         />
     );

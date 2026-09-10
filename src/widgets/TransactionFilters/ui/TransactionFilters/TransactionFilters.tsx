@@ -59,7 +59,7 @@ export const TransactionFilters = memo((props: TransactionFiltersProps) => {
                     value={search}
                     size="s"
                     placeholder="Поиск"
-                    addonLeft={<Icon Svg={SearchIcon} />}
+                    addonLeft={<Icon Svg={SearchIcon} color="stroke" />}
                 />
                 <TransactionSortSelector
                     sort={sort}

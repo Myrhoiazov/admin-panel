@@ -9,12 +9,13 @@ interface ClientFormProps {
     isOpen: boolean;
     onClose: () => void;
     reloadPage?: () => void;
+    clientId?: string;
 }
 
-export const ClientFormModal = ({ className, isOpen, onClose, reloadPage }: ClientFormProps) => (
+export const ClientFormModal = ({ className, isOpen, onClose, reloadPage, clientId }: ClientFormProps) => (
     <Modal className={classNames('', {}, [className])} isOpen={isOpen} onClose={onClose} lazy>
         <Suspense fallback={<Loader />}>
-            <ClientFormAsync onSuccess={onClose} reloadPage={reloadPage} />
+            <ClientFormAsync onSuccess={onClose} reloadPage={reloadPage} clientId={clientId} />
         </Suspense>
     </Modal>
 );

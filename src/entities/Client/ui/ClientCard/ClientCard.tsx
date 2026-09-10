@@ -1,12 +1,13 @@
-import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Input } from '@/shared/ui/Input/Input';
 import { ClientStatusSelect, ClientStatusKey } from '@/entities/ClientStatus';
 import { Client } from '@/entities/Client';
 import Textarea from '@/shared/ui/Textarea/Textarea';
 import CheckBox from '@/shared/ui/CheckBox/CheckBox';
-import { on } from 'events';
+import { VStack } from '@/shared/ui/Stack';
+import cls from './ClientCard.module.scss';
+import { QUESTIONNAIRE_ITEMS, parseQuestionnaire } from '../../model/consts/questionnaire';
 
 export interface ClientCardProps {
     className?: string;
@@ -25,6 +26,7 @@ export interface ClientCardProps {
     onChangeDescription?: (value?: string) => void;
     onChangeImage3D?: (value: boolean) => void;
     onChangeDocument?: (value: boolean) => void;
+    onChangeQuestionnaire?: (value: string) => void;
     onChangeImage?: (value?: File) => void;
     onChangeClientStatus?: (status: ClientStatusKey) => void;
 }
@@ -44,13 +46,26 @@ export const ClientCard = memo((props: ClientCardProps) => {
         onChangeAnamnesis,
         onChangeDescription,
         onChangeImage3D,
-        onChangeDocument,
         onChangeSocial,
+        onChangeQuestionnaire,
     } = props;
     const { t } = useTranslation();
 
+    const questionnaireData = parseQuestionnaire(data?.questionnaire);
+
+    const onToggleQuestionnaire = useCallback((item: string, checked: boolean) => {
+        const next = { ...questionnaireData };
+        if (checked) {
+            next[item] = new Date().toISOString();
+        } else {
+            delete next[item];
+        }
+        onChangeQuestionnaire?.(JSON.stringify(next));
+        if (item === 'Фото 3Д') onChangeImage3D?.(checked);
+    }, [questionnaireData, onChangeQuestionnaire, onChangeImage3D]);
+
     return (
-        <>
+        <VStack max gap="16" className={cls.ClientCard}>
             <Input
                 fullWidth
                 label="Имя"
@@ -100,16 +115,6 @@ export const ClientCard = memo((props: ClientCardProps) => {
                 onChange={onChangeSocial}
                 value={data?.social ?? ''}
             />
-            <CheckBox
-                value={data?.image_3d ?? false}
-                onChange={onChangeImage3D}
-                label="Наличие 3d фото :"
-            />
-            <CheckBox
-                value={data?.document ?? false}
-                onChange={onChangeDocument}
-                label="Наличие документа :"
-            />
             <Textarea
                 placeholder="Анамнез пациента:"
                 fullWidth
@@ -122,6 +127,25 @@ export const ClientCard = memo((props: ClientCardProps) => {
                 value={data?.description}
                 onChange={onChangeDescription}
             />
+
+            <div className={cls.QuestionnaireBlock}>
+                <div className={cls.QuestionnairTitle}>Документы клиента</div>
+                <div className={cls.QuestionnaireGrid}>
+                    {QUESTIONNAIRE_ITEMS.map((item) => {
+                        const checked = item in questionnaireData
+                            || (item === 'Фото 3Д' && Boolean(data?.image_3d));
+                        return (
+                            <CheckBox
+                                key={item}
+                                value={checked}
+                                onChange={(val) => onToggleQuestionnaire(item, val)}
+                                label={item}
+                                compact
+                            />
+                        );
+                    })}
+                </div>
+            </div>
 
             <ClientStatusSelect
                 onChange={onChangeClientStatus}
@@ -138,7 +162,7 @@ export const ClientCard = memo((props: ClientCardProps) => {
                     onChangeImage?.(file as File);
                 }}
             />
-        </>
+        </VStack>
     );
 });
 

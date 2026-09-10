@@ -1,3 +1,35 @@
 .ClientTableListHeader {
-    background-color: transparent;
+    background: var(--surface-secondary);
+    border: none;
+    border-radius: 14px 14px 0 0;
+    border-bottom: 1px solid var(--border-soft);
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 54px 136px minmax(200px, 1fr) minmax(220px, 1.1fr) 120px 88px;
+    gap: 12px;
+    align-items: center;
+
+    p {
+        margin: 0;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        font-weight: 700;
+    }
+}
+
+.actionsCol {
+    text-align: center;
+}
+
+@media (max-width: 1100px) {
+    .ClientTableListHeader {
+        display: none;
+    }
 }

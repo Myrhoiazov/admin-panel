@@ -18,7 +18,9 @@ export const fetchDoctorsList = createAsyncThunk<
                 throw new Error();
             }
 
-            return data;
+            return data
+                .filter((user) => user.isDoctor)
+                .map((user) => ({ ...user, id: String(user.id) }));
         } catch (e) {
             return rejectWithValue('error');
         }

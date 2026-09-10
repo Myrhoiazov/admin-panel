@@ -1,3 +1,12 @@
 .AppoimentDetailPage {
+    width: min(100%, 1120px);
+    margin: 0 auto;
+    padding: 16px 28px 34px;
     background-color: transparent;
+}
+
+@media (max-width: 640px) {
+    .AppoimentDetailPage {
+        padding: 8px 12px 20px;
+    }
 }

@@ -29,7 +29,7 @@ const clientsPageSlice = createSlice({
         entities: {},
         page: 1,
         type: ClientStatusKey.all,
-        limit: 9,
+        limit: 15,
         view: ClientView.BIG,
         sort: ClientSortField.CREATED,
         order: 'asc',

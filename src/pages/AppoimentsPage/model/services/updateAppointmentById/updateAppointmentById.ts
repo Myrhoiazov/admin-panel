@@ -14,7 +14,7 @@ interface UpdateAppointmentPayload {
     paymentMethod?: string;
     discountAmount?: number;
     finalAmount?: number;
-    serviceItemIds?: number[];
+    procedures?: { procedureId: number; serviceItemIds: number[] }[];
 }
 
 export const updateAppointmentById = createAsyncThunk<
@@ -40,7 +40,7 @@ export const updateAppointmentById = createAsyncThunk<
                     paymentMethod: payload.paymentMethod,
                     discountAmount: payload.discountAmount,
                     finalAmount: payload.finalAmount,
-                    serviceItemIds: payload.serviceItemIds,
+                    procedures: payload.procedures,
                 },
             );
 

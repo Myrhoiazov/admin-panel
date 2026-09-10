@@ -1,8 +1,19 @@
 .ClientList {
-    padding-top: 1.875rem;
+    padding-top: 12px;
+    border-radius: 16px;
+    overflow: visible;
+    border: none;
+    background: transparent;
+    box-shadow: none;
 }
 
-.SMALL {
-    display: flex;
-    flex-wrap: wrap;
+.ClientList > div:last-child :global(.Card) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
 }

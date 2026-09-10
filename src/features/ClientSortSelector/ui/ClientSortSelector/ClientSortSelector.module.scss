@@ -1,4 +1,8 @@
 .ClientSortSelector {
     background-color: transparent;
     text-wrap: nowrap;
+    padding: 10px 12px;
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    background: var(--surface-secondary);
 }

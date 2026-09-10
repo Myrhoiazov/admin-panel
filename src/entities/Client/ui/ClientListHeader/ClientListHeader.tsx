@@ -2,7 +2,6 @@ import React, { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './ClientListHeader.module.scss';
 import { Card } from '@/shared/ui/Card/Card';
-import { HStack } from '@/shared/ui/Stack';
 import { useTranslation } from 'react-i18next';
 
 interface ClientListHeaderProps {
@@ -18,15 +17,14 @@ const ClientListHeader = ({ className }: ClientListHeaderProps) => {
             fullWidth
             className={classNames(s.ClientTableListHeader, {}, [className])}
         >
-            <HStack max justify="between">
-                <HStack gap="48">
-                    <p>#</p>
-                    <p>{t('Дата')}</p>
-                    <p>{t('Имя Фамилия')}</p>
-                    <p>{t('Имеил')}</p>
-                </HStack>
-                <p>{t('редактировать')}</p>
-            </HStack>
+            <div className={s.grid}>
+                <p>#</p>
+                <p>{t('Дата')}</p>
+                <p>{t('Имя Фамилия')}</p>
+                <p>{t('Имеил')}</p>
+                <p>{t('Статус')}</p>
+                <p className={s.actionsCol}>{t('Действия')}</p>
+            </div>
         </Card>
     );
 };

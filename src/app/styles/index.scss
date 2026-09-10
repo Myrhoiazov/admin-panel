@@ -2,13 +2,15 @@
 @use 'variables/global';
 @use 'themes/default';
 @use 'themes/dark';
-@use 'themes/orange';
 
 .app {
     min-height: 100vh;
     font: var(--font-m);
-    color: var(--primary-color);
-    background: var(--bg-color);
+    color: var(--text-primary);
+    background:
+        radial-gradient(circle at 8% 0%, rgb(199 164 95 / 10%), transparent 22%),
+        radial-gradient(circle at 100% 100%, rgb(33 54 45 / 10%), transparent 30%),
+        var(--bg-color);
 }
 
 .app_redesigned {
@@ -19,35 +21,80 @@
 }
 
 .content-page {
-    display: flex;
+    display: block;
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: calc(var(--navbar-height) + var(--layout-top-padding) + 8px) var(--layout-side-padding)
+        var(--layout-side-padding);
+
+    > * {
+        min-width: 0;
+    }
+}
+
+.content-main {
+    margin-left: calc(var(--sidebar-width) + var(--content-gap));
+    min-width: 0;
+}
+
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
 }
 
 *::-webkit-scrollbar {
-    width: 12px; /* ширина scrollbar */
+    width: 10px;
     height: 8px;
 }
 
 *::-webkit-scrollbar-track {
-    background: var(--light-bg-redesigned); /* цвет дорожки */
+    background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {
-    border: 1px solid var(--accent-redesigned); /* padding вокруг плашки */
-    border-radius: 20px; /* закругления плашки */
-    background-color: var(--icon-redesigned); /* цвет плашки */
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-pill);
+    background-color: rgb(199 164 95 / 60%);
+    background-clip: padding-box;
 }
 
 .app *::-webkit-scrollbar {
-    width: 12px; /* ширина scrollbar */
+    width: 10px;
     height: 8px;
 }
 
 .app *::-webkit-scrollbar-track {
-    background: var(--card-bg); /* цвет дорожки */
+    background: transparent;
 }
 
 .app *::-webkit-scrollbar-thumb {
-    border: 2px solid var(--primary-color); /* padding вокруг плашки */
-    border-radius: 20px; /* закругления плашки */
-    background-color: var(--inverted-primary-color); /* цвет плашки */
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-pill);
+    background-color: rgb(199 164 95 / 65%);
+    background-clip: padding-box;
+}
+
+@media (width <= 992px) {
+    .content-page {
+        padding-top: var(--layout-side-padding);
+    }
+
+    .content-main {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media (width <= 640px) {
+    .app {
+        min-height: 100dvh;
+    }
+
+    input,
+    textarea,
+    select {
+        font-size: 16px;
+    }
 }

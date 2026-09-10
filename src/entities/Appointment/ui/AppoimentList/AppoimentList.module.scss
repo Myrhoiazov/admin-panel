@@ -2,7 +2,29 @@
     width: 100%;
 }
 
+.headerRow {
+    display: grid;
+    grid-template-columns: 52px 110px 72px 116px minmax(160px, 1fr) minmax(170px, 1fr) minmax(120px, 1fr) 76px 78px;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    padding: 0 17px;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.85;
+}
+
+.openCol {
+    text-align: center;
+}
+
 .SMALL {
     display: flex;
     flex-wrap: wrap;
+}
+
+@media (max-width: 1024px) {
+    .headerRow {
+        display: none;
+    }
 }

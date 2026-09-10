@@ -1,0 +1,30 @@
+.ClientCard {
+    width: 100%;
+}
+
+
+.QuestionnaireBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--border-radius-m);
+    background: var(--surface-secondary);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.QuestionnairTitle {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+}
+
+.QuestionnaireGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+}

@@ -1,31 +1,36 @@
 import { useTranslation } from 'react-i18next';
-import { Select } from '@/shared/ui/Select/Select';
+import { Select, SelectOption } from '@/shared/ui/Select/Select';
 import { memo, useCallback, useMemo } from 'react';
 import { PaymentMethod } from '../../model/types/paymentMethod';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { ListBox } from '@/shared/ui/Popups';
 
 interface PaymentMethodSelectProps {
     className?: string;
-    value?: PaymentMethod;
-    onChange?: (value: PaymentMethod) => void;
+    value?: string;
+    onChange?: (value: string) => void;
     readonly?: boolean;
+    /** Динамические опции из настроек; если не переданы — используется дефолтный enum */
+    dynamicOptions?: { key: string; label: string }[];
 }
 
-const options = [
-    { value: PaymentMethod.CASH, content: PaymentMethod.CASH },
-    { value: PaymentMethod.CARD, content: PaymentMethod.CARD },
-    { value: PaymentMethod.BANK_TRANSFER, content: PaymentMethod.BANK_TRANSFER },
-];
+const DEFAULT_OPTIONS: SelectOption<string>[] = Object.entries(PaymentMethod).map(([key, label]) => ({
+    value: key,
+    content: label,
+}));
 
 export const PaymentMethodSelect = memo(
-    ({ className, value, onChange, readonly }: PaymentMethodSelectProps) => {
+    ({ className, value, onChange, readonly, dynamicOptions }: PaymentMethodSelectProps) => {
         const { t } = useTranslation();
 
+        const options: SelectOption<string>[] = useMemo(() => {
+            if (dynamicOptions && dynamicOptions.length > 0) {
+                return dynamicOptions.map(({ key, label }) => ({ value: key, content: label || key }));
+            }
+            return DEFAULT_OPTIONS;
+        }, [dynamicOptions]);
+
         const onChangeHandler = useCallback(
-            (value: PaymentMethod) => {
-                onChange?.(value);
-            },
+            (val: string) => { onChange?.(val); },
             [onChange]
         );
 
@@ -37,6 +42,7 @@ export const PaymentMethodSelect = memo(
                 value={value}
                 onChange={onChangeHandler}
                 readonly={readonly}
+                defaultValue="Выберите метод оплаты"
             />
         );
     }

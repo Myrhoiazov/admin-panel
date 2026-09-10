@@ -1,0 +1,16 @@
+.ConfirmActionModal {
+    min-width: 420px;
+    max-width: 520px;
+}
+
+.actions {
+    width: 100%;
+}
+
+@media (max-width: 640px) {
+    .ConfirmActionModal {
+        min-width: 0;
+        width: 100%;
+    }
+}
+

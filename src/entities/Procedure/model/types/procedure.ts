@@ -50,6 +50,10 @@ export interface Procedure {
     name?: string;
     description?: string;
     image?: File | string;
+    durationType?: 'MINUTES_20' | 'MINUTES_40' | 'MINUTES_60' | 'MINUTES_120' | 'FLEXIBLE';
+    defaultDurationMin?: number;
+    isFlexibleDuration?: boolean;
+    basePrice?: number;
     createdAt?: string;
     blocks?: Record<string, ProcedureBlock>;
 }

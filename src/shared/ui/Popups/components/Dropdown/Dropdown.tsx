@@ -4,7 +4,6 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { DropdownDirection } from '@/shared/types/ui';
 import { AppLink } from '../../../AppLink/AppLink';
 import cls from './Dropdown.module.scss';
-import { mapDirectionClass } from '../../styles/consts';
 import popupCls from '../../styles/popup.module.scss';
 
 export interface DropdownItem {
@@ -19,17 +18,46 @@ interface DropdownProps {
     items: DropdownItem[];
     direction?: DropdownDirection;
     trigger: ReactNode;
+    variant?: 'default' | 'profile';
 }
 
-export function Dropdown(props: DropdownProps) {
-    const { className, trigger, items, direction = 'bottom right' } = props;
+const anchorByDirection: Record<DropdownDirection, 'bottom end' | 'bottom start' | 'top end' | 'top start'> = {
+    'bottom left': 'bottom end',
+    'bottom right': 'bottom start',
+    'top left': 'top end',
+    'top right': 'top start',
+};
 
-    const menuClasses = [mapDirectionClass[direction], popupCls.menu];
+export function Dropdown(props: DropdownProps) {
+    const {
+        className,
+        trigger,
+        items,
+        direction = 'bottom right',
+        variant = 'default',
+    } = props;
+
+    const menuClasses = [popupCls.menu];
+    const isProfile = variant === 'profile';
 
     return (
-        <Menu as="div" className={classNames(cls.Dropdown, {}, [className, popupCls.popup])}>
+        <Menu
+            as="div"
+            className={classNames(
+                cls.Dropdown,
+                {
+                    [cls.profile]: isProfile,
+                },
+                [className, popupCls.popup],
+            )}
+        >
             <MenuButton className={popupCls.trigger}>{trigger}</MenuButton>
-            <MenuItems transition className={classNames(cls.menu, {}, menuClasses)}>
+            <MenuItems
+                transition
+                portal
+                anchor={{ to: anchorByDirection[direction], gap: 8, padding: 12 }}
+                className={classNames(cls.menu, {}, menuClasses)}
+            >
                 {items.map((item, index) => {
                     const content = ({ active }: { active: boolean }) => (
                         <button
@@ -37,7 +65,8 @@ export function Dropdown(props: DropdownProps) {
                             disabled={item.disabled}
                             onClick={item.onClick}
                             className={classNames(cls.item, {
-                                [popupCls.active]: active,
+                                [popupCls.active]: active && !isProfile,
+                                [cls.itemActive]: active && isProfile,
                             })}
                         >
                             {item.content}

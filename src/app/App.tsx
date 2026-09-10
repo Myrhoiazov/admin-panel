@@ -28,7 +28,9 @@ const App = () => {
             <Navbar />
             <div className="content-page">
                 <Sidebar />
-                <AppRouter />
+                <main className="content-main">
+                    <AppRouter />
+                </main>
             </div>
             <ToastContainer
                 position="top-right"

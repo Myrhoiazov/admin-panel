@@ -55,7 +55,7 @@ export const ClientFilters = memo((props: ClientFiltersProps) => {
                     value={search}
                     size="s"
                     placeholder={t('Поиск')}
-                    addonLeft={<Icon Svg={SearchIcon} />}
+                    addonLeft={<Icon Svg={SearchIcon} color="stroke" />}
                 />
                 <ClientSortSelector
                     order={order}
@@ -66,7 +66,7 @@ export const ClientFilters = memo((props: ClientFiltersProps) => {
 
                 <Button onClick={onShowModal} className={s.btn}>
                     {t('Добавить клиента')}
-                    <Icon Svg={AddClientIcon} width={24} color="fill" />
+                    <Icon Svg={AddClientIcon} width={24} color="stroke" />
                 </Button>
             </HStack>
             <ClientFormModal

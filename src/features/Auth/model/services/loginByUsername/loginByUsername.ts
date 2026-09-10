@@ -30,10 +30,11 @@ export const loginByUsername = createAsyncThunk<User, LoginByEmailProps, ThunkCo
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 const status = error.response?.status || 500;
-                return rejectWithValue({ status, message: error.message });
+                const serverMsg = (error.response?.data as { message?: string })?.message;
+                return rejectWithValue({ status, message: serverMsg || 'Неверный email или пароль' });
             }
 
-            return rejectWithValue({ status: 500, message: 'Unknown error' });
+            return rejectWithValue({ status: 500, message: 'Ошибка соединения с сервером' });
         }
     },
 );

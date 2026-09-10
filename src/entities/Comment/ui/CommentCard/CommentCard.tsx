@@ -7,7 +7,6 @@ import cls from './CommentCard.module.scss';
 import { Comment } from '../../model/types/comment';
 import { AppLink } from '@/shared/ui/AppLink/AppLink';
 import { RoutePath } from '@/shared/config/routeConfig/routeConfig';
-import UserIcon from '@/shared/assets/icons/user-32-32.png';
 import { HStack } from '@/shared/ui/Stack';
 
 interface CommentCardProps {
@@ -49,7 +48,7 @@ export const CommentCard = memo((props: CommentCardProps) => {
                 {comment.author.avatar ? (
                     <Avatar size={30} src={comment.author.avatar} />
                 ) : (
-                    <Avatar src={UserIcon} size={30} />
+                    <Avatar size={30} />
                 )}
                 <Text className={cls.username} title={comment.author.firstName} />
             </AppLink>

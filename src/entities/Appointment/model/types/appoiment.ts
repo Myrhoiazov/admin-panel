@@ -19,13 +19,20 @@ export interface AppointmentServiceLine {
     order?: number;
 }
 
+export interface AppointmentProcedureLine {
+    id?: number;
+    procedureId: number;
+    procedure?: Procedure;
+    order?: number;
+    services: AppointmentServiceLine[];
+}
+
 export interface Appointment {
     id?: string;
     clientId?: string;
-    procedureId?: string;
     doctorId?: string;
     images?: AppointmentImage[];
-    services?: AppointmentServiceLine[];
+    procedures?: AppointmentProcedureLine[];
 
     note?: string;
     createdAt?: string;
@@ -42,6 +49,5 @@ export interface Appointment {
     changeLog?: string;
 
     client?: Client;
-    procedure?: Procedure;
     doctor?: User
 }

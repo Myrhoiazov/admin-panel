@@ -78,6 +78,16 @@ export const Modal = (props: ModalProps) => {
             <div className={classNames(cls.Modal, mods, [className])}>
                 <div className={cls.overlay} onClick={closeHandler}>
                     <div className={cls.content} onClick={onContentClick}>
+                        {onClose && (
+                            <button
+                                className={cls.closeBtn}
+                                onClick={closeHandler}
+                                aria-label="Закрыть"
+                                type="button"
+                            >
+                                ×
+                            </button>
+                        )}
                         {children}
                     </div>
                 </div>

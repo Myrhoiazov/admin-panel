@@ -1,6 +1,6 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import {
     addTransactionFormActions,
     addTransactionFormReducer,
@@ -20,6 +20,7 @@ import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { createTransaction } from '../../model/services/createTransaction/createTransaction';
 import { PaymentMethod } from '@/entities/PaymentMethod';
 import { TransactionCategory } from '@/entities/TransactionCategory';
+import { $apiPrivate } from '@/shared/api/api';
 
 interface AddTransactionFormProps {
     className?: string;
@@ -31,11 +32,37 @@ const initialReducers: ReducersList = {
     addTransactionForm: addTransactionFormReducer,
 };
 
+const DEFAULT_PM_OPTIONS = Object.entries(PaymentMethod).map(([key, label]) => ({ key, label }));
+const DEFAULT_CAT_OPTIONS = Object.entries(TransactionCategory).map(([key, label]) => ({ key, label }));
+
 const AddTransactionForm = memo((props: AddTransactionFormProps) => {
     const { className, onSuccess, reloadPage } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const formData = useSelector(getTransactionFormData);
+    const [paymentMethodOptions, setPaymentMethodOptions] = useState<{ key: string; label: string }[]>(DEFAULT_PM_OPTIONS);
+    const [categoryOptions, setCategoryOptions] = useState<{ key: string; label: string }[]>(DEFAULT_CAT_OPTIONS);
+
+    useEffect(() => {
+        $apiPrivate
+            .get<{
+                paymentMethodLabels?: Record<string, string>;
+                expenseCategoryLabels?: Record<string, string>;
+            }>('/company-settings')
+            .then(({ data }) => {
+                if (data.paymentMethodLabels && Object.keys(data.paymentMethodLabels).length > 0) {
+                    setPaymentMethodOptions(
+                        Object.entries(data.paymentMethodLabels).map(([key, label]) => ({ key, label: label || key }))
+                    );
+                }
+                if (data.expenseCategoryLabels && Object.keys(data.expenseCategoryLabels).length > 0) {
+                    setCategoryOptions(
+                        Object.entries(data.expenseCategoryLabels).map(([key, label]) => ({ key, label: label || key }))
+                    );
+                }
+            })
+            .catch(() => { /* fallback to defaults */ });
+    }, []);
 
     const onChangeTransactionType = useCallback(
         (type: TransactionType) => {
@@ -46,16 +73,16 @@ const AddTransactionForm = memo((props: AddTransactionFormProps) => {
         [dispatch]
     );
     const onChangeTransactionCategory = useCallback(
-        (category: TransactionCategory) => {
-            dispatch(addTransactionFormActions.updateForm({ category }));
+        (value: string) => {
+            dispatch(addTransactionFormActions.updateForm({ category: value as TransactionCategory }));
         },
         [dispatch]
     );
     const onChangePaymentMethod = useCallback(
-        (type: PaymentMethod) => {
+        (value: string) => {
             dispatch(
                 addTransactionFormActions.updateForm({
-                    paymentMethod: type || PaymentMethod.CASH,
+                    paymentMethod: (value || 'CASH') as PaymentMethod,
                 })
             );
         },
@@ -101,6 +128,8 @@ const AddTransactionForm = memo((props: AddTransactionFormProps) => {
                         onChangeDate={onChangeDate}
                         onChangePaymentMethod={onChangePaymentMethod}
                         onChangeTransactionCategory={onChangeTransactionCategory}
+                        paymentMethodOptions={paymentMethodOptions}
+                        categoryOptions={categoryOptions}
                     />
                     <Button fullWidth onClick={onSave} theme={ButtonTheme.BACKGROUND_INVERTED}>
                         {t('Добавить')}

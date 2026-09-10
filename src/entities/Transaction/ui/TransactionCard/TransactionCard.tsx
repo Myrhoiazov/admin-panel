@@ -18,8 +18,10 @@ export interface TransactionCardProps {
     onChangeSum?: (value?: string) => void;
     onChangeDescription?: (value?: string) => void;
     onChangeTransactionType?: (type: TransactionType) => void;
-    onChangePaymentMethod?: (type: PaymentMethod) => void;
-    onChangeTransactionCategory?: (type: TransactionCategory) => void;
+    onChangePaymentMethod?: (value: string) => void;
+    onChangeTransactionCategory?: (value: string) => void;
+    paymentMethodOptions?: { key: string; label: string }[];
+    categoryOptions?: { key: string; label: string }[];
 }
 
 export const TransactionCard = memo((props: TransactionCardProps) => {
@@ -33,6 +35,8 @@ export const TransactionCard = memo((props: TransactionCardProps) => {
         onChangeDescription,
         onChangePaymentMethod,
         onChangeTransactionCategory,
+        paymentMethodOptions,
+        categoryOptions,
     } = props;
     const { t } = useTranslation();
 
@@ -45,12 +49,14 @@ export const TransactionCard = memo((props: TransactionCardProps) => {
             />
             <PaymentMethodSelect
                 onChange={onChangePaymentMethod}
-                value={data?.paymentMethod}
+                value={data?.paymentMethod as string}
                 readonly={readonly}
+                dynamicOptions={paymentMethodOptions}
             />
             <TransactionCategorySelect
                 onChange={onChangeTransactionCategory}
-                value={data?.category}
+                value={data?.category as string}
+                dynamicOptions={categoryOptions}
             />
             <Input
                 fullWidth

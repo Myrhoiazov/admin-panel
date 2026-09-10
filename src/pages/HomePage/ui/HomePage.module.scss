@@ -1,0 +1,365 @@
+.HomePage {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.welcome {
+    margin: 0;
+    color: var(--text-primary);
+    font: 700 46px / 1 var(--font-family-accent);
+}
+
+.dateText {
+    margin: 8px 0 0;
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.todayChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--border-soft);
+    background: #0f4a3d;
+    color: #f6f4f0;
+    text-decoration: none;
+
+    strong {
+        font-size: 22px;
+        line-height: 1;
+    }
+}
+
+.kpiRow {
+    display: grid;
+    grid-template-columns: 220px 220px 1fr;
+    gap: 14px;
+}
+
+.kpiCard {
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: var(--surface-primary);
+    padding: 14px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.kpiLabel {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.kpiValue {
+    margin: 8px 0 0;
+    color: var(--text-primary);
+    font-size: 38px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.kpiHint {
+    margin: 8px 0 0;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.financeCard {
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: var(--surface-primary);
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.financeHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+
+    p {
+        margin: 0;
+        color: var(--text-primary);
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    span {
+        border-radius: 999px;
+        padding: 4px 8px;
+        background: rgb(42 138 110 / 14%);
+        color: var(--accent-gold);
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+}
+
+.financeGrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+
+    small {
+        display: block;
+        color: var(--text-muted);
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    strong {
+        font-size: 28px;
+        color: var(--text-primary);
+    }
+}
+
+.expense {
+    color: #c0392b !important;
+}
+
+.balance {
+    color: var(--accent-gold) !important;
+}
+
+.mainGrid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 16px;
+}
+
+.leftColumn,
+.rightColumn {
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    background: var(--surface-primary);
+    padding: 14px;
+}
+
+.sectionHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+
+    h2 {
+        margin: 0;
+        color: var(--text-primary);
+        font: 600 32px / 1 var(--font-family-accent);
+    }
+
+    span {
+        color: var(--text-muted);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+}
+
+.financeActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    span {
+        color: var(--text-muted);
+        font-size: 13px;
+        text-transform: none;
+        font-weight: 500;
+    }
+}
+
+.doctorList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.doctorCard {
+    display: grid;
+    grid-template-columns: 1.3fr repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.doctorMain {
+    min-width: 0;
+}
+
+.doctorName {
+    display: inline-block;
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.doctorSub {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.doctorMetric {
+    small {
+        display: block;
+        color: var(--text-muted);
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    strong {
+        color: var(--text-primary);
+        font-size: 14px;
+    }
+}
+
+.appointmentList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.appointmentCard {
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 12px;
+    background: var(--surface-secondary);
+}
+
+.appointmentTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+
+    strong {
+        font-size: 14px;
+        color: var(--text-primary);
+    }
+}
+
+.statusBadge {
+    border-radius: 999px;
+    padding: 4px 10px;
+    background: var(--surface-secondary);
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.appointmentTitle {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 21px;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+
+.appointmentLink {
+    display: block;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-top: 3px;
+}
+
+.appointmentMeta {
+    margin: 4px 0 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.openBtn {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 34px;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    background: var(--surface-primary);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: border-color 0.15s, background 0.15s;
+
+    &:hover {
+        border-color: var(--accent-gold);
+        background: var(--surface-secondary);
+    }
+}
+
+.transactionsBtn {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 40px;
+    border-radius: 12px;
+    border: 1px dashed var(--border-strong);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    transition: border-color 0.15s;
+
+    &:hover {
+        border-color: var(--accent-gold);
+    }
+}
+
+.muted {
+    color: var(--text-muted);
+}
+
+@media (max-width: 1180px) {
+    .kpiRow {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .financeCard {
+        grid-column: 1 / -1;
+    }
+
+    .mainGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    .welcome {
+        font-size: 34px;
+    }
+
+    .doctorCard {
+        grid-template-columns: 1fr;
+    }
+
+    .financeGrid {
+        grid-template-columns: 1fr;
+    }
+}

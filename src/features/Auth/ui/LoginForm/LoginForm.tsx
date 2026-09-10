@@ -1,7 +1,10 @@
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 import { useSelector } from 'react-redux';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
+import { RoutePath } from '@/shared/config/routeConfig/routeConfig';
 import { Text } from '@/shared/ui/Text/Text';
 import {
     DynamicModuleLoader,
@@ -15,7 +18,9 @@ import { loginByUsername } from '../../model/services/loginByUsername/loginByUse
 import { loginActions, loginReducer } from '../../model/slice/authSlice';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Input } from '@/shared/ui/Input/Input';
+import { Icon } from '@/shared/ui/Icon/Icon';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import EyeIcon from '@/shared/assets/icons/eye-20-20.svg';
 import cls from './LoginForm.module.scss';
 import { VStack } from '@/shared/ui/Stack';
 import { AppImage } from '@/shared/ui/AppImage';
@@ -33,11 +38,14 @@ const initialReducers: ReducersList = {
 
 const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const email = useSelector(getLoginEmail);
     const password = useSelector(getLoginPassword);
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getLoginIsLoading);
     const error = useSelector(getLoginError);
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const onChangeEmail = useCallback(
         (value: string) => {
@@ -62,6 +70,15 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
         }
     }, [onSuccess, dispatch, password, email]);
 
+    const onKeyDown = useCallback(
+        (e: React.KeyboardEvent) => {
+            if (e.key === 'Enter') {
+                onLoginClick();
+            }
+        },
+        [onLoginClick]
+    );
+
     return (
         <DynamicModuleLoader reducers={initialReducers}>
             <Card
@@ -81,23 +98,45 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                     fullWidth
                     label="Email"
                     autofocus
-                    type="text"
+                    type="email"
+                    autoComplete="email"
+                    autoCapitalize="off"
+                    spellCheck={false}
                     className={cls.input}
-                    placeholder={t('E-mail')}
+                    placeholder="Email"
                     onChange={onChangeEmail}
                     value={email}
+                    onKeyDown={onKeyDown}
                 />
 
                 <Input
                     fullWidth
-                    label="Password"
-                    type="text"
+                    label="Пароль"
+                    type={showPassword ? 'text' : 'password'}
+                    autoComplete="current-password"
                     className={cls.input}
-                    placeholder={t('Password')}
+                    placeholder={t('Пароль')}
                     onChange={onChangePassword}
                     value={password}
+                    onKeyDown={onKeyDown}
+                    addonRight={
+                        <Icon
+                            Svg={EyeIcon}
+                            clickable
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            width={18}
+                            height={18}
+                            className={showPassword ? cls.eyeActive : cls.eyeInactive}
+                        />
+                    }
                 />
-                {error && <Text text={t('Вы ввели неверный логин или пароль')} variant={'error'} />}
+
+                {error && (
+                    <Text
+                        text={error.message || t('Неверный email или пароль')}
+                        variant="error"
+                    />
+                )}
 
                 <VStack gap="16" align="center">
                     <Button
@@ -107,9 +146,13 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                         disabled={isLoading}
                         fullWidth
                     >
-                        {t('Войти')}
+                        {isLoading ? t('Входим...') : t('Войти')}
                     </Button>
-                    <Button theme={ButtonTheme.CLEAR} className={cls.forgot}>
+                    <Button
+                        theme={ButtonTheme.CLEAR}
+                        className={cls.forgot}
+                        onClick={() => navigate(RoutePath.forgot_password)}
+                    >
                         {t('Забыли пароль?')}
                     </Button>
                 </VStack>

@@ -1,14 +1,14 @@
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import Textarea from '@/shared/ui/Textarea/Textarea';
 import { Procedure } from '@/entities/Procedure';
 import { Appointment } from '../../model/types/appoiment';
 import { ProcedureSelect } from '../ProcedureSelect/ProcedureSelect';
 import { Client } from '@/entities/Client';
 import { ClientSelect } from '../ClientSelect/ClientSelect';
-import { Input } from '@/shared/ui/Input/Input';
 import { User } from '@/entities/User';
 import { DoctorSelect } from '../DoctorSelect/DoctorSelect';
+import { VStack } from '@/shared/ui/Stack';
+import cls from './AppointmentCard.module.scss';
 
 export interface AppointmentCardProps {
     data?: Appointment;
@@ -21,7 +21,6 @@ export interface AppointmentCardProps {
     onChangeClient?: (value?: Client) => void;
     onChangeDoctor?: (value?: User) => void;
     onChangeNote?: (value?: string) => void;
-    onChangeImage?: (value?: File[]) => void;
 }
 
 export const AppointmentCard = memo((props: AppointmentCardProps) => {
@@ -36,16 +35,14 @@ export const AppointmentCard = memo((props: AppointmentCardProps) => {
         procedures,
         clients = [],
         onChangeClient,
-        onChangeImage,
     } = props;
-    const { t } = useTranslation();
 
-    const selectedProcedure = procedures?.find((p) => p.id === data?.procedureId);
+    const selectedProcedure = procedures?.find((p) => p.id === data?.procedures?.[0]?.procedureId);
     const selectedClient = clients?.find((c) => c.id === data?.clientId);
     const selectedDoctor = doctors?.find((d) => d.id === data?.doctorId);
 
     return (
-        <>
+        <VStack max gap="16" className={cls.AppointmentCard}>
             <ProcedureSelect
                 onChange={onChangeProcedure}
                 value={selectedProcedure}
@@ -55,29 +52,13 @@ export const AppointmentCard = memo((props: AppointmentCardProps) => {
                 <ClientSelect onChange={onChangeClient} value={selectedClient} options={clients} />
             )}
             <DoctorSelect onChange={onChangeDoctor} value={selectedDoctor} options={doctors} />
-            <Input
-                fullWidth
-                label="Загрузить фото"
-                type="file"
-                multiple
-                placeholder={t('Загрузите фото')}
-                onChange={(files) => {
-                    if (Array.isArray(files)) {
-                        onChangeImage?.(files);
-                    } else if (files) {
-                        onChangeImage?.([files]);
-                    } else {
-                        onChangeImage?.([]);
-                    }
-                }}
-            />
             <Textarea
                 placeholder="Добавить нотацию к процедуре"
                 fullWidth
                 value={data?.note ?? ''}
                 onChange={onChangeNote}
             />
-        </>
+        </VStack>
     );
 });
 

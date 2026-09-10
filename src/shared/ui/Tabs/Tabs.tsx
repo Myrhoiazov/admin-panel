@@ -42,6 +42,7 @@ export const Tabs = memo((props: TabsProps) => {
                         className={classNames(cls.tab, {
                             [cls.selected]: isSelected,
                         })}
+                        data-selected={isSelected}
                         key={tab.value}
                         onClick={clickHandle(tab)}
                         border="round"

@@ -1,32 +1,39 @@
-import React, { memo, ReactNode } from 'react';
+import React, { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './UsersList.module.scss';
-import { Text } from '@/shared/ui/Text/Text';
 import { VStack } from '@/shared/ui/Stack';
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 import { IProfile } from '@/entities/Profile';
 import UserListItem from '../UserListItem/UserListItem';
+import { EmptyState } from '@/shared/ui/EmptyState/EmptyState';
+import UserIcon from '@/shared/assets/icons/user-filled.svg';
 
 interface UsersListProps {
     className?: string;
     users: IProfile[];
     isLoading?: boolean;
-    renderAction?: (client: IProfile) => ReactNode;
+    onDeleteSuccess?: () => void;
+    emptyTitle?: string;
+    emptyDescription?: string;
 }
 
 export const UsersList = memo((props: UsersListProps) => {
-    const { className, isLoading, users, renderAction } = props;
+    const { className, isLoading, users, onDeleteSuccess, emptyTitle, emptyDescription } = props;
 
     if (!isLoading && !users.length) {
         return (
-            <div className={classNames(s.ArticleList, {}, [])}>
-                <Text size="l" title="Пользователи не найдены" className={s.title} />
+            <div className={classNames(s.UsersList, {}, [className])}>
+                <EmptyState
+                    icon={UserIcon}
+                    title={emptyTitle || 'Пользователи не найдены'}
+                    description={emptyDescription}
+                />
             </div>
         );
     }
 
     const renderUser = (user: IProfile) => (
-        <UserListItem className={s.card} user={user} key={user.id} renderAction={renderAction} />
+        <UserListItem className={s.card} user={user} key={user.id} onDeleteSuccess={onDeleteSuccess} />
     );
 
     return (

@@ -5,22 +5,28 @@ import { Transaction } from '../../model/types/transaction';
 import TransactionListItem from '../TransactionListItem/TransactionListItem';
 import { VStack } from '@/shared/ui/Stack';
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
-import { Text } from '@/shared/ui/Text/Text';
+import { EmptyState } from '@/shared/ui/EmptyState/EmptyState';
+import TransactionsIcon from '@/shared/assets/icons/transactions.svg';
 
 interface TransactionListProps {
     className?: string;
     transactions: Transaction[];
     isLoading?: boolean;
+    transactionLabels?: Record<string, string>;
     renderAction?: (transaction: Transaction) => ReactNode;
 }
 
 export const TransactionList = memo((props: TransactionListProps) => {
-    const { className, transactions, isLoading, renderAction } = props;
+    const { className, transactions, isLoading, renderAction, transactionLabels } = props;
 
     if (!isLoading && !transactions.length) {
         return (
-            <div className={classNames(s.TransactionList, {}, [])}>
-                <Text size="l" title="Транзакции не найдены" className={s.title} />
+            <div className={classNames(s.TransactionList, {}, [className])}>
+                <EmptyState
+                    icon={TransactionsIcon}
+                    title="Транзакции не найдены"
+                    description="Попробуйте изменить параметры фильтра"
+                />
             </div>
         );
     }
@@ -29,6 +35,7 @@ export const TransactionList = memo((props: TransactionListProps) => {
         <TransactionListItem
             className={s.card}
             transaction={trans}
+            transactionLabels={transactionLabels}
             key={trans.id}
             renderAction={renderAction}
         />

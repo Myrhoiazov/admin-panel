@@ -1,0 +1,19 @@
+.deleteBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--text-muted, #9ca3af);
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+
+    &:hover {
+        color: #c0392b;
+        background: rgb(192 57 43 / 8%);
+        border-color: rgb(192 57 43 / 20%);
+    }
+}

@@ -20,6 +20,5 @@ export const fetchNextClientsPage = createAsyncThunk<
 
     if (hasMore && !isLoading) {
         dispatch(clientsPageActions.setPage(page + 1));
-        // dispatch(fetchClientsList({ page: page + 1 }));
     }
 });

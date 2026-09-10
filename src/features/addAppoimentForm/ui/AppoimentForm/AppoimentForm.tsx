@@ -1,7 +1,7 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import cls from './AppoimentForm.module.scss';
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { VStack, HStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 import { Button, ButtonTheme } from '@/shared/ui/Button';
@@ -21,26 +21,18 @@ import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitial
 import { fetchProceduresList } from '../../model/services/fetchProceduresList/fetchProceduresList';
 import { getAddAppoimentForm } from '@/features/addAppoimentForm/model/selectors/getAddAppoimentForm/getAddClientForm';
 import { Client } from '@/entities/Client/model/types/client';
-import { ClientAutocomplete, CLIENT_SEARCH_MIN_QUERY_LENGTH, isValidUkrainianPhone } from '@/entities/Client';
+import { ClientAutocomplete, CLIENT_SEARCH_MIN_QUERY_LENGTH, isValidUkrainianPhone, normalizeUkrainianPhone } from '@/entities/Client';
 import { User } from '@/entities/User';
 import { getAddAppoimentDoctors } from '../../model/selectors/getAddAppoimentDocters/getAddAppoimentDocters';
 import { fetchDoctorsList } from '../../model/services/fetchDoctorsList/fetchDoctorsList';
 import { toast } from 'react-toastify';
 import { $apiPrivate } from '@/shared/api/api';
-import { Appointment } from '@/entities/Appointment';
+import { Appointment, ProcedureServiceRows, useProcedureRows, groupProcedureRows, computeProceduresTotal } from '@/entities/Appointment';
 import { DoctorSelect } from '@/entities/Appointment/ui/DoctorSelect/DoctorSelect';
 import Textarea from '@/shared/ui/Textarea/Textarea';
 
 interface ServiceItem { id: number; name: string; price: number; }
 interface ServiceCategory { id: number; name: string; procedureId: number | null; items: ServiceItem[]; }
-
-interface ServiceLine {
-    key: string;
-    serviceId: string;
-    price: number;
-}
-
-const makeKey = () => Math.random().toString(36).slice(2);
 
 const STATUS_OPTIONS = [
     { value: 'SCHEDULED', content: 'Запланирован' },
@@ -70,6 +62,7 @@ const initialReducers: ReducersList = { addAppoimentForm: appoimentReducer };
 
 const AppoimentForm = memo((props: {
     className?: string;
+    isOpen?: boolean;
     onSuccess: () => void;
     reloadPage?: () => void;
     userId?: string;
@@ -77,13 +70,13 @@ const AppoimentForm = memo((props: {
     initialTime?: string;
     initialDoctorId?: string;
 }) => {
-    const { className, initialDate, initialDoctorId, initialTime, onSuccess, reloadPage, userId } = props;
+    const { className, isOpen, initialDate, initialDoctorId, initialTime, onSuccess, reloadPage, userId } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
 
     const [appointments, setAppointments] = useState<Appointment[]>([]);
     const [allCategories, setAllCategories] = useState<ServiceCategory[]>([]);
-    const [serviceLines, setServiceLines] = useState<ServiceLine[]>([{ key: makeKey(), serviceId: '', price: 0 }]);
+    const { rows, addServiceLine, addProcedureLine, onChangeRowProcedure, onChangeRowService, removeRow, resetRows } = useProcedureRows();
     const [showCustomDuration, setShowCustomDuration] = useState(false);
     const [customDurationInput, setCustomDurationInput] = useState('60');
     const [note, setNote] = useState('');
@@ -95,22 +88,29 @@ const AppoimentForm = memo((props: {
     const [newClientPhone, setNewClientPhone] = useState('');
     const [newClientFirstName, setNewClientFirstName] = useState('');
     const [newClientLastName, setNewClientLastName] = useState('');
+    const [firstNameTouched, setFirstNameTouched] = useState(false);
     const [phoneError, setPhoneError] = useState<string | undefined>();
+
+    // whether the search text itself looks like a phone number rather than a name — if so, that
+    // same text becomes the new client's phone directly instead of asking for it a second time
+    const clientQueryLooksLikePhone = useMemo(() => /^[+\d][\d\s-]*$/.test(clientQuery.trim()), [clientQuery]);
 
     const procedures = useSelector(getAddAppoimentProcedures);
     const docters = useSelector(getAddAppoimentDoctors);
     const formData = useSelector(getAddAppoimentForm);
 
-    const selectedProcedureId = formData?.procedureId ? String(formData.procedureId) : '';
-    const selectedProcedure = procedures?.find((p) => String(p.id) === selectedProcedureId);
+    // "Main" procedure of the session — the first row with a procedure selected — used only to
+    // derive default duration/time-slot options, not for pricing (see computeProceduresTotal).
+    const primaryProcedureId = rows.find((row) => row.procedureId)?.procedureId || '';
+    const primaryProcedure = procedures?.find((p) => String(p.id) === primaryProcedureId);
     const appointmentDate = formData?.startAt ? String(formData.startAt).slice(0, 10) : (initialDate || toDateInputValue(new Date()));
     const appointmentTime = formData?.startAt && String(formData.startAt).includes('T')
         ? String(formData.startAt).slice(11, 16)
         : (initialTime || '');
-    const durationValue = String(formData?.durationMin || selectedProcedure?.defaultDurationMin || '60');
+    const durationValue = String(formData?.durationMin || primaryProcedure?.defaultDurationMin || '60');
     const statusValue = formData?.status || 'SCHEDULED';
 
-    const totalAmount = serviceLines.reduce((sum, item) => sum + (item.price || 0), 0);
+    const totalAmount = computeProceduresTotal(rows, (procedures || []).map((p) => ({ id: Number(p.id), basePrice: p.basePrice })));
 
     useInitialEffect(() => {
         dispatch(fetchProceduresList());
@@ -126,7 +126,12 @@ const AppoimentForm = memo((props: {
             .catch(() => {});
     }, []);
 
+    // Re-seeds the form every time the modal is opened (not just on first mount) — the form
+    // instance stays mounted (hidden) between opens, and its Redux slice is shared with any
+    // other appointment-form instance (e.g. the calendar's), so without this the doctor/date
+    // picked there would leak into a later open of this one.
     useEffect(() => {
+        if (isOpen === false) return;
         const baseDate = initialDate || toDateInputValue(new Date());
         const baseTime = initialTime || '10:00';
         dispatch(appoimentActions.updateAppoiment({
@@ -137,7 +142,7 @@ const AppoimentForm = memo((props: {
             durationMin: 60,
             discountAmount: 0,
         }));
-    }, [dispatch, initialDate, initialDoctorId, initialTime]);
+    }, [dispatch, initialDate, initialDoctorId, initialTime, isOpen]);
 
     useEffect(() => {
         if (userId) dispatch(appoimentActions.updateAppoiment({ clientId: userId }));
@@ -169,64 +174,40 @@ const AppoimentForm = memo((props: {
         setNewClientPhone('');
         setNewClientFirstName('');
         setNewClientLastName('');
+        setFirstNameTouched(false);
         setPhoneError(undefined);
         dispatch(appoimentActions.updateAppoiment({ clientId: undefined }));
     }, [dispatch]);
 
-    // seed the "new client" fields once when the search first settles on "no matches" —
-    // guesses whether the typed query looks like a phone number or a name, so the user
-    // doesn't have to retype what they already entered into the search field
+    // When the search text isn't phone-shaped (a name search came up empty), mirror it into the
+    // "Имя" field so the user doesn't have to retype what they already searched for — keeps
+    // following the live search text until the user edits the field themselves.
     useEffect(() => {
-        if (!hasNoMatches) return;
-        const trimmed = clientQuery.trim();
-        const looksLikePhone = /^[+\d][\d\s-]*$/.test(trimmed);
-        if (looksLikePhone) {
-            setNewClientPhone((prev) => prev || trimmed);
-        } else {
-            setNewClientFirstName((prev) => prev || trimmed);
+        if (!hasNoMatches || clientQueryLooksLikePhone || firstNameTouched) return;
+        setNewClientFirstName(clientQuery.trim());
+    }, [hasNoMatches, clientQueryLooksLikePhone, clientQuery, firstNameTouched]);
+
+// -- (procedure/service row handlers now come from useProcedureRows) --
+
+    // Keeps the default duration in sync with the session's "main" procedure (first row) —
+    // only fires when that procedure actually changes, so it doesn't fight a duration the user
+    // picked manually afterwards.
+    const prevPrimaryProcedureIdRef = useRef('');
+    useEffect(() => {
+        if (primaryProcedureId && primaryProcedureId !== prevPrimaryProcedureIdRef.current) {
+            const proc = procedures?.find((p) => String(p.id) === primaryProcedureId);
+            dispatch(appoimentActions.updateAppoiment({ durationMin: proc?.defaultDurationMin || 60 }));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps -- seed once per "no matches" transition, not on every keystroke
-    }, [hasNoMatches]);
+        prevPrimaryProcedureIdRef.current = primaryProcedureId;
+    }, [primaryProcedureId, procedures, dispatch]);
 
-    // Services must belong to the appointment's single procedure — no mixing across procedures.
-    const servicesForSelectedProcedure = useMemo((): ServiceItem[] => {
-        if (!selectedProcedureId) return [];
-        return allCategories
-            .filter((c) => c.procedureId === Number(selectedProcedureId))
-            .flatMap((c) => c.items);
-    }, [allCategories, selectedProcedureId]);
-
-    const onChangeProcedure = useCallback((procedureId: string) => {
-        const proc = procedures?.find((p) => String(p.id) === procedureId);
-        dispatch(appoimentActions.updateAppoiment({
-            procedureId: proc?.id,
-            durationMin: proc?.defaultDurationMin || 60,
-        }));
-        // switching procedure invalidates previously selected services from the old procedure
-        setServiceLines([{ key: makeKey(), serviceId: '', price: 0 }]);
-    }, [dispatch, procedures]);
-
-    const onChangeServiceLine = useCallback((key: string, serviceId: string) => {
-        setServiceLines((prev) => prev.map((item) => {
-            if (item.key !== key) return item;
-            const svc = servicesForSelectedProcedure.find((s) => String(s.id) === serviceId);
-            return { ...item, serviceId, price: svc?.price || 0 };
-        }));
-    }, [servicesForSelectedProcedure]);
-
-    const addServiceLine = useCallback(() => {
-        setServiceLines((prev) => [...prev, { key: makeKey(), serviceId: '', price: 0 }]);
-    }, []);
-
-    const removeServiceLine = useCallback((key: string) => {
-        setServiceLines((prev) => {
-            if (prev.length === 1) {
-                // single row — just clear the selected service
-                return prev.map((item) => item.key === key ? { ...item, serviceId: '', price: 0 } : item);
-            }
-            return prev.filter((item) => item.key !== key);
-        });
-    }, []);
+    const onChangeRowServiceForRow = useCallback((key: string, serviceId: string) => {
+        const row = rows.find((r) => r.key === key);
+        const servicesForRow = row
+            ? allCategories.filter((c) => c.procedureId === Number(row.procedureId)).flatMap((c) => c.items)
+            : [];
+        onChangeRowService(key, serviceId, servicesForRow);
+    }, [rows, allCategories, onChangeRowService]);
 
     const onChangeDoctor = useCallback((value?: User) => {
         dispatch(appoimentActions.updateAppoiment({ doctorId: value?.id }));
@@ -286,13 +267,13 @@ const AppoimentForm = memo((props: {
             .filter((m) => m <= maxMinutes)
             .map((m) => ({ value: String(m), content: `${m} мин` }));
 
-        if (selectedProcedure?.durationType === 'FLEXIBLE' || selectedProcedure?.isFlexibleDuration) {
+        if (primaryProcedure?.durationType === 'FLEXIBLE' || primaryProcedure?.isFlexibleDuration) {
             options.push({ value: String(maxMinutes), content: `Гибко (${maxMinutes} мин)` });
         }
 
         const base = options.length ? options : [{ value: '20', content: '20 мин' }];
         return [...base, { value: 'custom', content: 'Произвольное' }];
-    }, [appointmentDate, appointmentTime, appointments, selectedProcedure, formData?.doctorId]);
+    }, [appointmentDate, appointmentTime, appointments, primaryProcedure, formData?.doctorId]);
 
     const availableTimeOptions = useMemo(() => {
         if (!formData?.doctorId || !appointmentDate) return [];
@@ -335,18 +316,14 @@ const AppoimentForm = memo((props: {
         return '';
     }, [appointmentDate, availableTimeOptions.length, formData?.doctorId]);
 
-    const procedureOptions = useMemo(() => (procedures || []).map((p) => ({
-        value: String(p.id),
-        content: p.name ?? '',
-    })), [procedures]);
-
     const onSave = useCallback(async () => {
-        const primaryProcedureId = selectedProcedureId;
+        const groupedProcedures = groupProcedureRows(rows);
         let clientId = formData?.clientId;
 
         // create new client if searched but not found in DB
         if (!clientId && !userId && hasNoMatches) {
-            const normalizedPhone = newClientPhone.trim();
+            const rawPhone = clientQueryLooksLikePhone ? clientQuery : newClientPhone;
+            const normalizedPhone = normalizeUkrainianPhone(rawPhone);
             if (!isValidUkrainianPhone(normalizedPhone)) {
                 setPhoneError('Введите номер в формате +380XXXXXXXXX');
                 toast.error('Некорректный номер телефона нового клиента');
@@ -366,21 +343,19 @@ const AppoimentForm = memo((props: {
             }
         }
 
-        if (!clientId || !primaryProcedureId || !formData?.doctorId || !appointmentDate || !appointmentTime) {
+        if (!clientId || groupedProcedures.length === 0 || !formData?.doctorId || !appointmentDate || !appointmentTime) {
             toast.error(t('Заполните клиента, процедуру, доктора, дату и время'));
             return;
         }
         if (validationError) { toast.error(validationError); return; }
 
-        const durationMin = Number(durationValue || selectedProcedure?.defaultDurationMin || 60);
+        const durationMin = Number(durationValue || primaryProcedure?.defaultDurationMin || 60);
         const startAt = new Date(`${appointmentDate}T${appointmentTime}:00`);
         if (startAt < new Date()) {
             toast.error('Нельзя создать запись на прошедшее время. Выберите другое время.');
             return;
         }
         const endAt = new Date(startAt.getTime() + durationMin * 60000);
-        const finalAmount = totalAmount || Number(selectedProcedure?.basePrice || 0);
-        const serviceItemIds = serviceLines.filter((l) => l.serviceId).map((l) => Number(l.serviceId));
 
         const result = await dispatch(addAppoiment({
             data: {
@@ -388,18 +363,18 @@ const AppoimentForm = memo((props: {
                 endAt: endAt.toISOString(),
                 durationMin,
                 discountAmount: 0,
-                finalAmount,
+                finalAmount: totalAmount,
                 paymentMethod: 'CASH',
                 status: statusValue,
                 note: note || undefined,
-                serviceItemIds,
+                procedures: groupedProcedures,
             },
         }));
         if (result.meta.requestStatus === 'fulfilled') {
             onSuccess();
             reloadPage?.();
             dispatch(appoimentActions.cleanForm());
-            setServiceLines([{ key: makeKey(), serviceId: '', price: 0 }]);
+            resetRows([]);
             setNote('');
             setClientQuery('');
             setFoundClient(null);
@@ -407,19 +382,21 @@ const AppoimentForm = memo((props: {
             setNewClientPhone('');
             setNewClientFirstName('');
             setNewClientLastName('');
+            setFirstNameTouched(false);
             setPhoneError(undefined);
             toast.success(t('Запись успешно добавлена'));
         } else {
             toast.error(t('Не удалось создать сеанс. Проверьте свободное окно доктора'));
         }
     }, [
-        appointmentDate, appointmentTime, dispatch, durationValue, selectedProcedure,
-        formData?.clientId, formData?.doctorId, hasNoMatches, selectedProcedureId, serviceLines,
+        appointmentDate, appointmentTime, clientQuery, clientQueryLooksLikePhone, dispatch,
+        durationValue, primaryProcedure,
+        formData?.clientId, formData?.doctorId, hasNoMatches, rows, resetRows,
         newClientFirstName, newClientLastName, newClientPhone, note, onSuccess, reloadPage,
         statusValue, t, totalAmount, userId, validationError,
     ]);
 
-    const selectedDoctor = docters?.find((d) => d.id === formData?.doctorId);
+    const selectedDoctor = docters?.find((d) => String(d.id) === String(formData?.doctorId));
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>
@@ -447,30 +424,56 @@ const AppoimentForm = memo((props: {
                                     {hasNoMatches && (
                                         <div className={cls.clientNew}>
                                             <span>Клиент не найден — будет создан новый</span>
-                                            <div className={cls.grid2}>
-                                                <Input
-                                                    fullWidth
-                                                    label="Телефон"
-                                                    type="tel"
-                                                    placeholder="+380..."
-                                                    value={newClientPhone}
-                                                    onChange={(v) => { setNewClientPhone(v || ''); setPhoneError(undefined); }}
-                                                />
-                                                <Input
-                                                    fullWidth
-                                                    label="Имя"
-                                                    placeholder="Имя"
-                                                    value={newClientFirstName}
-                                                    onChange={(v) => setNewClientFirstName(v || '')}
-                                                />
-                                            </div>
-                                            <Input
-                                                fullWidth
-                                                label="Фамилия (необязательно)"
-                                                placeholder="Фамилия"
-                                                value={newClientLastName}
-                                                onChange={(v) => setNewClientLastName(v || '')}
-                                            />
+                                            {clientQueryLooksLikePhone ? (
+                                                <>
+                                                    <div className={cls.clientNewPhone}>
+                                                        Телефон: <strong>{normalizeUkrainianPhone(clientQuery)}</strong>
+                                                    </div>
+                                                    <div className={cls.grid2}>
+                                                        <Input
+                                                            fullWidth
+                                                            label="Имя"
+                                                            placeholder="Имя"
+                                                            value={newClientFirstName}
+                                                            onChange={(v) => { setNewClientFirstName(v || ''); setFirstNameTouched(true); }}
+                                                        />
+                                                        <Input
+                                                            fullWidth
+                                                            label="Фамилия (необязательно)"
+                                                            placeholder="Фамилия"
+                                                            value={newClientLastName}
+                                                            onChange={(v) => setNewClientLastName(v || '')}
+                                                        />
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div className={cls.grid2}>
+                                                        <Input
+                                                            fullWidth
+                                                            label="Телефон"
+                                                            type="tel"
+                                                            placeholder="+380..."
+                                                            value={newClientPhone}
+                                                            onChange={(v) => { setNewClientPhone(v || ''); setPhoneError(undefined); }}
+                                                        />
+                                                        <Input
+                                                            fullWidth
+                                                            label="Имя"
+                                                            placeholder="Имя"
+                                                            value={newClientFirstName}
+                                                            onChange={(v) => { setNewClientFirstName(v || ''); setFirstNameTouched(true); }}
+                                                        />
+                                                    </div>
+                                                    <Input
+                                                        fullWidth
+                                                        label="Фамилия (необязательно)"
+                                                        placeholder="Фамилия"
+                                                        value={newClientLastName}
+                                                        onChange={(v) => setNewClientLastName(v || '')}
+                                                    />
+                                                </>
+                                            )}
                                             {phoneError && <Text text={phoneError} variant="error" />}
                                         </div>
                                     )}
@@ -537,51 +540,18 @@ const AppoimentForm = memo((props: {
                         <Text text={validationError} className={cls.validationError} />
                     )}
 
-                    <div className={cls.grid2}>
-                        <Select
-                            label="Процедура"
-                            options={procedureOptions}
-                            value={selectedProcedureId}
-                            defaultValue="Выберите процедуру"
-                            onChange={onChangeProcedure}
-                        />
-                    </div>
-
                     <div className={cls.section}>
-                        <Text text="Услуги" bold className={cls.sectionTitle} />
-                        <VStack gap="8">
-                            {serviceLines.map((item, index) => (
-                                <div key={item.key} className={cls.lineItem}>
-                                    <Select
-                                        label={index === 0 ? 'Услуга' : undefined}
-                                        options={servicesForSelectedProcedure.map((s) => ({
-                                            value: String(s.id),
-                                            content: s.name,
-                                        }))}
-                                        value={item.serviceId}
-                                        defaultValue={selectedProcedureId
-                                            ? (servicesForSelectedProcedure.length ? 'Выберите услугу' : '—')
-                                            : 'Сначала выберите процедуру'}
-                                        readonly={!servicesForSelectedProcedure.length}
-                                        onChange={(v) => onChangeServiceLine(item.key, v)}
-                                    />
-                                    <span className={cls.itemPrice}>
-                                        {item.price > 0 ? `${item.price.toLocaleString('ru-RU')} ₴` : ''}
-                                    </span>
-                                    <button
-                                        className={cls.removeBtn}
-                                        onClick={() => removeServiceLine(item.key)}
-                                        type="button"
-                                        title={serviceLines.length > 1 ? 'Удалить строку' : 'Сбросить услугу'}
-                                    >
-                                        ×
-                                    </button>
-                                </div>
-                            ))}
-                        </VStack>
-                        <button className={cls.addLineBtn} onClick={addServiceLine} type="button" disabled={!servicesForSelectedProcedure.length}>
-                            + Добавить услугу
-                        </button>
+                        <Text text="Процедуры и услуги" bold className={cls.sectionTitle} />
+                        <ProcedureServiceRows
+                            rows={rows}
+                            procedures={procedures}
+                            allCategories={allCategories}
+                            onChangeProcedure={onChangeRowProcedure}
+                            onChangeService={onChangeRowServiceForRow}
+                            onAddService={addServiceLine}
+                            onAddProcedure={addProcedureLine}
+                            onRemove={removeRow}
+                        />
                     </div>
 
                     {totalAmount > 0 && (

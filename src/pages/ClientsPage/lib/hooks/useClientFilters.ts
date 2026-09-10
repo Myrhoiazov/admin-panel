@@ -31,7 +31,7 @@ export function useClientFilters() {
     const onChangeSearch = useCallback(
         (search: string) => {
             dispatch(clientsPageActions.setSearch(search));
-            // dispatch(articlesPageActions.setPage(1));
+            dispatch(clientsPageActions.setPage(1));
             debouncedFetchData();
         },
         [dispatch, debouncedFetchData],
@@ -40,7 +40,7 @@ export function useClientFilters() {
     const onChangeSort = useCallback(
         (newSort: ClientSortField) => {
             dispatch(clientsPageActions.setSort(newSort));
-            // dispatch(articlesPageActions.setPage(1));
+            dispatch(clientsPageActions.setPage(1));
             fetchData();
         },
         [dispatch, fetchData],
@@ -49,7 +49,7 @@ export function useClientFilters() {
     const onChangeOrder = useCallback(
         (newOrder: SortOrder) => {
             dispatch(clientsPageActions.setOrder(newOrder));
-            // dispatch(articlesPageActions.setPage(1));
+            dispatch(clientsPageActions.setPage(1));
             fetchData();
         },
         [dispatch, fetchData],
@@ -58,7 +58,7 @@ export function useClientFilters() {
     const onChangeType = useCallback(
         (value: ClientStatusKey) => {
             dispatch(clientsPageActions.setType(value));
-            // dispatch(articlesPageActions.setPage(1));
+            dispatch(clientsPageActions.setPage(1));
             fetchData();
         },
         [dispatch, fetchData],

@@ -2,6 +2,7 @@ import {
     ImgHTMLAttributes,
     memo,
     ReactElement,
+    useMemo,
     useLayoutEffect,
     useState,
 } from 'react';
@@ -24,9 +25,44 @@ export const AppImage = memo((props: AppImageProps) => {
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
+    const normalizedSrc = useMemo(() => {
+        if (!src) {
+            return '';
+        }
+
+        const normalizedApi = (__API__ || '').replace(/\/$/, '');
+        if (!normalizedApi) {
+            return src;
+        }
+
+        if (src.startsWith('/upload/')) {
+            return `${normalizedApi}${src}`;
+        }
+
+        try {
+            const srcUrl = new URL(src);
+            if (srcUrl.pathname.startsWith('/upload/')) {
+                return `${normalizedApi}${srcUrl.pathname}`;
+            }
+        } catch {
+            return src;
+        }
+
+        return src;
+    }, [src]);
+
     useLayoutEffect(() => {
+        if (!normalizedSrc) {
+            setIsLoading(false);
+            setHasError(true);
+            return;
+        }
+
+        setIsLoading(true);
+        setHasError(false);
+
         const img = new Image();
-        img.src = src ?? '';
+        img.src = normalizedSrc;
         img.onload = () => {
             setIsLoading(false);
         };
@@ -34,7 +70,7 @@ export const AppImage = memo((props: AppImageProps) => {
             setIsLoading(false);
             setHasError(true);
         };
-    }, [src]);
+    }, [normalizedSrc]);
 
     if (isLoading && fallback) {
         return fallback;
@@ -44,5 +80,5 @@ export const AppImage = memo((props: AppImageProps) => {
         return errorFallback;
     }
 
-    return <img className={className} src={src} alt={alt} {...otherProps} />;
+    return <img className={className} src={normalizedSrc || src} alt={alt} {...otherProps} />;
 });

@@ -1,7 +1,33 @@
 .Avatar {
     width: 100px;
+    display: block;
     height: 100px;
+    background: var(--surface-primary);
+    border: 1px solid var(--border-strong);
     border-radius: 50%;
+    box-shadow: var(--shadow-light);
     object-fit: cover;
     object-position: center;
+}
+
+.AvatarFallback {
+    width: 100px;
+    display: grid;
+    height: 100px;
+    color: var(--navbar-icon);
+    place-items: center;
+    background:
+        radial-gradient(circle at 30% 20%, rgb(255 255 255 / 38%) 0%, transparent 45%),
+        linear-gradient(145deg, var(--surface-primary), var(--surface-secondary));
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    box-shadow: var(--shadow-light);
+}
+
+.loading {
+    overflow: hidden;
+}
+
+.error {
+    color: var(--accent-gold);
 }

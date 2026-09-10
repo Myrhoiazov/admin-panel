@@ -1,12 +1,13 @@
 .Icon {
+    color: currentcolor;
     transition: all var(--transition-base);
 
     &.fill {
-        fill: var(--inverted-primary-color);
+        fill: currentcolor;
     }
 
     &.stroke {
-        stroke: var(--primary-color);
+        stroke: currentcolor;
     }
 
     &:hover {

@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './TransactionsPage.module.scss';
@@ -26,6 +26,7 @@ import { getTransactionPageSummaryData } from '../../model/selectors/getTransact
 import { SummaryCards } from '@/entities/Summary';
 import { fetchTransactionsSummary } from '@/pages/TransactionsPage/model/services/fetchTransactionsSummary/fetchTransactionsSummary';
 import { EdditTransactionDropdown } from '@/features/edditTransactionDropdown';
+import { $apiPrivate } from '@/shared/api/api';
 
 interface TransactionsPageProps {
     className?: string;
@@ -41,10 +42,28 @@ const TransactionsPage = ({ className }: TransactionsPageProps) => {
     const summary = useSelector(getTransactionPageSummaryData);
     const isLoading = useSelector(getTransactionPageIsLoading);
     const [searchParams] = useSearchParams();
+    const [transactionLabels, setTransactionLabels] = useState<Record<string, string>>({});
 
     useInitialEffect(() => {
         dispatch(initTransactionsPage(searchParams));
     });
+
+    useEffect(() => {
+        const load = async () => {
+            const { data } = await $apiPrivate.get<{
+                transactionLabels?: Record<string, string>;
+                paymentMethodLabels?: Record<string, string>;
+                expenseCategoryLabels?: Record<string, string>;
+            }>('/company-settings');
+            /* Объединяем все источники, новые поля имеют приоритет */
+            setTransactionLabels({
+                ...(data.transactionLabels || {}),
+                ...(data.paymentMethodLabels || {}),
+                ...(data.expenseCategoryLabels || {}),
+            });
+        };
+        load();
+    }, []);
 
     const fetchAllTransactions = useCallback(() => {
         dispatch(fetchTransactionsList({ replace: true, noQuery: true }));
@@ -62,6 +81,7 @@ const TransactionsPage = ({ className }: TransactionsPageProps) => {
                         <TransactionList
                             isLoading={isLoading}
                             transactions={transactions}
+                            transactionLabels={transactionLabels}
                             renderAction={(transaction: Transaction) => (
                                 <EdditTransactionDropdown
                                     transactionId={transaction.id ?? ''}

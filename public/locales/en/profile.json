@@ -16,5 +16,8 @@
     "incorrect_password": "Incorrect password",
     "email_already_exists": "User with this email already exists",
     "incorrect_email": "Incorrect email",
-    "incorrect_phone": "Incorrect phone"
+    "incorrect_phone": "Incorrect phone",
+    "no_access_role": "Select at least one role: doctor or admin",
+    "incorrect_data": "Incorrect data",
+    "server_error": "Server error"
 }

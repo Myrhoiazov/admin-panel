@@ -1,45 +1,27 @@
-import { useTranslation } from 'react-i18next';
-import { Select } from '@/shared/ui/Select/Select';
-import { memo, useCallback, useMemo } from 'react';
-import { RoleKey, RoleLabels } from '../../model/types/role';
+import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
+import CheckBox from '@/shared/ui/CheckBox/CheckBox';
+import { VStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text/Text';
 
 interface RoleSelectProps {
     className?: string;
-    value?: RoleKey;
-    onChange?: (value: RoleKey) => void;
+    isAdmin?: boolean;
+    isDoctor?: boolean;
+    onChangeIsAdmin?: (value: boolean) => void;
+    onChangeIsDoctor?: (value: boolean) => void;
     readonly?: boolean;
+    error?: string;
 }
 
-const options = [
-    { value: RoleKey.ADMIN, content: RoleLabels.ADMIN },
-    { value: RoleKey.MANAGER, content: RoleLabels.MANAGER },
-    { value: RoleKey.GUEST, content: RoleLabels.GUEST },
-    { value: RoleKey.DOCTOR, content: RoleLabels.DOCTOR },
-];
-
-export const RoleSelect = memo(({ className, value, onChange, readonly }: RoleSelectProps) => {
-    const { t } = useTranslation();
-
-    const onChangeHandler = useCallback(
-        (value: string) => {
-            onChange?.(value as RoleKey);
-        },
-        [onChange]
-    );
-
-    const selectRole = useMemo(() => {
-        return RoleKey[value as unknown as keyof typeof RoleKey];
-    }, [value]);
+export const RoleSelect = memo((props: RoleSelectProps) => {
+    const { className, isAdmin, isDoctor, onChangeIsAdmin, onChangeIsDoctor, readonly, error } = props;
 
     return (
-        <Select
-            className={classNames('', {}, [className])}
-            label={t('Укажите роль')}
-            options={options}
-            value={selectRole}
-            onChange={onChangeHandler}
-            readonly={readonly}
-        />
+        <VStack gap="8" max className={classNames('', {}, [className])}>
+            <CheckBox label="Администратор" value={Boolean(isAdmin)} readOnly={readonly} onChange={readonly ? undefined : onChangeIsAdmin} />
+            <CheckBox label="Врач" value={Boolean(isDoctor)} readOnly={readonly} onChange={readonly ? undefined : onChangeIsDoctor} />
+            {error && <Text variant="error" text={error} />}
+        </VStack>
     );
 });

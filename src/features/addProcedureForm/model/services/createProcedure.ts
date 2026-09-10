@@ -20,6 +20,10 @@ export const createProcedure = createAsyncThunk<Procedure, ThunkArg, ThunkConfig
 
     formData.append('name', procedureForm.name ?? '');
     formData.append('description', procedureForm.description ?? '');
+    formData.append('durationType', procedureForm.durationType ?? 'MINUTES_60');
+    formData.append('defaultDurationMin', String(procedureForm.defaultDurationMin ?? 60));
+    formData.append('isFlexibleDuration', String(Boolean(procedureForm.isFlexibleDuration)));
+    formData.append('basePrice', String(procedureForm.basePrice ?? 0));
 
     if (file) {
         formData.append('image', file);

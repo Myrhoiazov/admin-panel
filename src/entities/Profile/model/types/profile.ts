@@ -1,5 +1,3 @@
-import { Role, RoleKey } from "@/entities/Role";
-
 export enum ValidateProfileError {
     INCORRECT_USER_DATA = 'INCORRECT_USER_DATA',
     INCORRECT_AGE = 'INCORRECT_AGE',
@@ -8,17 +6,26 @@ export enum ValidateProfileError {
     INCORRECT_USERNAME = 'INCORRECT_USERNAME',
     NO_DATA = 'NO_DATA',
     SERVER_ERROR = 'SERVER_ERROR',
-    EMAIL_ALREADY_EXISTS = 'EMAIL_ALREADY_EXISTS'
+    EMAIL_ALREADY_EXISTS = 'EMAIL_ALREADY_EXISTS',
+    NO_ACCESS_ROLE = 'NO_ACCESS_ROLE'
 }
 
 export interface IProfile {
     id?: string
     firstName?: string,
     lastName?: string,
-    role?: RoleKey,
+    isAdmin?: boolean,
+    isDoctor?: boolean,
     email?: string,
     avatar?: string
+    birthYear?: number
+    phoneNumber?: string
+    telegram?: string
+    position?: string
+    specialization?: string
+    bio?: string
     password?: string
+    isTelegramLinked?: boolean
 }
 
 export interface ServerError {

@@ -7,6 +7,7 @@ import {
 import { StateSchema } from '@/app/providers/StoreProvider';
 import { Procedure } from '@/entities/Procedure';
 import { fetchProceduresList } from '../services/fetchProceduresList/fetchProceduresList';
+import { deleteProcedure } from '../services/deleteProcedure/deleteProcedure';
 import { ProcedurePageSchema } from '../types/ProcedurePageSchema';
 
 const clientsAdapter = createEntityAdapter<Procedure, string>({
@@ -56,6 +57,9 @@ const proceduresPageSlice = createSlice({
             .addCase(fetchProceduresList.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
+            })
+            .addCase(deleteProcedure.fulfilled, (state, action) => {
+                clientsAdapter.removeOne(state, action.payload);
             });
     },
 });

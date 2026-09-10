@@ -4,13 +4,13 @@ import { getAddAppoimentForm } from '../../selectors/getAddAppoimentForm/getAddC
 import { Appointment } from '@/entities/Appointment';
 
 interface ThunkArg {
-    data?: Partial<Appointment> & { serviceItemIds?: number[] }
+    data?: Omit<Partial<Appointment>, 'procedures'> & { procedures?: { procedureId: number; serviceItemIds?: number[] }[] }
 }
 
 export const addAppoiment = createAsyncThunk<Appointment, ThunkArg, ThunkConfig<string>>('appoiment/addAppoiment', async ({ data }, thunkApi) => {
     const { extra, rejectWithValue, getState } = thunkApi;
 
-    const { serviceItemIds, ...appoimentForm } = {
+    const { procedures, ...appoimentForm } = {
         ...getAddAppoimentForm(getState()),
         ...data,
     };
@@ -29,8 +29,8 @@ export const addAppoiment = createAsyncThunk<Appointment, ThunkArg, ThunkConfig<
 
     // FormData can't carry a real array — the generic loop above would stringify it as "1,2,3".
     // Send it as a JSON string instead; the server does JSON.parse on this specific field.
-    if (serviceItemIds !== undefined) {
-        formData.append('serviceItemIds', JSON.stringify(serviceItemIds));
+    if (procedures !== undefined) {
+        formData.append('procedures', JSON.stringify(procedures));
     }
 
     try {

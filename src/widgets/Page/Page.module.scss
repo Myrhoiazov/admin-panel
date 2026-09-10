@@ -1,12 +1,25 @@
 .Page {
-    height: calc(100vh - var(--navbar-height));
-    padding: 40px;
+    min-height: calc(100dvh - var(--navbar-height) - (var(--layout-top-padding) * 2));
+    height: auto;
+    padding: var(--page-padding);
     flex-grow: 1;
     flex-shrink: 100;
+    overflow-x: hidden;
     overflow-y: auto;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--page-radius);
+    background: linear-gradient(180deg, var(--surface-primary) 0%, var(--surface-secondary) 100%);
+    box-shadow: var(--shadow-light);
 }
 
 .trigger {
     height: 40px;
     margin-top: 20px;
+}
+
+@media (width <= 992px) {
+    .Page {
+        min-height: auto;
+        overflow-y: visible;
+    }
 }

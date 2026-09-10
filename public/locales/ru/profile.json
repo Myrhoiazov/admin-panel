@@ -16,5 +16,8 @@
     "incorrect_password": "Некорректный пароль",
     "email_already_exists": "Пользователь с таким email уже существует",
     "incorrect_email": "Некорректный email",
-    "incorrect_phone": "Некорректный номер телефона"
+    "incorrect_phone": "Некорректный номер телефона",
+    "no_access_role": "Укажите хотя бы одну роль: врач или админ",
+    "incorrect_data": "Некорректные данные",
+    "server_error": "Ошибка сервера"
 }

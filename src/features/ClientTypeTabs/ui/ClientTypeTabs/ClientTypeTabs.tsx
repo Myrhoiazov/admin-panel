@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback, useMemo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { ClientStatusKey, ClientStatusLabels } from '@/entities/ClientStatus';
+import { ClientStatusKey, ClientStatusLabels, useClientStatusLabels } from '@/entities/ClientStatus';
 import { Tabs, TabItem } from '@/shared/ui/Tabs';
 
 interface ClientTypeTabsProps {
@@ -13,6 +13,7 @@ interface ClientTypeTabsProps {
 export const ClientTypeTabs = memo((props: ClientTypeTabsProps) => {
     const { className, value, onChangeType } = props;
     const { t } = useTranslation();
+    const labels = useClientStatusLabels();
 
     const typeTabs = useMemo<TabItem[]>(
         () => [
@@ -21,19 +22,23 @@ export const ClientTypeTabs = memo((props: ClientTypeTabsProps) => {
                 content: t(ClientStatusLabels.all),
             },
             {
-                value: ClientStatusKey.bronze,
-                content: t(ClientStatusLabels.bronze),
+                value: ClientStatusKey.BRONZE,
+                content: labels.BRONZE,
             },
             {
-                value: ClientStatusKey.gold,
-                content: t(ClientStatusLabels.gold),
+                value: ClientStatusKey.SILVER,
+                content: labels.SILVER,
             },
             {
-                value: ClientStatusKey.silver,
-                content: t(ClientStatusLabels.silver),
+                value: ClientStatusKey.GOLD,
+                content: labels.GOLD,
+            },
+            {
+                value: ClientStatusKey.PLATINUM,
+                content: labels.PLATINUM,
             },
         ],
-        [t]
+        [t, labels]
     );
 
     const onTabClick = useCallback(

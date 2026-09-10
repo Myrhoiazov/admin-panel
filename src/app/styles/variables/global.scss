@@ -1,32 +1,40 @@
-@import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap';
 
 :root {
-    --font-family-main: 'Montserrat', 'Times New Roman', serif;
+    --font-family-main: 'Manrope', 'Helvetica Neue', sans-serif;
+    --font-family-accent: 'Cormorant Garamond', 'Times New Roman', serif;
 
     // s
     --font-size-s: 12px;
-    --font-line-s: 20px;
+    --font-line-s: 18px;
     --font-s: var(--font-size-s) / var(--font-line-s) var(--font-family-main);
 
     // m
-    --font-size-m: 16px;
+    --font-size-m: 15px;
     --font-line-m: 24px;
     --font-m: var(--font-size-m) / var(--font-line-m) var(--font-family-main);
 
     // l
-    --font-size-l: 24px;
-    --font-line-l: 32px;
+    --font-size-l: 22px;
+    --font-line-l: 30px;
     --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
 
     // xl
-    --font-size-xl: 32px;
-    --font-line-xl: 40px;
+    --font-size-xl: 34px;
+    --font-line-xl: 42px;
     --font-xl: var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
 
+    --title-font-m: 600 28px / 36px var(--font-family-accent);
+    --title-font-l: 600 36px / 44px var(--font-family-accent);
+
     // Размеры
-    --navbar-height: 50px;
-    --sidebar-width: 300px;
-    --sidebar-width-collapsed: 80px;
+    --navbar-height: 72px;
+    --sidebar-width: 284px;
+    --sidebar-width-collapsed: 88px;
+    --page-max-width: 1680px;
+    --page-padding: 34px;
+    --page-radius: var(--border-radius-l);
+    --content-gap: var(--space-4);
 
     // z - Индексы
     --modal-z-index: 1000;
@@ -53,10 +61,56 @@
     --font-xl-redesigned: var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
 
     // transition
-    --transition-base: 0.3s ease;
+    --transition-base: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 
     // ::shadow
-    --shadow-light: rgb(0 0 0 / 4%) 0px 3px 5px;
-    --shadow-accent: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
-    --border-radius-s: 0.3125rem;
+    --shadow-light: 0 8px 24px rgb(21 28 24 / 8%);
+    --shadow-accent: 0 16px 40px rgb(10 22 18 / 14%);
+    --shadow-luxury: 0 24px 48px rgb(11 24 20 / 16%);
+
+    --border-radius-s: 10px;
+    --border-radius-m: 16px;
+    --border-radius-l: 22px;
+    --border-radius-pill: 999px;
+
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+
+    --layout-side-padding: 24px;
+    --layout-top-padding: 8px;
+}
+
+@media (width <= 1200px) {
+    :root {
+        --sidebar-width: 252px;
+        --page-padding: 26px;
+        --layout-side-padding: 18px;
+        --content-gap: 14px;
+    }
+}
+
+@media (width <= 992px) {
+    :root {
+        --navbar-height: 64px;
+        --sidebar-width: 100%;
+        --sidebar-width-collapsed: 100%;
+        --page-padding: 20px;
+        --page-radius: 18px;
+        --layout-side-padding: 14px;
+        --content-gap: 12px;
+    }
+}
+
+@media (width <= 640px) {
+    :root {
+        --navbar-height: 60px;
+        --page-padding: 14px;
+        --page-radius: 14px;
+        --layout-side-padding: 10px;
+        --content-gap: 10px;
+    }
 }

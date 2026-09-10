@@ -1,49 +1,55 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { memo, useCallback } from 'react';
-import { getRouteAppointmentDetails } from '@/shared/const/router';
+import { memo, useCallback, useState } from 'react';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { Dropdown } from '@/shared/ui/Popups';
 import { Icon } from '@/shared/ui/Icon/Icon';
-import Eddit from '@/shared/assets/icons/edit-icon.svg';
+import TrashIcon from '@/shared/assets/icons/trash-icon.svg';
 import { deleteAppoimentById } from '../../model/services/deleteAppoimentById';
 import { toast } from 'react-toastify';
+import { ConfirmActionModal } from '@/features/confirmAction';
+import s from './EdditAppoimentDropdown.module.scss';
 
 interface EdditAppoimentDropdownProps {
     className?: string;
     appointmentId: string;
     reloadPage?: () => void;
+    canDelete?: boolean;
 }
 
 export const EdditAppoimentDropdown = memo((props: EdditAppoimentDropdownProps) => {
-    const { className, appointmentId, reloadPage } = props;
-
+    const { className, appointmentId, reloadPage, canDelete = true } = props;
+    const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
     const dispatch = useAppDispatch();
 
-    const deleteAppoimentGandler = useCallback(async () => {
+    const handleDelete = useCallback(async () => {
         const result = await dispatch(deleteAppoimentById(appointmentId));
         if (result.meta.requestStatus === 'fulfilled') {
             reloadPage?.();
             toast.info('Сеанс успешно удален');
+            setIsDeleteConfirmOpen(false);
         }
-    }, [dispatch]);
+    }, [appointmentId, dispatch, reloadPage]);
 
-    const items = [
-        {
-            content: 'Просмотреть',
-            href: getRouteAppointmentDetails(String(appointmentId)),
-        },
-        {
-            content: 'Удалить',
-            onClick: deleteAppoimentGandler,
-        },
-    ];
+    if (!canDelete) return null;
 
     return (
-        <Dropdown
-            direction="bottom left"
-            className={classNames('', {}, [className])}
-            items={items}
-            trigger={<Icon Svg={Eddit} width={24} height={24} color="stroke" />}
-        />
+        <>
+            <button
+                className={classNames(s.deleteBtn, {}, [className])}
+                onClick={() => setIsDeleteConfirmOpen(true)}
+                title="Удалить сеанс"
+                aria-label="Удалить сеанс"
+            >
+                <Icon Svg={TrashIcon} width={18} height={18} color="fill" />
+            </button>
+            <ConfirmActionModal
+                isOpen={isDeleteConfirmOpen}
+                onClose={() => setIsDeleteConfirmOpen(false)}
+                onConfirm={handleDelete}
+                title="Удалить сеанс?"
+                description="Это действие нельзя отменить."
+                cancelText="Отменить"
+                confirmText="Удалить"
+            />
+        </>
     );
 });

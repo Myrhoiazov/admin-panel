@@ -7,10 +7,10 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { IBuildOptions } from './types/config';
 
 export function buildPlugins({ paths, isDev, apiUrl, project }: IBuildOptions): webpack.WebpackPluginInstance[] {
-
     const isProd = !isDev;
+    const shouldAnalyze = process.env.ANALYZE === 'true';
 
-    const plugins = [
+    const plugins: webpack.WebpackPluginInstance[] = [
         new HTMLWebpackPlugin({
             template: paths.html,
         }),
@@ -25,24 +25,26 @@ export function buildPlugins({ paths, isDev, apiUrl, project }: IBuildOptions): 
             __PROJECT__: JSON.stringify(project),
 
         }),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].[contenthash:8].css',
+            chunkFilename: 'css/[name].[contenthash:8].css',
+        }),
 
     ];
 
     if (isDev) {
         plugins.push(new ReactRefreshWebpackPlugin());
         plugins.push(new webpack.HotModuleReplacementPlugin());
-        plugins.push(
-            new BundleAnalyzerPlugin({
-                openAnalyzer: false,
-            })
-        );
+        if (shouldAnalyze) {
+            plugins.push(
+                new BundleAnalyzerPlugin({
+                    openAnalyzer: false,
+                })
+            );
+        }
     }
 
     if (isProd) {
-        plugins.push(new MiniCssExtractPlugin({
-            filename: 'css/[name].[contenthash:8].css',
-            chunkFilename: 'css/[name].[contenthash:8].css',
-        }));
         plugins.push(new CopyPlugin({
             patterns: [
                 { from: paths.locales, to: paths.buildLocales },

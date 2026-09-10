@@ -27,3 +27,68 @@
     max-width: 160px;
     line-height: 1.1;
 }
+
+.questionnaireBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 18px 20px;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: var(--surface-secondary);
+}
+
+.questionnaireTitle {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+}
+
+.questionnaireGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 16px;
+}
+
+.questionnaireItem {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    min-width: 0;
+}
+
+.checkOn {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2a8a6e;
+    flex: 0 0 auto;
+}
+
+.checkOff {
+    font-size: 14px;
+    color: var(--text-muted);
+    flex: 0 0 auto;
+}
+
+.checkLabel {
+    font-size: 13px;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.checkDate {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+.questionnaireEmpty {
+    font-size: 13px;
+    color: var(--text-muted);
+}

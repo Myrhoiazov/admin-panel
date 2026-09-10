@@ -1,9 +1,135 @@
 .AppoimentListItem {
-    // transition: all var(--transition-base);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
 
     .icon {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 52px 110px 72px 116px minmax(160px, 1fr) minmax(170px, 1fr) minmax(120px, 1fr) 76px 78px;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .cell {
+        margin: 0;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 15px;
+    }
+
+    .linkCell {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        text-underline-offset: 3px;
+        color: #2563eb;
+        font-size: 15px;
+        transition: color 0.15s, text-decoration-color 0.15s;
+
+        &:hover {
+            color: #1d4ed8;
+            text-decoration-color: currentColor;
+        }
+    }
+
+    .status {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-size: 12px;
+        line-height: 1;
+        white-space: nowrap;
+        width: fit-content;
+        font-weight: 500;
+    }
+
+    .statusScheduled {
+        color: #174f3f;
+        border-color: rgb(23 79 63 / 22%);
+        background: rgb(23 79 63 / 12%);
+    }
+
+    .statusCompleted {
+        color: #1f6a37;
+        border-color: rgb(31 106 55 / 24%);
+        background: rgb(31 106 55 / 13%);
+    }
+
+    .statusCancelled {
+        color: #9f2d20;
+        border-color: rgb(159 45 32 / 22%);
+        background: rgb(159 45 32 / 12%);
+    }
+
+    .statusNoShow {
+        color: #8a5a12;
+        border-color: rgb(138 90 18 / 24%);
+        background: rgb(138 90 18 / 14%);
+    }
+
+    .openIcon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        margin: 0 auto;
+        border-radius: 8px;
+        border: 1px solid var(--border-soft);
+        color: var(--text-secondary);
+        background: rgb(255 255 255 / 60%);
+        transition: color 0.15s, background 0.15s, border-color 0.15s;
+
+        &:hover {
+            color: #2563eb;
+            background: rgb(37 99 235 / 8%);
+            border-color: rgb(37 99 235 / 30%);
+            text-decoration: none;
+        }
+    }
+
+    .actionCell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 1024px) {
+    .AppoimentListItem {
+        .grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 12px;
+        }
+
+        .cell,
+        .linkCell {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: initial;
+        }
+
+        .openIcon {
+            margin-left: 0;
+        }
+
+        .actionCell {
+            justify-content: flex-start;
+        }
     }
 }

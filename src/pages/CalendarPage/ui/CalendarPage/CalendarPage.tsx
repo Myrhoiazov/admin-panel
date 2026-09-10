@@ -6,7 +6,8 @@ import { Text } from '@/shared/ui/Text/Text';
 import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { Select } from '@/shared/ui/Select/Select';
 import { Input } from '@/shared/ui/Input/Input';
-import { Appointment } from '@/entities/Appointment';
+import { Appointment, ProcedureServiceRows, useProcedureRows, groupProcedureRows, computeProceduresTotal, emptyProcedureRow, makeRowKey } from '@/entities/Appointment';
+import { Procedure } from '@/entities/Procedure';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchAppoimentsList } from '@/pages/AppoimentsPage/model/services/fetchAppoimentsList/fetchAppoimentsList';
 import { appoimentsPageReducer, getAppointments } from '@/pages/AppoimentsPage/model/slices/appoimentsPageSlice';
@@ -29,15 +30,6 @@ import cls from './CalendarPage.module.scss';
 
 interface ServiceItem { id: number; name: string; price: number; }
 interface ServiceCategory { id: number; name: string; procedureId: number | null; items: ServiceItem[]; }
-
-interface EditServiceLine {
-    key: string;
-    serviceId: string;
-    name: string;
-    price: number;
-}
-
-const makeKey = () => Math.random().toString(36).slice(2);
 
 /* ── Constants ── */
 const DAY_START = 8;
@@ -151,8 +143,8 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
     const [editingFinalAmount, setEditingFinalAmount] = useState(0);
     const [pmOptions, setPmOptions] = useState(DEFAULT_PM_OPTIONS);
     const [allCategories, setAllCategories] = useState<ServiceCategory[]>([]);
-    const [editingProcedureId, setEditingProcedureId] = useState('');
-    const [editingServiceLines, setEditingServiceLines] = useState<EditServiceLine[]>([{ key: makeKey(), serviceId: '', name: '', price: 0 }]);
+    const [procedures, setProcedures] = useState<Procedure[]>([]);
+    const { rows: editingRows, resetRows: resetEditingRows, addServiceLine: addEditServiceLine, addProcedureLine: addEditProcedureLine, onChangeRowProcedure: onChangeEditRowProcedure, onChangeRowService: onChangeEditRowServiceRaw, removeRow: removeEditRow } = useProcedureRows();
     const [deleteAppointment, setDeleteAppointment] = useState<Appointment | null>(null);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const [createDate, setCreateDate] = useState('');
@@ -192,6 +184,12 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
     useEffect(() => {
         $apiPrivate.get<ServiceCategory[]>('/services')
             .then(({ data }) => setAllCategories(data || []))
+            .catch(() => {});
+    }, []);
+
+    useEffect(() => {
+        $apiPrivate.get<Procedure[]>('/procedures')
+            .then(({ data }) => setProcedures(data || []))
             .catch(() => {});
     }, []);
 
@@ -345,17 +343,13 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
     const onToday = () => setAnchorDate(new Date());
 
     /* ── Modal handlers ── */
-    const servicesForProcedure = useCallback((procedureId: string): ServiceItem[] =>
-        allCategories.filter((c) => c.procedureId === Number(procedureId)).flatMap((c) => c.items),
-    [allCategories]);
-
-    // Services must belong to the appointment's (fixed, non-editable in this modal) procedure —
-    // no mixing across procedures. Derived, not stored per-row, so it recomputes automatically
-    // once allCategories finishes loading (no manual "re-populate" effect needed).
-    const servicesForEditingProcedure = useMemo(
-        () => servicesForProcedure(editingProcedureId),
-        [servicesForProcedure, editingProcedureId],
-    );
+    const onChangeEditRowService = useCallback((key: string, serviceId: string) => {
+        const row = editingRows.find((r) => r.key === key);
+        const servicesForRow = row
+            ? allCategories.filter((c) => c.procedureId === Number(row.procedureId)).flatMap((c) => c.items)
+            : [];
+        onChangeEditRowServiceRaw(key, serviceId, servicesForRow);
+    }, [editingRows, allCategories, onChangeEditRowServiceRaw]);
 
     const openEditModal = (appt: Appointment) => {
         setEditingAppointment(appt);
@@ -367,18 +361,21 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
         setEditingStatus(appt.status || 'SCHEDULED');
         setEditingPaymentMethod((appt.paymentMethod as string) || 'CASH');
         const discount = Number(appt.discountAmount || 0);
-        const basePrice = Number(appt.procedure?.basePrice || 0);
+        const basePrice = (appt.procedures || []).reduce((sum, p) => sum + Number(p.procedure?.basePrice || 0), 0);
         setEditingDiscount(discount);
         setEditingFinalAmount(Number(appt.finalAmount ?? Math.max(0, basePrice - discount)));
-        setEditingProcedureId(String(appt.procedureId || appt.procedure?.id || ''));
-        // Real saved services (snapshot), not a price-based guess.
-        const savedLines = (appt.services || []).map((s) => ({
-            key: makeKey(),
-            serviceId: String(s.serviceItemId),
-            name: s.name,
-            price: s.priceAtBooking,
-        }));
-        setEditingServiceLines(savedLines.length ? savedLines : [{ key: makeKey(), serviceId: '', name: '', price: 0 }]);
+        // Real saved procedures+services (snapshot), not a price-based guess. A procedure with
+        // no services attached becomes one row with an empty service, so it's still editable.
+        const savedRows = (appt.procedures || []).flatMap((p) => (p.services.length
+            ? p.services.map((s) => ({
+                key: makeRowKey(),
+                procedureId: String(p.procedureId),
+                serviceId: String(s.serviceItemId),
+                serviceName: s.name,
+                price: s.priceAtBooking,
+            }))
+            : [emptyProcedureRow(String(p.procedureId))]));
+        resetEditingRows(savedRows);
     };
     const closeEditModal = () => {
         setEditingAppointment(null);
@@ -389,56 +386,16 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
         setEditingPaymentMethod('CASH');
         setEditingDiscount(0);
         setEditingFinalAmount(0);
-        setEditingProcedureId('');
-        setEditingServiceLines([{ key: makeKey(), serviceId: '', name: '', price: 0 }]);
+        resetEditingRows([]);
     };
 
-    // Options for a row's <select>: the active services for this procedure, plus — if the
-    // row's currently saved service has since been deactivated (so it's no longer in that
-    // list) — a synthetic option built from its own snapshot, so the dropdown still shows the
-    // real saved name instead of silently falling back to whichever option renders first.
-    const optionsForEditRow = useCallback((item: EditServiceLine) => {
-        const active = servicesForEditingProcedure.map((s) => ({ value: String(s.id), content: s.name }));
-        if (item.serviceId && !servicesForEditingProcedure.some((s) => String(s.id) === item.serviceId)) {
-            return [{ value: item.serviceId, content: `${item.name} (деактивирована)` }, ...active];
-        }
-        return active;
-    }, [servicesForEditingProcedure]);
-
-    const onChangeEditService = useCallback((key: string, serviceId: string) => {
-        setEditingServiceLines((prev) => {
-            const next = prev.map((item) => {
-                if (item.key !== key) return item;
-                const svc = servicesForEditingProcedure.find((s) => String(s.id) === serviceId);
-                return { ...item, serviceId, name: svc?.name || '', price: svc?.price || 0 };
-            });
-            const total = next.reduce((sum, i) => sum + i.price, 0);
-            if (total > 0) setEditingFinalAmount(total);
-            return next;
-        });
-    }, [servicesForEditingProcedure]);
-
-    const addEditServiceLine = useCallback(() => {
-        setEditingServiceLines((prev) => [...prev, { key: makeKey(), serviceId: '', name: '', price: 0 }]);
-    }, []);
-
-    const removeEditServiceLine = useCallback((key: string) => {
-        setEditingServiceLines((prev) => {
-            if (prev.length === 1) return prev.map((item) => item.key === key ? { ...item, serviceId: '', name: '', price: 0 } : item);
-            const next = prev.filter((item) => item.key !== key);
-            const total = next.reduce((sum, i) => sum + i.price, 0);
-            if (total > 0) setEditingFinalAmount(total);
-            return next;
-        });
-    }, []);
-
-    const editTotalFromLines = editingServiceLines.reduce((sum, i) => sum + i.price, 0);
+    const editTotalFromLines = computeProceduresTotal(editingRows, procedures.map((p) => ({ id: Number(p.id), basePrice: p.basePrice })));
 
     const onSaveAppointment = async () => {
         if (!editingAppointment?.id || !editingDate) return;
         const base = editTotalFromLines > 0 ? editTotalFromLines : editingFinalAmount;
         const finalAmount = Math.max(0, base - editingDiscount);
-        const serviceItemIds = editingServiceLines.filter((l) => l.serviceId).map((l) => Number(l.serviceId));
+        const groupedProcedures = groupProcedureRows(editingRows);
         const result = await dispatch(updateAppointmentById({
             appointmentId: String(editingAppointment.id),
             note: editingNote,
@@ -447,7 +404,7 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
             paymentMethod: editingPaymentMethod,
             discountAmount: editingDiscount,
             finalAmount,
-            serviceItemIds,
+            procedures: groupedProcedures,
         }));
         if (result.meta.requestStatus === 'fulfilled') {
             toast.success('Сеанс обновлен'); closeEditModal(); dispatch(fetchAppoimentsList({ replace: true, noQuery: true }));
@@ -517,6 +474,10 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
             background: `rgb(${color.bg} / 13%)`,
             borderLeftColor: `rgb(${color.border} / 75%)`,
         } : {};
+        const eventProcedureNames = event.procedures?.map((p) => p.procedure?.name).filter(Boolean).join(', ') || '';
+        const eventFirstProcedureId = event.procedures?.[0]?.procedure?.id ?? event.procedures?.[0]?.procedureId;
+        const eventServices = event.procedures?.flatMap((p) => p.services) || [];
+        const eventBasePrice = event.procedures?.reduce((sum, p) => sum + Number(p.procedure?.basePrice || 0), 0) || 0;
 
         return (
             <div key={`${event.id}-${sv || event.createdAt}`} className={cls.wkCard} style={wkCardStyle}>
@@ -525,9 +486,9 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
                     <Button
                         className={cls.wkCardTitle}
                         theme={ButtonTheme.CLEAR}
-                        onClick={() => event.procedure?.id && navigate(getRouteProcedureDetails(String(event.procedure.id)))}
+                        onClick={() => eventFirstProcedureId && navigate(getRouteProcedureDetails(String(eventFirstProcedureId)))}
                     >
-                        {`Процедура: ${event.procedure?.name || '-'}`}
+                        {`Процедура: ${eventProcedureNames || '-'}`}
                     </Button>
                     <Button className={cls.wkEditBtn} theme={ButtonTheme.CLEAR} onClick={() => openEditModal(event)}>
                         <Icon Svg={EditIcon} width={14} height={14} color="stroke" />
@@ -536,13 +497,13 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
                         <Button className={cls.wkDeleteBtn} theme={ButtonTheme.CLEAR} onClick={() => openDeleteConfirm(event)} title="Удалить">×</Button>
                     )}
                 </div>
-                {event.services && event.services.length > 0 && (
-                    <div className={cls.apptServices} title={event.services.map((s) => s.name).join(', ')}>
-                        {event.services.slice(0, 3).map((s) => (
+                {eventServices.length > 0 && (
+                    <div className={cls.apptServices} title={eventServices.map((s) => s.name).join(', ')}>
+                        {eventServices.slice(0, 3).map((s) => (
                             <span key={s.id ?? s.serviceItemId} className={cls.serviceChip}>{s.name}</span>
                         ))}
-                        {event.services.length > 3 && (
-                            <span className={cls.serviceChip}>+{event.services.length - 3}</span>
+                        {eventServices.length > 3 && (
+                            <span className={cls.serviceChip}>+{eventServices.length - 3}</span>
                         )}
                     </div>
                 )}
@@ -553,7 +514,7 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
                 >
                     {`Клиент: ${`${event.client?.firstName || ''} ${event.client?.lastName || ''}`.trim() || '-'}`}
                 </Button>
-                <Text className={cls.wkMetaLine} text={`Итог: ${event.finalAmount ?? Math.max(0, Number(event.procedure?.basePrice || 0) - Number(event.discountAmount || 0))} ₴`} />
+                <Text className={cls.wkMetaLine} text={`Итог: ${event.finalAmount ?? Math.max(0, eventBasePrice - Number(event.discountAmount || 0))} ₴`} />
             </div>
         );
     };
@@ -693,6 +654,9 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
                                                     background: `rgb(${color.bg} / 16%)`,
                                                     borderLeftColor: `rgb(${color.border} / 85%)`,
                                                 } : { top: `${top}px`, height: `${height}px` };
+                                                const apptProcedureNames = appt.procedures?.map((p) => p.procedure?.name).filter(Boolean).join(', ') || '';
+                                                const apptFirstProcedureId = appt.procedures?.[0]?.procedure?.id ?? appt.procedures?.[0]?.procedureId;
+                                                const apptServices = appt.procedures?.flatMap((p) => p.services) || [];
 
                                                 return (
                                                     <div
@@ -706,18 +670,18 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
                                                                 {clientName}
                                                             </button>
                                                         )}
-                                                        {appt.procedure?.name && (
-                                                            <button className={cls.apptProc} onClick={(e) => { e.stopPropagation(); appt.procedure?.id && navigate(getRouteProcedureDetails(String(appt.procedure.id))); }}>
-                                                                {appt.procedure.name}
+                                                        {apptProcedureNames && (
+                                                            <button className={cls.apptProc} onClick={(e) => { e.stopPropagation(); apptFirstProcedureId && navigate(getRouteProcedureDetails(String(apptFirstProcedureId))); }}>
+                                                                {apptProcedureNames}
                                                             </button>
                                                         )}
-                                                        {appt.services && appt.services.length > 0 && (
-                                                            <div className={cls.apptServices} title={appt.services.map((s) => s.name).join(', ')}>
-                                                                {appt.services.slice(0, 2).map((s) => (
+                                                        {apptServices.length > 0 && (
+                                                            <div className={cls.apptServices} title={apptServices.map((s) => s.name).join(', ')}>
+                                                                {apptServices.slice(0, 2).map((s) => (
                                                                     <span key={s.id ?? s.serviceItemId} className={cls.serviceChip}>{s.name}</span>
                                                                 ))}
-                                                                {appt.services.length > 2 && (
-                                                                    <span className={cls.serviceChip}>+{appt.services.length - 2}</span>
+                                                                {apptServices.length > 2 && (
+                                                                    <span className={cls.serviceChip}>+{apptServices.length - 2}</span>
                                                                 )}
                                                             </div>
                                                         )}
@@ -834,41 +798,18 @@ const CalendarPage = ({ className }: CalendarPageProps) => {
                         <Select label="Метод оплаты" options={pmOptions} value={editingPaymentMethod} onChange={(v) => setEditingPaymentMethod(v || 'CASH')} />
                     </div>
 
-                    <Input
-                        fullWidth
-                        label="Процедура"
-                        value={editingAppointment?.procedure?.name || '—'}
-                        readonly
-                    />
-
                     <div className={cls.editSection}>
-                        <Text text="Услуги" bold className={cls.editSectionTitle} />
-                        <VStack gap="8">
-                            {editingServiceLines.map((item, index) => (
-                                <div key={item.key} className={cls.editLineItem}>
-                                    <Select
-                                        label={index === 0 ? 'Услуга' : undefined}
-                                        options={optionsForEditRow(item)}
-                                        value={item.serviceId}
-                                        defaultValue={servicesForEditingProcedure.length ? 'Выберите услугу' : '—'}
-                                        readonly={!servicesForEditingProcedure.length && !item.serviceId}
-                                        onChange={(v) => onChangeEditService(item.key, v)}
-                                    />
-                                    <span className={cls.editItemPrice}>
-                                        {item.price > 0 ? `${item.price.toLocaleString('ru-RU')} ₴` : ''}
-                                    </span>
-                                    <button
-                                        className={cls.editRemoveBtn}
-                                        onClick={() => removeEditServiceLine(item.key)}
-                                        type="button"
-                                        title={editingServiceLines.length > 1 ? 'Удалить строку' : 'Сбросить услугу'}
-                                    >×</button>
-                                </div>
-                            ))}
-                        </VStack>
-                        <button className={cls.editAddLineBtn} onClick={addEditServiceLine} type="button">
-                            + Добавить услугу
-                        </button>
+                        <Text text="Процедуры и услуги" bold className={cls.editSectionTitle} />
+                        <ProcedureServiceRows
+                            rows={editingRows}
+                            procedures={procedures}
+                            allCategories={allCategories}
+                            onChangeProcedure={onChangeEditRowProcedure}
+                            onChangeService={onChangeEditRowService}
+                            onAddService={addEditServiceLine}
+                            onAddProcedure={addEditProcedureLine}
+                            onRemove={removeEditRow}
+                        />
                     </div>
 
                     <div className={cls.editGrid}>

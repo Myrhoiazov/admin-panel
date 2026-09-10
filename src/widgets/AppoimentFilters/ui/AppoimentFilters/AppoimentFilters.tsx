@@ -55,7 +55,7 @@ export const AppoimentFilters = memo((props: AppoimentFiltersProps) => {
                     value={search}
                     size="s"
                     placeholder={t('Поиск')}
-                    addonLeft={<Icon Svg={SearchIcon} />}
+                    addonLeft={<Icon Svg={SearchIcon} color="stroke" />}
                 />
                 <ClientSortSelector
                     order={order}
@@ -66,7 +66,7 @@ export const AppoimentFilters = memo((props: AppoimentFiltersProps) => {
 
                 <Button onClick={onShowModal} className={s.btn}>
                     {t('Создать запись')}
-                    <Icon Svg={Sessions} width={24} color="fill" />
+                    <Icon Svg={Sessions} width={24} color="stroke" />
                 </Button>
             </HStack>
             <AppoimentFormModal

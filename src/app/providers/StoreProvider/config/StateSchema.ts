@@ -7,10 +7,7 @@ import {
 } from '@reduxjs/toolkit';
 import { ProfileSchema } from '@/entities/Profile';
 import { AxiosInstance } from 'axios';
-import { ArticleDetailsSchema } from '@/entities/Article';
-import { ArticleDetailsCommentsSchema } from '@/pages/ArticleDetailsPage';
 import { AddCommentFormSchema } from '@/features/AddCommentForm';
-import { ArticlePageSchema } from '@/pages/ArticlesPage';
 import { LoginSchema } from '@/features/Auth/model/types/loginSchema';
 import { ClientPageSchema } from '@/pages/ClientsPage/model/types/ClientPageSchema';
 import { ClientSchema } from '@/features/addClientForm';
@@ -27,6 +24,14 @@ import { AppoimentPageSchema } from '@/pages/AppoimentsPage';
 import { UserFormSchema } from '@/features/addUserForm';
 import { SettingsPageSchema } from '@/pages/SettingsPage';
 import { AppointmentDetailSchema } from '@/pages/AppoimentDetailPage';
+import { PatientDetailsSchema } from '@/pages/PatientDetailsPage';
+import { EntityState } from '@reduxjs/toolkit';
+import { Appointment } from '@/entities/Appointment';
+
+interface DoctorAppointmentsSchema extends EntityState<Appointment, string> {
+    isLoading?: boolean;
+    error?: string;
+}
 
 export interface StateSchema {
     user: UserSchema;
@@ -48,11 +53,10 @@ export interface StateSchema {
     addAppoimentForm?: AppointmentSchema;
     appoimentPage?: AppoimentPageSchema;
     appoimentDetails?: AppointmentDetailSchema
+    patientDetails?: PatientDetailsSchema
+    doctorAppointments?: DoctorAppointmentsSchema
 
-    articleDetails?: ArticleDetailsSchema;
-    articleDetailsComments?: ArticleDetailsCommentsSchema;
     addCommentForm?: AddCommentFormSchema;
-    articlesPage?: ArticlePageSchema;
 
     proceduresPage?: ProcedurePageSchema
     procedureDetails?: ProcedureDetailsSchema

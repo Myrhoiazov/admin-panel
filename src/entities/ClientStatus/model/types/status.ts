@@ -8,14 +8,21 @@
 
 export enum ClientStatusKey {
     all = 'all',
-    bronze = 'bronze',
-    silver = 'silver',
-    gold = 'gold',
+    BRONZE = 'BRONZE',
+    SILVER = 'SILVER',
+    GOLD = 'GOLD',
+    PLATINUM = 'PLATINUM',
 }
 
+/**
+ * Дефолтные названия статусов — используются, пока не загружены (или если пусты)
+ * настраиваемые названия из CompanySettings.clientStatusLabels (Настройки CRM →
+ * Статусы клиентов). Ключи синхронны с серверным enum LoyaltyLevel.
+ */
 export const ClientStatusLabels: Record<ClientStatusKey, string> = {
     [ClientStatusKey.all]: "Все клиенты",
-    [ClientStatusKey.bronze]: "Красный",
-    [ClientStatusKey.silver]: "Желтый",
-    [ClientStatusKey.gold]: "Зеленый",
+    [ClientStatusKey.BRONZE]: "Бронза",
+    [ClientStatusKey.SILVER]: "Серебро",
+    [ClientStatusKey.GOLD]: "Золото",
+    [ClientStatusKey.PLATINUM]: "Платина",
 };

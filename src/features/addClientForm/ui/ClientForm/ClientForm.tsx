@@ -1,7 +1,7 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import cls from './ClientForm.module.scss';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
 import { Button, ButtonTheme } from '@/shared/ui/Button';
@@ -17,11 +17,14 @@ import { addClientData } from '../../model/services/addClientData/addClientData'
 import { ClientCard } from '@/entities/Client';
 import { ClientStatusKey } from '@/entities/ClientStatus';
 import { toast } from 'react-toastify';
+import { fetchClientById } from '@/entities/Client/model/services/fetchClientById/fetchClientById';
+import { updateClientData } from '../../model/services/updateClientData/updateClientData';
 
 interface AddClientFormProps {
     className?: string;
     onSuccess: () => void;
     reloadPage?: () => void;
+    clientId?: string;
 }
 
 const initialReducers: ReducersList = {
@@ -29,10 +32,11 @@ const initialReducers: ReducersList = {
 };
 
 const AddClientForm = memo((props: AddClientFormProps) => {
-    const { className, onSuccess, reloadPage } = props;
+    const { className, onSuccess, reloadPage, clientId } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const [file, setFile] = useState<File | null>(null);
+    const isEditMode = Boolean(clientId);
 
     const formData = useSelector(getAddClientForm);
 
@@ -41,7 +45,7 @@ const AddClientForm = memo((props: AddClientFormProps) => {
         onChangeLastName('');
         onChangeBirthday('');
         onChangeEmail('');
-    }, [onSuccess]);
+    }, []);
 
     const onChangeFirstName = useCallback(
         (value?: string) => {
@@ -109,6 +113,12 @@ const AddClientForm = memo((props: AddClientFormProps) => {
         },
         [dispatch]
     );
+    const onChangeQuestionnaire = useCallback(
+        (value: string) => {
+            dispatch(clientActions.updateProfile({ questionnaire: value }));
+        },
+        [dispatch]
+    );
     const onChangeImage = useCallback(
         (file?: File) => {
             if (file) {
@@ -119,20 +129,46 @@ const AddClientForm = memo((props: AddClientFormProps) => {
     );
 
     const onSave = useCallback(async () => {
-        const result = await dispatch(addClientData({ file }));
+        const result = isEditMode && clientId
+            ? await dispatch(updateClientData({ clientId, file }))
+            : await dispatch(addClientData({ file }));
+
         if (result.meta.requestStatus === 'fulfilled') {
             onSuccess();
             reloadPage?.();
             cleanForm();
-            toast.success(t('Клиент успешно добавлен'));
+            toast.success(isEditMode ? t('Клиент успешно обновлен') : t('Клиент успешно добавлен'));
         }
-    }, [onSuccess, file, cleanForm, dispatch, reloadPage]);
+    }, [isEditMode, clientId, dispatch, file, onSuccess, reloadPage, cleanForm, t]);
+
+    useEffect(() => {
+        if (!isEditMode || !clientId) {
+            dispatch(clientActions.cleanForm());
+            return;
+        }
+
+        dispatch(fetchClientById(clientId)).then((result) => {
+            if (fetchClientById.fulfilled.match(result)) {
+                dispatch(clientActions.updateProfile(result.payload));
+            }
+        });
+    }, [isEditMode, clientId, dispatch]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(clientActions.cleanForm());
+        };
+    }, [dispatch]);
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>
             <div className={classNames(cls.AddClientForm, {}, [className])}>
                 <VStack gap="24" align="center" className={cls.header}>
-                    <Text size="m" title={t('Добавление нового клиента')} bold />
+                    <Text
+                        size="m"
+                        title={isEditMode ? t('Редактирование клиента') : t('Добавление нового клиента')}
+                        bold
+                    />
                     <ClientCard
                         onChangeLastName={onChangeLastName}
                         onChangeClientStatus={onChangeClientStatus}
@@ -146,10 +182,11 @@ const AddClientForm = memo((props: AddClientFormProps) => {
                         onChangeImage3D={onChangeImage3D}
                         onChangeDocument={onChangeDocument}
                         onChangeSocial={onChangeSocial}
+                        onChangeQuestionnaire={onChangeQuestionnaire}
                         data={formData}
                     />
                     <Button fullWidth onClick={onSave} theme={ButtonTheme.BACKGROUND_INVERTED}>
-                        {t('Добавить')}
+                        {isEditMode ? t('Сохранить') : t('Добавить')}
                     </Button>
                 </VStack>
             </div>

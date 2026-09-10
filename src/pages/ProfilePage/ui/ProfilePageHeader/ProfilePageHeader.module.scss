@@ -2,10 +2,42 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 2px 0;
+
+    .btnsRwapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+    }
 
     .editBtn {
-        margin-left: auto;
-        margin-right: 10px;
+        min-width: 140px;
+    }
+
+    .saveBtn {
+        min-width: 120px;
+    }
+}
+
+@media (width <= 640px) {
+    .ProfilePageHeader {
+        align-items: flex-start;
+        gap: 10px;
+
+        .btnsRwapper {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .editBtn,
+        .saveBtn {
+            min-width: 120px;
+            margin-right: 0;
+        }
     }
 }

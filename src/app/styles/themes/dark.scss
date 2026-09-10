@@ -1,32 +1,48 @@
 .app_dark_theme {
-    --bg-color: #135749;
-    --inverted-bg-color: #e8e8ea;
-    --primary-color: #049604;
-    --secondary-color: #049604;
-    --inverted-primary-color: #135749;
-    --inverted-secondary-color: #0452ff;
+    --bg-color: #101a16;
+    --inverted-bg-color: #f0eadf;
+    --primary-color: #d2be95;
+    --secondary-color: #8fa599;
+    --inverted-primary-color: #1a2d24;
+    --inverted-secondary-color: #405a4e;
 
     // redesigned
-    --dark-bg-redesigned: #090f11;
-    --bg-redesigned: #0c1214;
-    --light-bg-redesigned: #151c1f;
-    --text-redesigned: #dbdbdb;
-    --hint-redesigned: #555;
+    --dark-bg-redesigned: #0b1511;
+    --bg-redesigned: #111d18;
+    --light-bg-redesigned: #1a2821;
+    --text-redesigned: #e4dccd;
+    --hint-redesigned: #8b998f;
     --cancel-redesigned: #d95757;
-    --save-redesigned: #6cd98b;
-    --icon-redesigned: #74a2b2;
-    --accent-redesigned: #5ed3f3;
+    --save-redesigned: #7ac69b;
+    --icon-redesigned: #7ba490;
+    --accent-redesigned: #d2be95;
 
     // skeleton
-    --skeleton-color: #2a4365;
-    --skeleton-shadow: #2b2be8;
+    --skeleton-color: #2a3a33;
+    --skeleton-shadow: #364941;
 
     // code
-    --code-bg: #2a4365;
+    --code-bg: #1b2c25;
 
     // card
-    --card-bg: #2a4365;
+    --card-bg: #1a2722;
 
     // listbox
-    --listbox-bg: #0d0d6b;
+    --listbox-bg: #19251f;
+
+    --navbar-bg: rgb(20 30 25 / 88%);
+    --navbar-border: rgb(210 190 149 / 16%);
+    --navbar-icon: #d2be95;
+    --sidebar-bg-start: #0f1d16;
+    --sidebar-bg-end: #0a1510;
+    --sidebar-border: rgb(37 57 49 / 16%);
+    --surface-primary: #182520;
+    --surface-secondary: #22332b;
+    --text-primary: #dfd5c5;
+    --text-secondary: #a8b8b0;
+    --text-muted: #95a69e;
+    --accent-gold: #d2be95;
+    --border-soft: rgb(210 190 149 / 14%);
+    --border-strong: rgb(210 190 149 / 34%);
+    --focus-ring: rgb(210 190 149 / 28%);
 }

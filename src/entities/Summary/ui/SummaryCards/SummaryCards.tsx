@@ -6,6 +6,8 @@ import { HStack } from '@/shared/ui/Stack';
 import { Card } from '@/shared/ui/Card/Card';
 import { Text } from '@/shared/ui/Text/Text';
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
+import { EmptyState } from '@/shared/ui/EmptyState/EmptyState';
+import TransactionsIcon from '@/shared/assets/icons/transactions.svg';
 
 interface SummaryCardsProps {
     className?: string;
@@ -30,8 +32,8 @@ export const SummaryCards = memo((props: SummaryCardsProps) => {
 
     if (!summary) {
         return (
-            <div className={classNames(cls.Summary, {}, [])}>
-                <Text size="l" title="Клиенты не найдены" className={cls.title} />
+            <div className={classNames(cls.Summary, {}, [className])}>
+                <EmptyState icon={TransactionsIcon} title="Финансовая сводка недоступна" />
             </div>
         );
     }

@@ -1,0 +1,79 @@
+.ProcedureServiceRows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 80px 28px;
+    gap: 8px;
+    align-items: end;
+    width: 100%;
+}
+
+.price {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-primary, #c7a45f);
+    white-space: nowrap;
+    text-align: right;
+    padding-bottom: 10px;
+}
+
+.removeBtn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border-soft);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 17px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    padding-bottom: 6px;
+
+    &:hover {
+        background: rgb(185 74 72 / 12%);
+        border-color: rgb(185 74 72 / 40%);
+        color: rgb(185 74 72);
+    }
+}
+
+.actions {
+    display: flex;
+    gap: 16px;
+}
+
+.addLineBtn {
+    align-self: flex-start;
+    background: none;
+    border: none;
+    color: var(--accent-primary, #c7a45f);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 0;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s;
+
+    &:hover {
+        opacity: 0.75;
+    }
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+}
+
+@media (max-width: 480px) {
+    .row {
+        grid-template-columns: 1fr 1fr 60px 28px;
+    }
+}

@@ -1,0 +1,41 @@
+.AddProcedureForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.actions {
+    position: sticky;
+    top: 8px;
+    z-index: 5;
+    padding: 8px 10px;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: rgb(255 255 255 / 66%);
+    backdrop-filter: blur(4px);
+}
+
+.cancelBtn,
+.saveBtn {
+    min-width: 120px;
+}
+
+.saveBtn {
+    box-shadow: var(--shadow-accent);
+}
+
+@media (max-width: 640px) {
+    .actions {
+        position: static;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        backdrop-filter: none;
+    }
+
+    .cancelBtn,
+    .saveBtn {
+        flex: 1;
+        min-width: 0;
+    }
+}

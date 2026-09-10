@@ -21,6 +21,8 @@ import BlockContraindicationComponent from '../BlockContraindicationComponent/Bl
 import BlockResultComponent from '../BlockResultComponent/BlockResultComponent';
 import { Input } from '@/shared/ui/Input/Input';
 import { Text } from '@/shared/ui/Text/Text';
+import { Card } from '@/shared/ui/Card/Card';
+import cls from './ProcedureCard.module.scss';
 
 export interface ProcedureCardProps {
     procedure?: Procedure;
@@ -35,6 +37,9 @@ export interface ProcedureCardProps {
     onChangeRehabilitationBlocks?: (value: string[]) => void;
     onChangeContraindicationBlocks?: (value: string[]) => void;
     onChangeResultBlocks?: (value: string[]) => void;
+    onChangeDurationType?: (value?: Procedure['durationType']) => void;
+    onChangeDefaultDurationMin?: (value?: string) => void;
+    onChangeBasePrice?: (value?: string) => void;
 }
 
 export const ProcedureCard = memo((props: ProcedureCardProps) => {
@@ -49,6 +54,9 @@ export const ProcedureCard = memo((props: ProcedureCardProps) => {
         onChangeRehabilitationBlocks,
         onChangeContraindicationBlocks,
         onChangeResultBlocks,
+        onChangeDurationType,
+        onChangeDefaultDurationMin,
+        onChangeBasePrice,
     } = props;
     const { t } = useTranslation();
 
@@ -85,53 +93,87 @@ export const ProcedureCard = memo((props: ProcedureCardProps) => {
     }, [procedure?.blocks]);
 
     return (
-        <VStack gap="16" max>
-            <BlockDescriptionComponent
-                title={procedure?.name ?? ''}
-                description={procedure?.description ?? ''}
-                onChangeTitle={onChangeTitle}
-                onChangeDescription={onChangeDescription}
-            />
-
-            <BlockInjectionComponent
-                blocks={injectionBlock?.blocks || []}
-                onChangeInjectionBlocks={onChangeInjectionBlocks}
-            />
-            <BlockPreparationComponent
-                blocks={preparationBlock?.blocks ?? []}
-                onChangePreparationBlocks={onChangePreparationBlocks}
-            />
-            <BlockResultComponent
-                blocks={resultBlock?.blocks || []}
-                onChangeResultBlocks={onChangeResultBlocks}
-            />
-
-            <BlockRehabilitationComponent
-                blocks={rehabilitationBlock?.blocks || []}
-                onChangeRehabilitationBlocks={onChangeRehabilitationBlocks}
-            />
-
-            <BlockContraindicationComponent
-                blocks={contraindicationBlock?.blocks || []}
-                onChangeContraindicationBlocks={onChangeContraindicationBlocks}
-            />
-
-            <BlockPriceComponent
-                blocks={priceBlock?.blocks || []}
-                readonly={false}
-                onChangePriceBlocks={onChangePriceBlocks}
-            />
-            <VStack gap="8" max>
-                <Text title="Загрузить файл" size="m" />
-                <Input
-                    fullWidth
-                    type="file"
-                    multiple
-                    onChange={(file) => {
-                        onChangeFile?.((file as File) || '');
-                    }}
+        <VStack gap="16" max className={cls.ProcedureCard}>
+            <Card className={cls.section} fullWidth padding="16">
+                <BlockDescriptionComponent
+                    title={procedure?.name ?? ''}
+                    description={procedure?.description ?? ''}
+                    onChangeTitle={onChangeTitle}
+                    onChangeDescription={onChangeDescription}
                 />
-            </VStack>
+                <VStack gap="8" max className={cls.meta}>
+                    <Input
+                        label="Базовая цена (₴)"
+                        value={String(procedure?.basePrice ?? '')}
+                        onChange={onChangeBasePrice}
+                    />
+                    <Input
+                        label="Длительность по умолчанию (мин)"
+                        value={String(procedure?.defaultDurationMin ?? 60)}
+                        onChange={onChangeDefaultDurationMin}
+                    />
+                    <Input
+                        label="Тип длительности (MINUTES_20/40/60/120/FLEXIBLE)"
+                        value={procedure?.durationType || 'MINUTES_60'}
+                        onChange={(value) => onChangeDurationType?.(value as Procedure['durationType'])}
+                    />
+                </VStack>
+            </Card>
+
+            <Card className={cls.section} fullWidth padding="16">
+                <BlockInjectionComponent
+                    blocks={injectionBlock?.blocks || []}
+                    onChangeInjectionBlocks={onChangeInjectionBlocks}
+                />
+            </Card>
+            <Card className={cls.section} fullWidth padding="16">
+                <BlockPreparationComponent
+                    blocks={preparationBlock?.blocks ?? []}
+                    onChangePreparationBlocks={onChangePreparationBlocks}
+                />
+            </Card>
+            <Card className={cls.section} fullWidth padding="16">
+                <BlockResultComponent
+                    blocks={resultBlock?.blocks || []}
+                    onChangeResultBlocks={onChangeResultBlocks}
+                />
+            </Card>
+
+            <Card className={cls.section} fullWidth padding="16">
+                <BlockRehabilitationComponent
+                    blocks={rehabilitationBlock?.blocks || []}
+                    onChangeRehabilitationBlocks={onChangeRehabilitationBlocks}
+                />
+            </Card>
+
+            <Card className={cls.section} fullWidth padding="16">
+                <BlockContraindicationComponent
+                    blocks={contraindicationBlock?.blocks || []}
+                    onChangeContraindicationBlocks={onChangeContraindicationBlocks}
+                />
+            </Card>
+
+            <Card className={cls.section} fullWidth padding="16">
+                <BlockPriceComponent
+                    blocks={priceBlock?.blocks || []}
+                    readonly={false}
+                    onChangePriceBlocks={onChangePriceBlocks}
+                />
+            </Card>
+
+            <Card className={cls.section} fullWidth padding="16">
+                <VStack gap="8" max>
+                    <Text title="Загрузить файл" size="m" bold />
+                    <Input
+                        fullWidth
+                        type="file"
+                        multiple
+                        onChange={(file) => {
+                            onChangeFile?.((file as File) || '');
+                        }}
+                    />
+                </VStack>
+            </Card>
         </VStack>
     );
 });

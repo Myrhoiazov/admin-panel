@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './ClientsDetailsPage.module.scss';
 import { ClientDetails } from '@/entities/Client';
@@ -26,17 +26,22 @@ const reducers: ReducersList = {
 
 const ClientsDetailsPage = ({ className }: ClientsDetailsPageProps) => {
     const { id } = useParams<{ id: string }>();
+    const [clientRefreshVersion, setClientRefreshVersion] = useState(0);
 
     if (!id) {
         return null;
     }
 
+    const onClientUpdated = useCallback(() => {
+        setClientRefreshVersion((prev) => prev + 1);
+    }, []);
+
     return (
         <DynamicModuleLoader reducers={reducers}>
             <Page className={classNames(s.ClientsDetailsPage, {}, [className])}>
                 <VStack gap="16" max>
-                    <HeaderDetails userId={id} />
-                    <ClientDetails id={id} />
+                    <HeaderDetails userId={id} onClientUpdated={onClientUpdated} />
+                    <ClientDetails id={id} refreshVersion={clientRefreshVersion} />
                     <ClientAppoiments id={id} />
                     <ClientDetailsComments id={id} />
                 </VStack>

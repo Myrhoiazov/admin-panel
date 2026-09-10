@@ -7,7 +7,7 @@ i18n.use(Backend)
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        fallbackLng: 'en',
+        fallbackLng: 'ru',
         // debug: __IS_DEV__,
         debug: false,
 
@@ -16,6 +16,16 @@ i18n.use(Backend)
         },
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json',
+        },
+        // This CRM only ships full Russian copy — most UI text is hardcoded Russian rather
+        // than routed through t(). English is an incomplete, opt-in translation. Detecting
+        // language from the OS/browser locale (the "navigator" source) silently flips the
+        // handful of t()-driven strings to English for anyone with an English system locale,
+        // producing a mixed-language UI. Only trust an explicit prior choice (cached from the
+        // LangSwitcher) or query/cookie overrides; otherwise always default to Russian.
+        detection: {
+            order: ['querystring', 'cookie', 'localStorage'],
+            caches: ['localStorage'],
         },
     });
 

@@ -15,8 +15,9 @@ import { getAddUserForm } from '../../model/selectors/getAddUserForm/getAddUserF
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addNewUser } from '../../model/services/addNewUser/addNewUser';
 import { UserCard } from '@/entities/User';
-import { RoleKey } from '@/entities/Role';
+import { hasAccessFlag } from '@/entities/Role';
 import { toast } from 'react-toastify';
+import { $apiPrivate } from '@/shared/api/api';
 
 interface AddUserFormProps {
     className?: string;
@@ -32,15 +33,14 @@ const UserForm = memo((props: AddUserFormProps) => {
     const { className, onSuccess, reloadPage } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const [file, setFile] = useState<File | null>(null);
+    const [isAvatarUploading, setIsAvatarUploading] = useState(false);
+    const [roleError, setRoleError] = useState<string | undefined>();
 
     const formData = useSelector(getAddUserForm);
 
     const cleanForm = useCallback(() => {
-        onChangeFirsttName('');
-        onChangeLastName('');
-        onChangeEmail('');
-    }, [onSuccess]);
+        dispatch(newUserActions.cleanForm());
+    }, [dispatch]);
 
     const onChangeFirsttName = useCallback(
         (value?: string) => {
@@ -66,15 +66,91 @@ const UserForm = memo((props: AddUserFormProps) => {
         },
         [dispatch]
     );
+    const onChangeAvatar = useCallback(
+        (value?: string) => {
+            dispatch(newUserActions.updateUserForm({ avatar: value || '' }));
+        },
+        [dispatch]
+    );
+    const onChangeBirthYear = useCallback(
+        (value?: string) => {
+            dispatch(newUserActions.updateUserForm({ birthYear: value ? Number(value) : undefined }));
+        },
+        [dispatch]
+    );
+    const onChangePhoneNumber = useCallback(
+        (value?: string) => {
+            dispatch(newUserActions.updateUserForm({ phoneNumber: value || '' }));
+        },
+        [dispatch]
+    );
+    const onChangeTelegram = useCallback(
+        (value?: string) => {
+            dispatch(newUserActions.updateUserForm({ telegram: value || '' }));
+        },
+        [dispatch]
+    );
+    const onChangePosition = useCallback(
+        (value?: string) => {
+            dispatch(newUserActions.updateUserForm({ position: value || '' }));
+        },
+        [dispatch]
+    );
+    const onChangeSpecialization = useCallback(
+        (value?: string) => {
+            dispatch(newUserActions.updateUserForm({ specialization: value || '' }));
+        },
+        [dispatch]
+    );
+    const onChangeBio = useCallback(
+        (value?: string) => {
+            dispatch(newUserActions.updateUserForm({ bio: value || '' }));
+        },
+        [dispatch]
+    );
+    const onUploadAvatarFile = useCallback(async (file?: File) => {
+        if (!file) {
+            return;
+        }
+        try {
+            setIsAvatarUploading(true);
+            const fd = new FormData();
+            fd.append('image', file);
+            const response = await $apiPrivate.post<{ url: string }>('/users/avatar-upload', fd, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            if (response?.data?.url) {
+                dispatch(newUserActions.updateUserForm({ avatar: response.data.url }));
+                toast.success('Фото загружено');
+            }
+        } catch (e) {
+            toast.error('Не удалось загрузить фото');
+        } finally {
+            setIsAvatarUploading(false);
+        }
+    }, [dispatch]);
 
-    const onChangeUserRole = useCallback(
-        (role: RoleKey) => {
-            dispatch(newUserActions.updateUserForm({ role }));
+    const onChangeIsAdmin = useCallback(
+        (value: boolean) => {
+            setRoleError(undefined);
+            dispatch(newUserActions.updateUserForm({ isAdmin: value }));
+        },
+        [dispatch]
+    );
+    const onChangeIsDoctor = useCallback(
+        (value: boolean) => {
+            setRoleError(undefined);
+            dispatch(newUserActions.updateUserForm({ isDoctor: value }));
         },
         [dispatch]
     );
 
     const onSave = useCallback(async () => {
+        if (!hasAccessFlag(formData ?? {})) {
+            setRoleError(t('Укажите хотя бы одну роль: врач или админ'));
+            return;
+        }
+
         const result = await dispatch(addNewUser());
         if (result.meta.requestStatus === 'fulfilled') {
             onSuccess();
@@ -82,7 +158,7 @@ const UserForm = memo((props: AddUserFormProps) => {
             cleanForm();
             toast.success(t('Пользователь успешно добавлен'));
         }
-    }, [onSuccess, file, cleanForm, dispatch, reloadPage]);
+    }, [formData, onSuccess, cleanForm, dispatch, reloadPage, t]);
 
     return (
         <DynamicModuleLoader reducers={initialReducers}>
@@ -92,9 +168,20 @@ const UserForm = memo((props: AddUserFormProps) => {
                     <UserCard
                         onChangeLastName={onChangeLastName}
                         onChangeFirsttName={onChangeFirsttName}
-                        onChangeUserRole={onChangeUserRole}
+                        onChangeIsAdmin={onChangeIsAdmin}
+                        onChangeIsDoctor={onChangeIsDoctor}
+                        roleError={roleError}
                         onChangePassword={onChangePassword}
                         onChangeEmail={onChangeEmail}
+                        onChangeAvatar={onChangeAvatar}
+                        onChangeBirthYear={onChangeBirthYear}
+                        onChangePhoneNumber={onChangePhoneNumber}
+                        onChangeTelegram={onChangeTelegram}
+                        onChangePosition={onChangePosition}
+                        onChangeSpecialization={onChangeSpecialization}
+                        onChangeBio={onChangeBio}
+                        onUploadAvatarFile={onUploadAvatarFile}
+                        isAvatarUploading={isAvatarUploading}
                         data={formData}
                     />
                     <Button fullWidth onClick={onSave} theme={ButtonTheme.BACKGROUND_INVERTED}>

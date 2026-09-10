@@ -32,7 +32,7 @@ export const UserFilters = memo((props: UserFiltersProps) => {
             <HStack gap="32" justify="end" align="center" max>
                 <Button onClick={onShowModal} className={s.btn}>
                     {t('Создать пользователя')}
-                    <Icon Svg={AddClientIcon} width={24} color="fill" />
+                    <Icon Svg={AddClientIcon} width={24} color="stroke" />
                 </Button>
             </HStack>
             <UserFormModal

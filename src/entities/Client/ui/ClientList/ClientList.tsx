@@ -2,11 +2,12 @@ import React, { memo, ReactNode } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import s from './ClientList.module.scss';
 import { Client, ClientView } from '../../model/types/client';
-import { Text } from '@/shared/ui/Text/Text';
-import { HStack, VStack } from '@/shared/ui/Stack';
+import { VStack } from '@/shared/ui/Stack';
 import ClientListItem from '../ClientListItem/ClientListItem';
 import ClientListHeader from '../ClientListHeader/ClientListHeader';
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
+import { EmptyState } from '@/shared/ui/EmptyState/EmptyState';
+import ClientsIcon from '@/shared/assets/icons/clients.svg';
 
 interface ClientListProps {
     className?: string;
@@ -21,8 +22,12 @@ export const ClientList = memo((props: ClientListProps) => {
 
     if (!isLoading && !clients.length) {
         return (
-            <div className={classNames(s.ArticleList, {}, [])}>
-                <Text size="l" title="Клиенты не найдены" className={s.title} />
+            <div className={classNames(s.ClientList, {}, [className])}>
+                <EmptyState
+                    icon={ClientsIcon}
+                    title="Клиенты не найдены"
+                    description="Попробуйте изменить параметры поиска или добавьте первого клиента"
+                />
             </div>
         );
     }
@@ -39,10 +44,12 @@ export const ClientList = memo((props: ClientListProps) => {
 
     if (view === ClientView.SMALL) {
         return (
-            <HStack gap="16" className={classNames(s.ClientList, {}, [className])}>
-                {clients.length > 0 ? clients.map(renderClient) : null}
-                {isLoading && <Skeleton width="100%" height={60} border="12px" />}
-            </HStack>
+            <div className={classNames(s.ClientList, {}, [className])}>
+                <div className={s.grid}>
+                    {clients.length > 0 ? clients.map(renderClient) : null}
+                    {isLoading && <Skeleton width="100%" height={180} border="16px" />}
+                </div>
+            </div>
         );
     }
 

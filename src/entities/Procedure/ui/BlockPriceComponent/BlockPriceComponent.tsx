@@ -2,7 +2,7 @@ import React, { memo, useCallback, useMemo } from 'react';
 import { Input } from '@/shared/ui/Input/Input';
 import { ProcedurePrice } from '@/entities/Procedure/model/types/procedure';
 import { HStack, VStack } from '@/shared/ui/Stack';
-import { Button } from '@/shared/ui/Button';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { Text } from '@/shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
 
@@ -53,7 +53,7 @@ const BlockPriceComponent = (props: BlockPriceComponentProps) => {
                     value={item.price}
                     onChange={(value: string) => handlePriceChange(index, 'price', value)}
                 />
-                <Button type="button" onClick={() => handleRemove(index)}>
+                <Button theme={ButtonTheme.OUTLINE_RED} type="button" onClick={() => handleRemove(index)}>
                     {t('удалить')}
                 </Button>
             </HStack>
@@ -65,7 +65,7 @@ const BlockPriceComponent = (props: BlockPriceComponentProps) => {
             <Text title="Цены на услуги" size="m" />
             {blocks.map(priceBlock)}
 
-            <Button type="button" onClick={handleAdd}>
+            <Button theme={ButtonTheme.OUTLINE} type="button" onClick={handleAdd}>
                 {t(' + Добавить цену')}
             </Button>
         </VStack>

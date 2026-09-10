@@ -1,22 +1,39 @@
 .Textarea {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .placeholder {
-    display: inline-block;
-    margin-bottom: 10px;
+    display: block;
+    font: var(--font-m);
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .input {
     display: block;
     width: 100%;
-    height: 200px;
-    padding: 8px 16px;
-    background: transparent;
-    border: 1px solid var(--primary-color);
-    border-radius: 5px;
+    min-height: 140px;
+    padding: 12px 14px;
+    font: var(--font-m);
+    color: var(--text-primary);
+    caret-color: var(--accent-gold);
+    background: linear-gradient(145deg, var(--surface-primary), var(--surface-secondary));
+    border: 1px solid var(--border-soft);
+    border-radius: var(--border-radius-m);
+    box-shadow: var(--shadow-light);
     outline: none;
-    resize: none;
+    resize: vertical;
+    transition: all var(--transition-base);
+
+    &::placeholder {
+        color: var(--text-muted);
+    }
+
+    &:hover {
+        border-color: var(--border-strong);
+    }
 }
 
 .fullWidth {
@@ -25,6 +42,14 @@
 
 .focused {
     .input {
-        border-color: var(--accent-redesigned);
+        border-color: var(--accent-gold);
+        box-shadow: 0 0 0 3px var(--focus-ring), var(--shadow-accent);
+    }
+}
+
+.readonly {
+    .input {
+        opacity: 0.72;
+        background: var(--surface-secondary);
     }
 }

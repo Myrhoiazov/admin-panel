@@ -7,6 +7,7 @@
         "start": "webpack serve --env port=3000",
         "build:dev": "webpack --env mode=development",
         "build:prod": "webpack --env mode=production",
+        "build:analyze": "ANALYZE=true webpack --env mode=development",
         "lint:ts": "eslint \"**/*.{js,jsx,ts,tsx}\"",
         "lint:ts:fix": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix",
         "lint:scss": "npx stylelint \"**/*.scss\"",
@@ -16,7 +17,8 @@
         "storybook:build": "storybook build -c ./config/storybook",
         "build-storybook": "storybook build",
         "prettier": "npx prettier --write **/*.{ts,tsx,json}",
-        "generate:slice": "node ./scripts/createSlice/index.js"
+        "generate:slice": "node ./scripts/createSlice/index.js",
+        "audit:ci": "audit-ci --high --skip-dev --allowlist GHSA-qwww-vcr4-c8h2"
     },
     "author": "",
     "license": "ISC",
@@ -47,6 +49,7 @@
         "@types/webpack": "^5.28.5",
         "@types/webpack-bundle-analyzer": "^4.7.0",
         "@types/webpack-dev-server": "^4.7.2",
+        "audit-ci": "^7.1.0",
         "babel-loader": "^10.0.0",
         "babel-plugin-i18next-extract": "^1.0.0",
         "copy-webpack-plugin": "^13.0.1",

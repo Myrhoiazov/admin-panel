@@ -2,7 +2,7 @@ import { Fragment, ReactNode, useMemo } from 'react';
 import { ListboxButton, ListboxOption, ListboxOptions, Listbox } from '@headlessui/react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { DropdownDirection } from '@/shared/types/ui';
-import { Button } from '../../../Button/Button';
+import { Button, ButtonTheme } from '../../../Button/Button';
 import cls from './ListBox.module.scss';
 import { mapDirectionClass } from '../../styles/consts';
 import popupCls from '../../styles/popup.module.scss';
@@ -54,7 +54,7 @@ export function ListBox<T extends string>(props: ListBoxProps<T>) {
                 value={value}
                 onChange={onChange}
             >
-                <ListboxButton as={Button} value="filled" disabled={readonly}>
+                <ListboxButton as={Button} theme={ButtonTheme.BACKGROUND} disabled={readonly}>
                     {selectedItem?.content ?? defaultValue}
                 </ListboxButton>
                 <ListboxOptions className={classNames(cls.options, {}, optionsClasses)}>
@@ -70,7 +70,7 @@ export function ListBox<T extends string>(props: ListBoxProps<T>) {
                                     className={classNames(cls.item, {
                                         [popupCls.active]: active,
                                         [popupCls.disabled]: item.disabled,
-                                        [popupCls.selected]: selected,
+                                        [cls.selected]: selected,
                                     })}
                                 >
                                     {selected}

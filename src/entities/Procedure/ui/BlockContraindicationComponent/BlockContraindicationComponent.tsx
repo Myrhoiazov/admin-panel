@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/shared/ui/Button';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input/Input';
 import { HStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text/Text';
@@ -45,16 +45,16 @@ const BlockContraindicationComponent = (props: BlockContraindicationProps) => {
                     value={item}
                     onChange={(value: string) => handleBlockChange(index, value)}
                 />
-                <Button onClick={() => handleRemoveBlock(index)}>{t('Удалить')}</Button>
+                <Button theme={ButtonTheme.OUTLINE_RED} onClick={() => handleRemoveBlock(index)}>{t('Удалить')}</Button>
             </HStack>
         );
     }, [handleBlockChange, handleRemoveBlock]);
 
     return (
         <>
-            <Text title="Противопоказание" size="m" />
+            <Text title="Противопоказания" size="m" />
             {blocks.map(renderBlock)}
-            <Button onClick={handleAddBlock}>{t('Добавить зону')}</Button>
+            <Button theme={ButtonTheme.OUTLINE} onClick={handleAddBlock}>{t('Добавить зону')}</Button>
         </>
     );
 };

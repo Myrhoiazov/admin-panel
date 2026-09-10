@@ -2,6 +2,11 @@
     width: 100%;
     background-color: transparent;
 
+    .actionsWrap {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
     .btn {
         display: flex;
         align-items: center;

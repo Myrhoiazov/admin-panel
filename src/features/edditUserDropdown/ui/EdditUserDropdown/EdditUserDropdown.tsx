@@ -1,5 +1,5 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { getRouteProfile } from '@/shared/const/router';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Dropdown } from '@/shared/ui/Popups';
@@ -7,6 +7,7 @@ import { Icon } from '@/shared/ui/Icon/Icon';
 import Eddit from '@/shared/assets/icons/edit-icon.svg';
 import { deleteUserById } from '../../model/services/deleteUserById';
 import { toast } from 'react-toastify';
+import { ConfirmActionModal } from '@/features/confirmAction';
 
 interface EdditUserDropdownProps {
     className?: string;
@@ -16,6 +17,7 @@ interface EdditUserDropdownProps {
 
 export const EdditUserDropdown = memo((props: EdditUserDropdownProps) => {
     const { className, userId, reloadPage } = props;
+    const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
 
     const dispatch = useAppDispatch();
 
@@ -24,8 +26,17 @@ export const EdditUserDropdown = memo((props: EdditUserDropdownProps) => {
         if (result.meta.requestStatus === 'fulfilled') {
             reloadPage?.();
             toast.info('Пользователь успешно удален');
+            setIsDeleteConfirmOpen(false);
         }
-    }, [dispatch]);
+    }, [dispatch, reloadPage, userId]);
+
+    const onOpenDeleteConfirm = useCallback(() => {
+        setIsDeleteConfirmOpen(true);
+    }, []);
+
+    const onCloseDeleteConfirm = useCallback(() => {
+        setIsDeleteConfirmOpen(false);
+    }, []);
 
     const items = [
         {
@@ -34,16 +45,27 @@ export const EdditUserDropdown = memo((props: EdditUserDropdownProps) => {
         },
         {
             content: 'Удалить',
-            onClick: deleteClientGandler,
+            onClick: onOpenDeleteConfirm,
         },
     ];
 
     return (
-        <Dropdown
-            direction="bottom left"
-            className={classNames('', {}, [className])}
-            items={items}
-            trigger={<Icon Svg={Eddit} width={24} height={24} color="stroke" />}
-        />
+        <>
+            <Dropdown
+                direction="bottom left"
+                className={classNames('', {}, [className])}
+                items={items}
+                trigger={<Icon Svg={Eddit} width={24} height={24} color="stroke" />}
+            />
+            <ConfirmActionModal
+                isOpen={isDeleteConfirmOpen}
+                onClose={onCloseDeleteConfirm}
+                onConfirm={deleteClientGandler}
+                title="Удалить пользователя?"
+                description="Это действие нельзя отменить."
+                cancelText="Отменить"
+                confirmText="Удалить"
+            />
+        </>
     );
 });

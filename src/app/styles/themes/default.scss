@@ -1,33 +1,49 @@
 :root {
-    --bg-color: #e8e8ea;
-    --inverted-bg-color: #0c3615;
-    --primary-color: #2a4365;
-    --secondary-color: #0449e0;
-    --inverted-primary-color: #f4fbf9;
-    --inverted-secondary-color: #049604;
+    --bg-color: #fbf9f8;
+    --inverted-bg-color: #01261f;
+    --primary-color: #1b1c1c;
+    --secondary-color: #414846;
+    --inverted-primary-color: #f2f0f0;
+    --inverted-secondary-color: #c5eadf;
 
     // redesigned
-    --dark-bg-redesigned: #fff;
-    --bg-redesigned: #eff5f6;
-    --light-bg-redesigned: #e2eef1;
-    --text-redesigned: #141c1f;
-    --hint-redesigned: #adbcc0;
+    --dark-bg-redesigned: #01261f;
+    --bg-redesigned: #fbf9f8;
+    --light-bg-redesigned: #f5f3f3;
+    --text-redesigned: #1b1c1c;
+    --hint-redesigned: #717976;
     --cancel-redesigned: #f77;
-    --save-redesigned: #62de85;
-    --icon-redesigned: #5ed3f3;
-    --accent-redesigned: #00c8ff;
+    --save-redesigned: #60b784;
+    --icon-redesigned: #43655c;
+    --accent-redesigned: #e9c349;
 
     // skeleton
-    --skeleton-color: #fff;
-    --skeleton-shadow: rgba(0 0 0 / 20%);
+    --skeleton-color: #efeded;
+    --skeleton-shadow: rgb(67 101 92 / 16%);
 
     // code
-    --code-bg: #fff;
+    --code-bg: #f7f3eb;
 
     // card
-    --card-bg: #d5d5d7;
+    --card-bg: #fff;
 
     // listbox
-    --listbox-bg: #d5d5d7;
+    --listbox-bg: #f5f3f3;
     --white: #fff;
+
+    --navbar-bg: rgb(255 255 255 / 88%);
+    --navbar-border: rgb(193 200 196 / 55%);
+    --navbar-icon: #43655c;
+    --sidebar-bg-start: #1a3c34;
+    --sidebar-bg-end: #01261f;
+    --sidebar-border: rgb(193 200 196 / 24%);
+    --surface-primary: #fff;
+    --surface-secondary: #f5f3f3;
+    --text-primary: #1b1c1c;
+    --text-secondary: #5d6562;
+    --text-muted: #717976;
+    --accent-gold: #e9c349;
+    --border-soft: rgb(193 200 196 / 70%);
+    --border-strong: rgb(115 92 0 / 40%);
+    --focus-ring: rgb(67 101 92 / 35%);
 }

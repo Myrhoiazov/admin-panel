@@ -1,9 +1,54 @@
 .CheckBox {
-    display: flex;
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    width: 24px;
-    height: 24px;
-    border: 1px solid var(--primary-color);
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    color: transparent;
+    background: var(--surface-primary);
+    border: 2px solid var(--border-soft);
     border-radius: 6px;
+    box-shadow: none;
+    cursor: pointer;
     align-self: flex-start;
+    transition: all var(--transition-base);
+
+    &:hover:not([data-disabled]) {
+        border-color: var(--accent-gold);
+    }
+
+    &:focus-visible {
+        border-color: var(--accent-gold);
+        box-shadow: 0 0 0 3px var(--focus-ring);
+        outline: none;
+    }
+
+    &[data-checked],
+    &[aria-checked='true'] {
+        color: #fff;
+        background: linear-gradient(145deg, #174f3f, #0f3d2f);
+        border-color: #174f3f;
+        box-shadow: 0 8px 18px rgb(23 79 63 / 22%);
+    }
+
+    &[data-disabled],
+    &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+
+    // read-only display (e.g. the client profile view) — non-interactive but shouldn't
+    // look "unavailable" like a genuinely disabled form control
+    &.readonly[data-disabled] {
+        opacity: 1;
+        cursor: default;
+    }
+
+    svg {
+        width: 12px;
+        height: 12px;
+        color: currentColor;
+        stroke-width: 3px;
+    }
 }

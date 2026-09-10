@@ -23,7 +23,7 @@ type BaseInputProps = {
 } & HTMLInputProps;
 
 type TextInputProps = BaseInputProps & {
-    type?: 'text' | 'email' | 'date' | 'number' | 'tel';
+    type?: 'text' | 'email' | 'date' | 'number' | 'tel' | 'password';
     value?: string | number;
     onChange?: (value: string) => void;
 };

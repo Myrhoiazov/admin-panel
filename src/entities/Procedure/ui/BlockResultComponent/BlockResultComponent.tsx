@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Input } from '@/shared/ui/Input/Input';
-import { Button } from '@/shared/ui/Button';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { Text } from '@/shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
 
@@ -43,7 +43,7 @@ const BlockResultComponent = ({ blocks, onChangeResultBlocks }: BlockResultCompo
                     value={item}
                     onChange={(value: string) => handleZoneChange(index, value)}
                 />
-                <Button onClick={() => handleRemoveZone(index)}>{t('Удалить')}</Button>
+                <Button theme={ButtonTheme.OUTLINE_RED} onClick={() => handleRemoveZone(index)}>{t('Удалить')}</Button>
             </HStack>
         );
     }, [handleZoneChange, handleRemoveZone]);
@@ -52,7 +52,7 @@ const BlockResultComponent = ({ blocks, onChangeResultBlocks }: BlockResultCompo
         <VStack gap="16" max>
             <Text title="Результат" size="m" />
             {blocks.map(renderBlock)}
-            <Button onClick={handleAddZone}>{t('Добавить зону')}</Button>
+            <Button theme={ButtonTheme.OUTLINE} onClick={handleAddZone}>{t('Добавить зону')}</Button>
         </VStack>
     );
 };

@@ -1,20 +1,11 @@
-export enum Role {
-    ADMIN = 'Администратор',
-    MANAGER = 'Менеджер',
-    GUEST = 'Гость',
-    DOCTOR = 'Врач',
+export interface AccessFlags {
+    isAdmin?: boolean;
+    isDoctor?: boolean;
 }
 
-export enum RoleKey {
-    ADMIN = "ADMIN",
-    MANAGER = "MANAGER",
-    GUEST = "GUEST",
-    DOCTOR = "DOCTOR",
-}
-
-export const RoleLabels: Record<RoleKey, string> = {
-    [RoleKey.ADMIN]: "Администратор",
-    [RoleKey.MANAGER]: "Менеджер",
-    [RoleKey.GUEST]: "Гость",
-    [RoleKey.DOCTOR]: "Врач",
+export const getAccessLabel = ({ isAdmin, isDoctor }: AccessFlags): string => {
+    const labels = [isAdmin && 'Администратор', isDoctor && 'Врач'].filter(Boolean) as string[];
+    return labels.length ? labels.join(', ') : 'Сотрудник';
 };
+
+export const hasAccessFlag = ({ isAdmin, isDoctor }: AccessFlags): boolean => Boolean(isAdmin || isDoctor);

@@ -11,10 +11,13 @@ interface CheckBoxProps {
     className?: string;
     label?: string;
     value: boolean;
+    readOnly?: boolean;
     onChange?: (checked: boolean) => void;
+    /** Renders the checkbox directly next to its label instead of pushing it to the far edge — use in grids/lists where items sit close together. */
+    compact?: boolean;
 }
 
-const CheckBox = ({ className, value, label, onChange }: CheckBoxProps) => {
+const CheckBox = ({ className, value, label, onChange, readOnly, compact }: CheckBoxProps) => {
     const onChangeHandler = (checked: boolean) => {
         onChange?.(checked);
     };
@@ -22,16 +25,26 @@ const CheckBox = ({ className, value, label, onChange }: CheckBoxProps) => {
     const checkbox = (
         <Checkbox
             checked={value}
+            disabled={readOnly}
             onChange={onChangeHandler}
-            className={classNames(s.CheckBox, {}, [className])}
+            className={classNames(s.CheckBox, { [s.readonly]: !!readOnly }, [className])}
         >
-            {value && <Icon Svg={CheckIcon} width={26} color="stroke" />}
+            {value && <Icon Svg={CheckIcon} width={14} height={14} color="stroke" />}
         </Checkbox>
     );
 
     if (label) {
+        if (compact) {
+            return (
+                <HStack gap="8" align="center">
+                    {checkbox}
+                    <Text text={label} />
+                </HStack>
+            );
+        }
+
         return (
-            <HStack max gap="16">
+            <HStack max gap="16" justify="between" align="center">
                 <Text text={label} />
                 {checkbox}
             </HStack>

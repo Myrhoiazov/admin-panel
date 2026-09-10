@@ -1,18 +1,133 @@
 .item {
     display: flex;
     align-items: center;
-    margin-top: 1rem;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: rgb(242 240 240 / 76%);
+    transition: all var(--transition-base);
+
+    &:hover {
+        border-color: rgb(233 195 73 / 20%);
+        background: rgb(255 255 255 / 9%);
+        transform: translateX(2px);
+        color: #fff;
+    }
+}
+
+.active {
+    border-color: rgb(233 195 73 / 34%);
+    background: rgb(255 255 255 / 10%);
+    color: #e9c349;
+
+    &:hover {
+        border-color: rgb(233 195 73 / 42%);
+        background: rgb(255 255 255 / 12%);
+        color: #e9c349;
+    }
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.groupTrigger {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: rgb(242 240 240 / 76%);
+    text-align: left;
+    transition: all var(--transition-base);
+
+    &:hover {
+        border-color: rgb(233 195 73 / 20%);
+        background: rgb(255 255 255 / 9%);
+        color: #fff;
+    }
+}
+
+.children {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-left: 8px;
+}
+
+.chevron {
+    margin-left: auto;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.childItem {
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: rgb(255 255 255 / 8%);
+    font-size: 14px;
+
+    &:hover {
+        transform: translateX(1px);
+    }
 }
 
 .link {
     opacity: 1;
-    margin-left: 10px;
+    margin-left: 0;
+    color: inherit;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.icon {
+    color: inherit;
 }
 
 .collapsed {
     .link {
         width: 0;
         opacity: 0;
-        transition: 0.2s opacity;
+        overflow: hidden;
+        transition: opacity var(--transition-base);
+    }
+}
+
+.groupCollapsed {
+    .children {
+        display: none;
+    }
+}
+
+@media (width <= 992px) {
+    .item {
+        width: calc(50% - 4px);
+        justify-content: flex-start;
+        padding: 10px 12px;
+    }
+
+    .group {
+        width: calc(50% - 4px);
+    }
+
+    .groupTrigger {
+        width: 100%;
+        padding: 10px 12px;
+    }
+}
+
+@media (width <= 640px) {
+    .item {
+        width: 100%;
+    }
+
+    .group {
+        width: 100%;
     }
 }

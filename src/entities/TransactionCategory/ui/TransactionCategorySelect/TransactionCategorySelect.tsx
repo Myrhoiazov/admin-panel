@@ -1,34 +1,36 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import cls from './TransactionCategorySelect.module.scss';
-import { memo, useCallback } from 'react';
-import { Select } from '@/shared/ui/Select/Select';
+import { memo, useCallback, useMemo } from 'react';
+import { Select, SelectOption } from '@/shared/ui/Select/Select';
 import { TransactionCategory } from '../../model/types/transactionCategory';
 
 interface TransactionCategorySelectProps {
     className?: string;
-    value?: TransactionCategory;
-    onChange?: (value: TransactionCategory) => void;
+    value?: string;
+    onChange?: (value: string) => void;
+    /** Динамические опции из настроек; если не переданы — используется дефолтный enum */
+    dynamicOptions?: { key: string; label: string }[];
 }
 
-const options = [
-    { value: TransactionCategory.COSMETICS, content: TransactionCategory.COSMETICS },
-    { value: TransactionCategory.COSMOLOOK, content: TransactionCategory.COSMOLOOK },
-    { value: TransactionCategory.EMET, content: TransactionCategory.EMET },
-    { value: TransactionCategory.MERZ, content: TransactionCategory.MERZ },
-    { value: TransactionCategory.PHARMACY, content: TransactionCategory.PHARMACY },
-    { value: TransactionCategory.TOTIS, content: TransactionCategory.TOTIS },
-    { value: TransactionCategory.OTHER, content: TransactionCategory.OTHER },
-];
+const DEFAULT_OPTIONS: SelectOption<string>[] = Object.entries(TransactionCategory).map(([key, label]) => ({
+    value: key,
+    content: label,
+}));
 
 export const TransactionCategorySelect = memo((props: TransactionCategorySelectProps) => {
-    const { className, onChange, value } = props;
+    const { className, onChange, value, dynamicOptions } = props;
     const { t } = useTranslation();
 
+    const options: SelectOption<string>[] = useMemo(() => {
+        if (dynamicOptions && dynamicOptions.length > 0) {
+            return dynamicOptions.map(({ key, label }) => ({ value: key, content: label || key }));
+        }
+        return DEFAULT_OPTIONS;
+    }, [dynamicOptions]);
+
     const onChangeHandler = useCallback(
-        (value: TransactionCategory) => {
-            onChange?.(value);
-        },
+        (val: string) => { onChange?.(val); },
         [onChange]
     );
 
@@ -39,6 +41,7 @@ export const TransactionCategorySelect = memo((props: TransactionCategorySelectP
             options={options}
             value={value}
             onChange={onChangeHandler}
+            defaultValue="Выберите категорию"
         />
     );
 });

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AddProcedureFormSchema } from '../types/addProcedureFormSchema';
 import { Procedure } from '@/entities/Procedure/model/types/procedure';
 import { createProcedure } from '../services/createProcedure';
+import { updateProcedure } from '../services/updateProcedure';
 
 const initialState: AddProcedureFormSchema = {
     isLoading: false,
@@ -43,6 +44,21 @@ export const addProcedureFormSlice = createSlice({
                 },
             )
             .addCase(createProcedure.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(updateProcedure.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(
+                updateProcedure.fulfilled,
+                (state, action: PayloadAction<Procedure>) => {
+                    state.isLoading = false;
+                    state.data = action.payload;
+                },
+            )
+            .addCase(updateProcedure.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })

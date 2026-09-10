@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import { useClientFilters } from '../../lib/hooks/useClientFilters';
 import { ClientFilters } from '@/widgets/ClientFilters';
-import { ClientTypeTabs } from '@/features/ClientTypeTabs';
 import { VStack } from '@/shared/ui/Stack';
 
 interface FiltersContainerProps {
@@ -11,7 +10,7 @@ interface FiltersContainerProps {
 
 export const FiltersContainer = memo((props: FiltersContainerProps) => {
     const { className, reloadPage } = props;
-    const { onChangeSearch, onChangeSort, onChangeOrder, onChangeType, search, sort, order, type } =
+    const { onChangeSearch, onChangeSort, onChangeOrder, search, sort, order } =
         useClientFilters();
 
     return (
@@ -26,7 +25,6 @@ export const FiltersContainer = memo((props: FiltersContainerProps) => {
                 className={className}
                 reloadPage={reloadPage}
             />
-            <ClientTypeTabs value={type} onChangeType={onChangeType} />
         </VStack>
     );
 });

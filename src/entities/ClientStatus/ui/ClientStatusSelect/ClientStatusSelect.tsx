@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Select } from '@/shared/ui/Select/Select';
 import { memo, useCallback, useMemo } from 'react';
-import { ClientStatusKey, ClientStatusLabels } from '../../model/types/status';
+import { ClientStatusKey } from '../../model/types/status';
+import { useClientStatusLabels } from '../../model/lib/useClientStatusLabels';
 import { classNames } from '@/shared/lib/classNames/classNames';
 
 interface ClientStatusSelectProps {
@@ -11,15 +12,17 @@ interface ClientStatusSelectProps {
     readonly?: boolean;
 }
 
-const options = [
-    { value: ClientStatusKey.bronze, content: ClientStatusLabels.bronze },
-    { value: ClientStatusKey.gold, content: ClientStatusLabels.gold },
-    { value: ClientStatusKey.silver, content: ClientStatusLabels.silver },
-];
-
 export const ClientStatusSelect = memo(
     ({ className, value, onChange, readonly }: ClientStatusSelectProps) => {
         const { t } = useTranslation();
+        const labels = useClientStatusLabels();
+
+        const options = useMemo(() => [
+            { value: ClientStatusKey.BRONZE, content: labels.BRONZE },
+            { value: ClientStatusKey.SILVER, content: labels.SILVER },
+            { value: ClientStatusKey.GOLD, content: labels.GOLD },
+            { value: ClientStatusKey.PLATINUM, content: labels.PLATINUM },
+        ], [labels]);
 
         const onChangeHandler = useCallback(
             (value: string) => {

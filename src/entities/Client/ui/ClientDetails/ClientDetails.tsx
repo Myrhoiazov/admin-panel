@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, Fragment } from 'react';
 import {
     DynamicModuleLoader,
     ReducersList,
@@ -19,12 +19,14 @@ import { Card } from '@/shared/ui/Card/Card';
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 import s from './ClientDetails.module.scss';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { ClientStatusKey, ClientStatusLabels } from '@/entities/ClientStatus';
+import { ClientStatusKey, useClientStatusLabels } from '@/entities/ClientStatus';
+import { QUESTIONNAIRE_ITEMS, parseQuestionnaire, formatQuestionnaireDate } from '../../model/consts/questionnaire';
+import CheckBox from '@/shared/ui/CheckBox/CheckBox';
 
 interface ClientDetailsProps {
     // className?: string;
     id: string;
+    refreshVersion?: number;
 }
 
 const reducers: ReducersList = {
@@ -50,12 +52,44 @@ const ClientElementSkeleton = () => {
     );
 };
 
+interface QuestionnaireBlockProps {
+    questionnaire?: string | null;
+    image3d?: boolean;
+}
+
+const QuestionnaireBlock = ({ questionnaire, image3d }: QuestionnaireBlockProps) => {
+    const data = parseQuestionnaire(questionnaire);
+
+    const isChecked = (item: string) => {
+        if (item in data) return true;
+        if (item === 'Фото 3Д' && image3d) return true;
+        return false;
+    };
+
+    return (
+        <div className={s.questionnaireBlock}>
+            <div className={s.questionnaireTitle}>Документы клиента</div>
+            <div className={s.questionnaireGrid}>
+                {QUESTIONNAIRE_ITEMS.map((item) => {
+                    const checked = isChecked(item);
+                    const dateStr = data[item] ? formatQuestionnaireDate(data[item]) : '';
+                    return (
+                        <div key={item} title={dateStr ? `Отмечено: ${dateStr}` : undefined}>
+                            <CheckBox label={item} value={checked} readOnly compact />
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
+
 const ClientElement = () => {
     const client = useSelector(getClientDetailsData);
-    const { t } = useTranslation();
+    const statusLabels = useClientStatusLabels();
 
     const clientStatus = client?.status
-        ? ClientStatusLabels[client?.status.toLocaleLowerCase() as ClientStatusKey]
+        ? statusLabels[client.status.toUpperCase() as ClientStatusKey]
         : '';
 
     return (
@@ -82,24 +116,8 @@ const ClientElement = () => {
                         <Text title="Социальные сети:" size="s" bold className={s.title} />
                         {client?.social ? (
                             <Link to={client.social} target="_blank">
-                                {t('link')}
+                                Открыть
                             </Link>
-                        ) : (
-                            <Text title="-" size="s" />
-                        )}
-                    </HStack>
-                    <HStack gap="32" align="start">
-                        <Text title="Наличие 3D фото:" size="s" bold className={s.title} />
-                        {client?.image_3d ? (
-                            <Text title="YES" size="s" />
-                        ) : (
-                            <Text title="-" size="s" />
-                        )}
-                    </HStack>
-                    <HStack gap="32" align="start">
-                        <Text title="Наличие документа:" size="s" bold className={s.title} />
-                        {client?.document ? (
-                            <Text title="YES" size="s" />
                         ) : (
                             <Text title="-" size="s" />
                         )}
@@ -138,12 +156,13 @@ const ClientElement = () => {
                     />
                 </span>
             </HStack>
+            <QuestionnaireBlock questionnaire={client?.questionnaire} image3d={client?.image_3d} />
         </Card>
     );
 };
 
 export const ClientDetails = memo((props: ClientDetailsProps) => {
-    const { id } = props;
+    const { id, refreshVersion } = props;
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getClientDetailsIsLoading);
     const error = useSelector(getClientDetailsError);
@@ -152,7 +171,7 @@ export const ClientDetails = memo((props: ClientDetailsProps) => {
         if (id) {
             dispatch(fetchClientById(id));
         }
-    }, [dispatch, id]);
+    }, [dispatch, id, refreshVersion]);
 
     let content;
 

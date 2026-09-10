@@ -1,0 +1,61 @@
+.configCard {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: var(--surface-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cardHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cardHint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.tableHead {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 0 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 4px;
+    border-top: 1px solid var(--border-soft);
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.statusSent {
+    color: #2e9e5b;
+}
+
+.statusFailed {
+    color: rgb(185 74 72);
+}
+
+.empty {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+    padding: 6px 0;
+}

@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { $apiPrivate } from '@/shared/api/api';
 import { ConfirmModal } from '@/shared/ui/ConfirmModal';
+import { EmptyState } from '@/shared/ui/EmptyState/EmptyState';
+import ProceduresIcon from '@/shared/assets/icons/procedures.svg';
 import { getUserAuthData } from '@/entities/User';
 
 interface ServiceItemType {
@@ -537,9 +539,11 @@ export const ServicesTab = () => {
             })}
 
             {categories.length === 0 && !loading && (
-                <div style={{ padding: '32px', color: '#aaa', textAlign: 'center' }}>
-                    Категории услуг не добавлены
-                </div>
+                <EmptyState
+                    icon={ProceduresIcon}
+                    title="Категории услуг не добавлены"
+                    description="Добавьте первую категорию, чтобы начать заполнять прайс-лист"
+                />
             )}
             <ConfirmModal
                 isOpen={confirmDeleteCatId !== null}

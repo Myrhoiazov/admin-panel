@@ -1,0 +1,66 @@
+.configCard {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: var(--surface-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cardHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cardHint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.entryRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+}
+
+.entryKey {
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+}
+
+.entryInput {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-soft);
+    background: var(--surface-primary);
+    color: var(--text-primary);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s;
+
+    &:focus {
+        border-color: rgb(108 71 255 / 60%);
+    }
+
+    &::placeholder {
+        color: var(--text-muted);
+        opacity: 0.6;
+    }
+}
+
+.cardFooter {
+    padding-top: 4px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: flex-end;
+}

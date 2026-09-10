@@ -1,9 +1,19 @@
 .Sidebar {
-    position: relative;
+    position: fixed;
+    top: calc(var(--navbar-height) + var(--layout-top-padding) + 8px);
+    left: var(--layout-side-padding);
     width: var(--sidebar-width);
-    height: calc(100vh - var(--navbar-height));
-    background: var(--inverted-bg-color);
-    transition: width 0.3s;
+    height: calc(100dvh - var(--navbar-height) - (var(--layout-top-padding) * 2) - 8px);
+    max-height: calc(100dvh - var(--navbar-height) - (var(--layout-top-padding) * 2) - 8px);
+    padding: var(--space-6) var(--space-5);
+    border: 1px solid rgb(223 199 147 / 28%);
+    border-radius: 18px;
+    background: linear-gradient(170deg, var(--sidebar-bg-start) 0%, var(--sidebar-bg-end) 100%);
+    box-shadow: 0 20px 32px rgb(1 38 31 / 22%);
+    transition: width var(--transition-base);
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 15;
 }
 
 .switchers {
@@ -21,22 +31,31 @@
 
 .collapseBtn {
     position: absolute;
-    right: -16px;
-    bottom: 32px;
+    right: 14px;
+    bottom: 14px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgb(223 199 147 / 40%);
+    border-radius: var(--border-radius-pill);
+    background: rgb(16 33 26 / 50%);
+    color: var(--inverted-primary-color);
+    font-size: 15px;
+    line-height: 1;
 }
 
 .items {
     display: flex;
     flex-direction: column;
-    margin-left: 50px;
-    margin-top: 20px;
+    margin-top: var(--space-8);
+    gap: 6px;
 }
 
 .collapsed {
     width: var(--sidebar-width-collapsed);
+    padding: var(--space-6) var(--space-3);
 
     .items {
-        margin-left: 20px;
+        align-items: center;
     }
 
     .switchers {
@@ -46,5 +65,55 @@
 
     .lang {
         margin-left: 0;
+    }
+}
+
+.logo {
+    margin-top: 0;
+    opacity: 0.96;
+    filter: drop-shadow(0 8px 16px rgb(0 0 0 / 20%));
+}
+
+@media (width <= 992px) {
+    .Sidebar {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        max-height: none;
+        padding: 16px 14px;
+    }
+
+    .collapseBtn {
+        display: none;
+    }
+
+    .items {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 14px;
+        gap: 8px;
+    }
+
+    .collapsed {
+        width: 100%;
+        padding: 16px 14px;
+    }
+
+    .logo {
+        margin-top: 0;
+    }
+}
+
+@media (width <= 640px) {
+    .Sidebar {
+        padding: 12px 10px;
+        border-radius: var(--page-radius);
+    }
+
+    .items {
+        margin-top: 10px;
     }
 }
